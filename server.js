@@ -1,6 +1,7 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
 const axios = require('axios');
+const path = require('path');
 
 // 1. KONFIGURASI
 const app = express();
@@ -104,7 +105,7 @@ app.post('/api/create-bill', async (req, res) => {
 });
 
 // 4. STATIC FILE SERVING
-app.use(express.static('.'));
+app.use(express.static(__dirname));
 
 // 5. MULAKAN SERVER
 app.listen(port, () => {
