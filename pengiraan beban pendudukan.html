@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Jalan Keluar UBBL 1984</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Tukar kepada align-items-start */
+            margin: 0;
+            padding: 2em 0; /* Tambah padding atas dan bawah */
+        }
+        .container {
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .input-group {
+            margin-bottom: 1.5em;
+            text-align: left;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            padding: 0.8em;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 0.5em;
+        }
+        .buttons {
+            margin-top: 1.5em;
+        }
+        button {
+            width: 100%;
+            padding: 1em;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #f44336; /* Merah */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #d32f2f;
+        }
+        #result {
+            margin-top: 2em;
+            padding: 1em;
+            background-color: #e9e9e9;
+            border-radius: 4px;
+            font-size: 1em;
+            color: #333;
+            text-align: left;
+        }
+        .result-item {
+            padding: 5px 0;
+        }
+        .population-label {
+             font-weight: bold;
+             color: #555;
+             border-bottom: 1px dashed #ccc;
+             padding-bottom: 10px;
+             margin-bottom: 10px;
+        }
+        .message-error {
+            color: #d32f2f; /* Darker red for better readability */
+            font-weight: bold;
+        }
+        .message-success {
+            color: #388e3c; /* Green */
+        }
+        .message-warning {
+            color: #f57c00; /* Orange */
+            font-weight: bold;
+        }
+        #institusional-sub-group {
+            display: none; /* Sembunyi secara lalai */
+            margin-top: -1em; /* Kurangkan ruang jika tersembunyi */
+        }
+        #kediaman-lain-sub-group {
+            display: none; /* Sembunyi secara lalai */
+            margin-top: -1em;
+        }
+        #kedai-sub-group {
+            display: none; /* Sembunyi secara lalai */
+            margin-top: -1em;
+        }
+        #perhimpunan-sub-group {
+            display: none; /* Sembunyi secara lalai */
+            margin-top: -1em;
+        }
+        #storan-am-sub-group {
+            display: none; /* Sembunyi secara lalai */
+            margin-top: -1em;
+        }
+        .logo-img {
+            max-width: 150px; /* Laraskan saiz mengikut keperluan */
+            height: auto; /* Mengekalkan nisbah aspek */
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="ABR LOGO2.jpg" alt="Logo Syarikat" class="logo-img">
+    <h1>Kalkulator Jalan Keluar UBBL 1984</h1>
+    <p>Pengiraan Keperluan Jalan Keluar Mengikut Jadual 5, 7 & UUK 168 & 176</p>
+    
+    <div class="input-group">
+        <label for="kategoriBangunan">Pilih Kategori Bangunan:</label>
+        <select id="kategoriBangunan">
+            <option value="">-- Sila Pilih --</option>
+            <option value="kediaman-kecil">I - Kediaman Kecil</option>
+            <option value="institusional">II - Institusional</option>
+            <option value="kediaman-lain">III - Kediaman Lain (cth: Hotel)</option>
+            <option value="pejabat">IV - Pejabat</option>
+            <option value="kedai">V - Kedai</option>
+            <option value="kilang">VI - Kilang</option>
+            <option value="tempat-perhimpunan">VII - Tempat Perhimpunan</option>
+            <option value="storan-am">VIII - Storan dan Am</option>
+        </select>
+    </div>
+
+    <div class="input-group" id="institusional-sub-group">
+        <label for="institusionalSubKategori">Pilih Sub-Kategori Institusional:</label>
+        <select id="institusionalSubKategori">
+            <option value="">-- Sila Pilih --</option>
+            <option value="bilik-darjah">Bilik Darjah (2.0 m² bersih)</option>
+            <option value="bengkel-vokasional">Bengkel/Vokasional (4.5 m² bersih)</option>
+            <option value="makmal">Makmal (4.5 m² bersih)</option>
+            <option value="penginapan-pesakit">Penginapan Pesakit (24.0 m² kasar)</option>
+        </select>
+    </div>
+
+    <div class="input-group" id="kediaman-lain-sub-group">
+        <label for="kediamanLainSubKategori">Pilih Sub-Kategori Kediaman Lain:</label>
+        <select id="kediamanLainSubKategori">
+            <option value="">-- Sila Pilih --</option>
+            <option value="kediaman-lain-umum">Kediaman Lain (Umum) (20.0 m² kasar)</option>
+            <option value="kawasan-awam-hotel">Kawasan Awam Hotel (20.0 m² kasar)</option>
+            <option value="pangsapuri">Pangsapuri/Rumah Pangsa (24.0 m² kasar)</option>
+        </select>
+    </div>
+
+    <div class="input-group" id="kedai-sub-group">
+        <label for="kedaiSubKategori">Pilih Sub-Kategori Kedai:</label>
+        <select id="kedaiSubKategori">
+            <option value="">-- Sila Pilih --</option>
+            <option value="kedai-bawah">Lantai Paras Jalan/Bawah Tanah (3.0 m² kasar)</option>
+            <option value="kedai-lain">Lantai-lantai Lain (6.0 m² kasar)</option>
+            <option value="kedai-storan">Kawasan Penstoran/Perkapalan (10.0 m² kasar)</option>
+        </select>
+    </div>
+
+    <div class="input-group" id="perhimpunan-sub-group">
+        <label for="perhimpunanSubKategori">Pilih Sub-Kategori Tempat Perhimpunan:</label>
+        <select id="perhimpunanSubKategori">
+            <option value="">-- Sila Pilih --</option>
+            <option value="perhimpunan-umum">Tempat Perhimpunan (Umum) (1.5 m² bersih)</option>
+            <option value="perhimpunan-tertumpu">Kegunaan Tertumpu (tanpa tempat duduk tetap) (0.7 m² bersih)</option>
+            <option value="perhimpunan-berdiri">Kawasan Berdiri (0.3 m² bersih)</option>
+        </select>
+    </div>
+
+    <div class="input-group" id="storan-am-sub-group">
+        <label for="storanAmSubKategori">Pilih Sub-Kategori Storan dan Am:</label>
+        <select id="storanAmSubKategori">
+            <option value="">-- Sila Pilih --</option>
+            <option value="tempat-letak-kereta">Tempat Letak Kereta (20.0 m² kasar)</option>
+            <option value="gudang">Gudang (30.0 m² kasar)</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="luasLantai">Masukkan Luas Lantai Kasar (meter persegi):</label>
+        <input type="number" id="luasLantai" name="luasLantai" min="1" placeholder="Cth: 500" required>
+    </div>
+
+    <div class="input-group">
+        <label for="jarakPerjalanan">Jarak Perjalanan Maksimum (Jalan Keluar Tunggal) [meter]:</label>
+        <input type="number" id="jarakPerjalanan" name="jarakPerjalanan" min="0" placeholder="Cth: 15 (Untuk laluan mati)" required>
+    </div>
+    
+    <div class="buttons">
+        <button id="btnKira">Kira Semua Keperluan Jalan Keluar</button>
+    </div>
+    
+    <div id="result">
+        </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const kategoriBangunanSelect = document.getElementById('kategoriBangunan');
+        const luasLantaiInput = document.getElementById('luasLantai');
+        const jarakPerjalananInput = document.getElementById('jarakPerjalanan');
+        const btnKira = document.getElementById('btnKira');
+        const resultDiv = document.getElementById('result');
+
+        // Jadual Ketujuh UBBL: Faktor Beban Pendudukan (m² / orang)
+        const faktorBebanPendudukan = {
+            "kediaman-kecil": 0,      // Tidak dikira
+            "kediaman-lain-umum": 20.0, // Faktor umum untuk Kediaman Lain
+            "pejabat": 10.0,
+            "kilang": 10.0,
+            "storan-am": 28.0,
+            // Sub-kategori Institusional
+            "bilik-darjah": 2.0,
+            "bengkel-vokasional": 4.5,
+            "makmal": 4.5,
+            "penginapan-pesakit": 24.0,
+            // Sub-kategori Kediaman Lain
+            "kawasan-awam-hotel": 20.0,
+            "pangsapuri": 24.0,
+            // Sub-kategori Kedai
+            "kedai-bawah": 3.0,
+            "kedai-lain": 6.0,
+            "kedai-storan": 10.0,
+            // Sub-kategori Tempat Perhimpunan
+            "perhimpunan-umum": 1.5,
+            "perhimpunan-tertumpu": 0.7,
+            "perhimpunan-berdiri": 0.3,
+            // Sub-kategori Storan dan Am
+            "tempat-letak-kereta": 20.0,
+            "gudang": 30.0,
+        };
+
+        // UBBL Konstanta
+        const MAKS_BEBAN_1_EXIT = 50;
+        const MAKS_JARAK_1_EXIT_PEJABAT = 15;
+        const KAPASITI_SATU_TANGGA = 100; // 100 orang per 1000mm lebar
+        // UUK 176 & Jadual Kelapan: Unit Lebar & Kapasiti
+        const LEBAR_SATU_UNIT = 0.55; // 550mm
+        const KAPASITI_LALUAN_MENDATAR_PER_UNIT = 60; // Untuk koridor, pintu, laluan mendatar
+        const KAPASITI_TANGGA_PER_UNIT = 45; // Untuk tangga
+
+        function kiraBilanganOrang(luasLantai, kategori) {
+            const faktor = faktorBebanPendudukan[kategori];
+            
+            if (kategori === "kediaman-kecil") {
+                // Untuk Kediaman Kecil, pengiraan beban pendudukan tidak terpakai
+                return "N/A";
+            }
+            if (faktor === undefined || faktor === 0) return 0;
+            return Math.ceil(luasLantai / faktor);
+        }
+        
+        // Tunjuk/sembunyi sub-kategori
+        kategoriBangunanSelect.addEventListener('change', () => {
+            const institusionalSubGroup = document.getElementById('institusional-sub-group');
+            const kediamanLainSubGroup = document.getElementById('kediaman-lain-sub-group');
+            const kedaiSubGroup = document.getElementById('kedai-sub-group');
+            const perhimpunanSubGroup = document.getElementById('perhimpunan-sub-group');
+            const storanAmSubGroup = document.getElementById('storan-am-sub-group');
+
+            if (kategoriBangunanSelect.value === 'institusional') {
+                institusionalSubGroup.style.display = 'block';
+                kediamanLainSubGroup.style.display = 'none';
+                kedaiSubGroup.style.display = 'none';
+                perhimpunanSubGroup.style.display = 'none';
+                storanAmSubGroup.style.display = 'none';
+            } else if (kategoriBangunanSelect.value === 'kediaman-lain') {
+                kediamanLainSubGroup.style.display = 'block';
+                institusionalSubGroup.style.display = 'none';
+                kedaiSubGroup.style.display = 'none';
+                perhimpunanSubGroup.style.display = 'none';
+                storanAmSubGroup.style.display = 'none';
+            } else if (kategoriBangunanSelect.value === 'kedai') {
+                kedaiSubGroup.style.display = 'block';
+                institusionalSubGroup.style.display = 'none';
+                kediamanLainSubGroup.style.display = 'none';
+                perhimpunanSubGroup.style.display = 'none';
+                storanAmSubGroup.style.display = 'none';
+            } else if (kategoriBangunanSelect.value === 'storan-am') {
+                storanAmSubGroup.style.display = 'block';
+                institusionalSubGroup.style.display = 'none';
+                kediamanLainSubGroup.style.display = 'none';
+                kedaiSubGroup.style.display = 'none';
+            } else if (kategoriBangunanSelect.value === 'tempat-perhimpunan') {
+                perhimpunanSubGroup.style.display = 'block';
+                kedaiSubGroup.style.display = 'none';
+                institusionalSubGroup.style.display = 'none';
+                kediamanLainSubGroup.style.display = 'none';
+                storanAmSubGroup.style.display = 'none';
+            } else {
+                institusionalSubGroup.style.display = 'none';
+                kediamanLainSubGroup.style.display = 'none';
+                kedaiSubGroup.style.display = 'none';
+                perhimpunanSubGroup.style.display = 'none';
+                storanAmSubGroup.style.display = 'none';
+            }
+        });
+
+        // Logik utama pengiraan
+        btnKira.addEventListener('click', () => {
+            let kategori = kategoriBangunanSelect.value;
+            const luasLantai = parseFloat(luasLantaiInput.value);
+            const jarakPerjalanan = parseFloat(jarakPerjalananInput.value);
+
+            const kategoriUtama = kategori; // Simpan kategori utama untuk rujukan
+            // Jika kategori institusional, guna sub-kategori
+            if (kategori === 'institusional') {
+                const subKategori = document.getElementById('institusionalSubKategori').value;
+                if (subKategori === "") {
+                     resultDiv.innerHTML = '<div class="message-error">⚠️ Sila pilih sub-kategori untuk Institusional.</div>';
+                     return;
+                }
+                kategori = subKategori;
+            } else if (kategori === 'kediaman-lain') {
+                const subKategori = document.getElementById('kediamanLainSubKategori').value;
+                if (subKategori === "") {
+                     resultDiv.innerHTML = '<div class="message-error">⚠️ Sila pilih sub-kategori untuk Kediaman Lain.</div>';
+                     return;
+                }
+                kategori = subKategori;
+            } else if (kategori === 'kedai') {
+                const subKategori = document.getElementById('kedaiSubKategori').value;
+                if (subKategori === "") {
+                     resultDiv.innerHTML = '<div class="message-error">⚠️ Sila pilih sub-kategori untuk Kedai.</div>';
+                     return;
+                }
+                kategori = subKategori;
+            } else if (kategori === 'storan-am') {
+                const subKategori = document.getElementById('storanAmSubKategori').value;
+                if (subKategori === "") {
+                     resultDiv.innerHTML = '<div class="message-error">⚠️ Sila pilih sub-kategori untuk Storan dan Am.</div>';
+                     return;
+                }
+                kategori = subKategori;
+            } else if (kategori === 'tempat-perhimpunan') {
+                const subKategori = document.getElementById('perhimpunanSubKategori').value;
+                if (subKategori === "") {
+                     resultDiv.innerHTML = '<div class="message-error">⚠️ Sila pilih sub-kategori untuk Tempat Perhimpunan.</div>';
+                     return;
+                }
+                kategori = subKategori;
+            } else if (kategori === "" || isNaN(luasLantai) || luasLantai <= 0 || isNaN(jarakPerjalanan) || jarakPerjalanan < 0) {
+                resultDiv.innerHTML = '<div class="message-error">⚠️ Sila lengkapkan semua medan dengan nilai yang sah.</div>';
+                return;
+            }
+
+            const bilanganOrang = kiraBilanganOrang(luasLantai, kategori);
+
+            if (bilanganOrang === "N/A") {
+                resultDiv.innerHTML = `<div class="message-success">Untuk kategori 'Kediaman Kecil', pengiraan beban pendudukan tidak diperlukan mengikut UBBL 1984.</div>`;
+                return;
+            }
+            
+            // --- 1. KIRA KELEBARAN (UUK 176) ---
+            // Pengiraan berdasarkan unit lebar (Jadual Kelapan)
+            const unitLebarLaluanMendatar = Math.ceil(bilanganOrang / KAPASITI_LALUAN_MENDATAR_PER_UNIT);
+            const lebarLaluanMendatar = unitLebarLaluanMendatar * LEBAR_SATU_UNIT;
+
+            const unitLebarTangga = Math.ceil(bilanganOrang / KAPASITI_TANGGA_PER_UNIT);
+            const lebarTangga = unitLebarTangga * LEBAR_SATU_UNIT; // Ini ialah 'U'
+
+            // --- 2. KIRA JUMLAH JALAN KELUAR ---
+            let maklumanJarak = '';
+
+            // Formula utama: (U/4) + 1
+            const U = Math.ceil(lebarTangga); // Bulatkan lebar yang diperlukan ke atas
+            let jumlahTanggaMinimum = Math.ceil((U / 4) + 1);
+            
+            // Semak terhadap keperluan minimum UUK 168 (Beban & Jarak)
+            if (bilanganOrang > MAKS_BEBAN_1_EXIT) {
+                if (jumlahTanggaMinimum < 2) {
+                    jumlahTanggaMinimum = 2; // Mesti sekurang-kurangnya 2 jika > 50 orang
+                }
+                maklumanJarak = `Oleh sebab beban pendudukan melebihi 50 orang, minimum 2 jalan keluar diperlukan.`;
+            } else {
+                // Beban pendudukan <= 50 orang
+                if ((kategoriUtama === "pejabat" || kategoriUtama === "kedai" || kategoriUtama === "kilang") && jarakPerjalanan > MAKS_JARAK_1_EXIT_PEJABAT) {
+                    if (jumlahTanggaMinimum < 2) {
+                        jumlahTanggaMinimum = 2; // Paksa 2 jika jarak > 15m
+                    }
+                    maklumanJarak = `<div class="message-warning">⚠️ AMARAN: Walaupun beban pendudukan ≤ 50 orang, jarak perjalanan (${jarakPerjalanan}m) melebihi had 15m. Jumlah jalan keluar minimum ditingkatkan kepada 2.</div>`;
+                } else {
+                    if (jumlahTanggaMinimum < 1) {
+                        jumlahTanggaMinimum = 1;
+                    }
+                    maklumanJarak = `<div class="message-success">✅ Jarak perjalanan (${jarakPerjalanan}m) mematuhi had yang dibenarkan.</div>`;
+                }
+            }
+
+            // --- 3. PAPARKAN HASIL AKHIR ---
+            resultDiv.innerHTML = `
+                <div class="population-label">Anggaran Beban Pendudukan: <strong>${bilanganOrang} orang</strong></div>
+                
+                <div class="result-item"><strong>1. KELEBARAN MINIMUM (UUK 176):</strong></div>
+                <div class="result-item">Jumlah Lebar Laluan Mendatar (Koridor/Pintu): <strong>${lebarLaluanMendatar.toFixed(2)} meter</strong> (${unitLebarLaluanMendatar} unit lebar).</div>
+                <div class="result-item">Jumlah Lebar Tangga (U): <strong>${lebarTangga.toFixed(2)} meter</strong> (${unitLebarTangga} unit lebar).</div>
+                <div class="result-item" style="font-size: 0.8em; color: #666;">*Nota: 1 unit lebar = 550mm.</div>
+                <hr style="margin: 1em 0;">
+                
+                <div class="result-item"><strong>2. JUMLAH JALAN KELUAR MINIMUM:</strong></div>
+                <div class="result-item">Pengiraan utama berdasarkan formula (U/4) + 1, di mana U = ${U}m (lebar tangga dibulatkan ke atas).</div>
+                <div class="result-item" style="font-size: 1.4em; color: #f44336;">➡ Jumlah jalan keluar diperlukan: <strong>${jumlahTanggaMinimum} unit</strong>.</div>
+                <div class="result-item">${maklumanJarak}</div>
+                <div class="result-item" style="font-size: 0.8em; color: #666;">*Nota: Hasil akhir disemak terhadap keperluan minimum UUK 168 (beban pendudukan dan jarak perjalanan).</div>
+            `;
+        });
+    });
+</script>
+
+</body>
+</html>

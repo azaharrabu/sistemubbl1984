@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rujukan Interaktif - Jadual Ketujuh UBBL 1984</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 16px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: .65em auto;
+        }
+        #results {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+            display: none;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .result-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 5px solid #0056b3;
+        }
+        .result-item h3 {
+            margin-top: 0;
+            color: #0056b3;
+            font-size: 1.1em;
+        }
+        .result-item p {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 0;
+            color: #333;
+        }
+        .notes {
+            margin-top: 30px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+        .notes h3 {
+            margin-top: 0;
+        }
+        .notes p {
+            margin-bottom: 10px;
+        }
+        .notes strong {
+            font-family: monospace;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sistem Rujukan Pantas: Jadual Ketujuh UBBL 1984</h1>
+        <h2>Jarak Perjalanan Maksimum (meter)</h2>
+        
+        <div class="form-group">
+            <label for="kumpulanMaksud">Pilih Kumpulan Maksud Bangunan:</label>
+            <select id="kumpulanMaksud">
+                <option value="">-- Sila Pilih --</option>
+            </select>
+        </div>
+
+        <div id="results">
+            <div class="result-grid">
+                <div class="result-item">
+                    <h3>Perjalanan Sehala (*Had Jalan Mati)</h3>
+                    <p id="sehala"></p>
+                </div>
+                <div class="result-item">
+                    <h3>Perjalanan Dua Hala (Tidak Disembur)</h3>
+                    <p id="duaHalaTidakDisembur"></p>
+                </div>
+                <div class="result-item">
+                    <h3>Perjalanan Dua Hala (Disembur)</h3>
+                    <p id="duaHalaDisembur"></p>
+                </div>
+                <div class="result-item">
+                    <h3>Koridor (*Had Jalan Mati)</h3>
+                    <p id="koridor"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="notes">
+            <h3>Nota & Simbol</h3>
+            <p><strong>TK</strong>: Tiada Keperluan atau Tidak Terpakai.</p>
+            <p><strong>*</strong>: Had jalan mati adalah merupakan jarak kepada suatu tempat keluar suatu tingkat atau suatu takat cara melepaskan diri alternatif tersedia dengan syarat bahawa jumlah jarak perjalanan hendaklah tidak melebihi had di bawah ruangan (2) [Perjalanan Dua Hala (Tidak Disembur)].</p>
+            <p><strong>x</strong>: Had jarak perjalanan atas suatu lantai di bawah jalan dalam garaj yang disembur hendaklah terhad kepada 45 meter.</p>
+            <p><strong>+</strong>: Merujuk hanya kepada sebuah bangsal kapal terbang. Untuk bangunan ini, jika jarak perjalanan melebihi 45m, ia boleh dipenuhi dengan syarat-syarat khas seperti tangga ke terowong keluar atau laluan atas, serta perlindungan sistem semburan automatik yang lengkap. Walaubagaimanapun, jarak perjalanan ke tempat keluar terdekat tidak boleh melebihi 120 meter.</p>
+             <p><strong>Pelan Terbuka</strong>: Dalam pelan terbuka, jarak terus hendaklah dua pertiga jarak perjalanan.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jadualData = {
+                "Kediaman Kecil": { sehala: "TK", duaHalaTidakDisembur: "TK", duaHalaDisembur: "TK", koridor: "TK" },
+                "Institusional - Hospital, rumah rawatan, dan sebagainya": { sehala: "15", duaHalaTidakDisembur: "30", duaHalaDisembur: "45", koridor: "15" },
+                "Institusional - Sekolah": { sehala: "15", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "15" },
+                "Institusional - Pelan terbuka": { sehala: "TK", duaHalaTidakDisembur: "30", duaHalaDisembur: "45", koridor: "TK" },
+                "Institusional - Pelan lentur": { sehala: "TK", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "TK" },
+                "Kediaman Lain - Hotel": { sehala: "15", duaHalaTidakDisembur: "30", duaHalaDisembur: "45", koridor: "15" },
+                "Kediaman Lain - Pangsapuri, rumah pangsa atau pangsapuri perkhidmatan": { sehala: "20", duaHalaTidakDisembur: "30", duaHalaDisembur: "60", koridor: "20" },
+                "Kediaman Lain - Dormitori": { sehala: "15", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "15" },
+                "Pejabat": { sehala: "15", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "15" },
+                "Kedai": { sehala: "15", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "15" },
+                "Kilang - Maksud am atau khas": { sehala: "15", duaHalaTidakDisembur: "30", duaHalaDisembur: "60", koridor: "15" },
+                "Kilang - Bahaya tinggi": { sehala: "0", duaHalaTidakDisembur: "22", duaHalaDisembur: "35", koridor: "0" },
+                "Kilang - Struktur terbuka": { sehala: "TK", duaHalaTidakDisembur: "TK", duaHalaDisembur: "TK", koridor: "TK" },
+                "Tempat Perhimpunan": { sehala: "15", duaHalaTidakDisembur: "45", duaHalaDisembur: "60", koridor: "15" },
+                "Storan dan Am - Bahaya rendah dan biasa": { sehala: "15", duaHalaTidakDisembur: "30", duaHalaDisembur: "60", koridor: "15" },
+                "Storan dan Am - Bahaya tinggi": { sehala: "10", duaHalaTidakDisembur: "20", duaHalaDisembur: "35", koridor: "10" },
+                "Storan dan Am - Garaj letak kereta": { sehala: "15", duaHalaTidakDisembur: "45+", duaHalaDisembur: "60x", koridor: "15" },
+                "Storan dan Am - Bangsal kapal terbang (tingkat bawah)": { sehala: "15", duaHalaTidakDisembur: "30+", duaHalaDisembur: "45+", koridor: "15" },
+                "Storan dan Am - Bangsal kapal terbang (tingkat mezanin)": { sehala: "15", duaHalaTidakDisembur: "20", duaHalaDisembur: "20", koridor: "15" }
+            };
+
+            const kumpulanMaksudSelect = document.getElementById('kumpulanMaksud');
+            const resultsDiv = document.getElementById('results');
+            const sehalaP = document.getElementById('sehala');
+            const duaHalaTidakDisemburP = document.getElementById('duaHalaTidakDisembur');
+            const duaHalaDisemburP = document.getElementById('duaHalaDisembur');
+            const koridorP = document.getElementById('koridor');
+
+            // Populate dropdown
+            Object.keys(jadualData).forEach(kategori => {
+                const option = document.createElement('option');
+                option.value = kategori;
+                option.textContent = kategori;
+                kumpulanMaksudSelect.appendChild(option);
+            });
+
+            kumpulanMaksudSelect.addEventListener('change', function() {
+                const selectedKategori = this.value;
+
+                if (selectedKategori) {
+                    const data = jadualData[selectedKategori];
+                    sehalaP.textContent = data.sehala;
+                    duaHalaTidakDisemburP.textContent = data.duaHalaTidakDisembur;
+                    duaHalaDisemburP.textContent = data.duaHalaDisembur;
+                    koridorP.textContent = data.koridor;
+                    resultsDiv.style.display = 'block';
+                } else {
+                    resultsDiv.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

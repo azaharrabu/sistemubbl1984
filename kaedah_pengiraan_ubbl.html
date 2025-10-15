@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaedah Pengiraan Jarak Bangunan Mengikut Jadual Keenam UBBL 1984</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+            border-bottom: 2px solid #eef;
+            padding-bottom: 10px;
+        }
+        h1 {
+            font-size: 2em;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.5em;
+        }
+        h3 {
+            font-size: 1.2em;
+            color: #007bff;
+        }
+        ol {
+            list-style-type: none;
+            counter-reset: step-counter;
+            padding-left: 0;
+        }
+        li {
+            counter-increment: step-counter;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        li::before {
+            content: "Langkah " counter(step-counter);
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        .formula {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin: 15px 0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1.1em;
+            white-space: pre-wrap;
+            border-radius: 0 5px 5px 0;
+        }
+        .example {
+            background-color: #f0f9ff;
+            border: 1px solid #cce5ff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .disclaimer {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-align: justify;
+        }
+        .disclaimer strong {
+            color: #664d03;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kaedah Pengiraan Jarak Bangunan Mengikut Jadual Keenam UBBL 1984</h1>
+        <p>Panduan ini menerangkan langkah-langkah untuk mengira jarak pemisahan minimum antara bangunan bagi mengurangkan risiko penyebaran kebakaran, selaras dengan peruntukan dalam Jadual Keenam, Undang-Undang Kecil Bangunan Seragam (UBBL) 1984.</p>
+
+        <ol>
+            <li>
+                <h3>Kenal Pasti Dinding Luar yang Relevan</h3>
+                <p>Pilih satu sisi dinding luar bangunan yang menghadap sempadan lot atau bangunan lain yang ingin dikira jaraknya. Proses ini perlu diulang untuk setiap sisi bangunan yang relevan.</p>
+            </li>
+            <li>
+                <h3>Kira Jumlah Luas Dinding Luar</h3>
+                <p>Kira luas keseluruhan bagi dinding yang telah anda pilih di Langkah 1.</p>
+                <div class="formula">Panjang Dinding (m) &times; Tinggi Dinding (m) = Jumlah Luas Dinding (m&sup2;)</div>
+            </li>
+            <li>
+                <h3>Kira Jumlah Luas Bukaan Tanpa Perlindungan</h3>
+                <p>Pada dinding yang sama, kenal pasti dan kira jumlah luas semua bukaan yang tidak mempunyai ketahanan rintangan api (Fire Resistance Rating - FRP). Ini termasuk tingkap biasa, pintu biasa, dan sebarang ruang terbuka.</p>
+                <div class="formula">Jumlah Luas Tingkap + Pintu + ... = Jumlah Luas Bukaan (m&sup2;)</div>
+            </li>
+            <li>
+                <h3>Kira Peratusan Bukaan</h3>
+                <p>Cari nisbah peratusan luas bukaan tanpa perlindungan berbanding jumlah luas keseluruhan dinding.</p>
+                <div class="formula">(Jumlah Luas Bukaan / Jumlah Luas Dinding) &times; 100 = Peratusan Bukaan (%)</div>
+            </li>
+            <li>
+                <h3>Rujuk Jadual Keenam UBBL 1984</h3>
+                <p>Gunakan nilai yang diperolehi untuk merujuk Jadual Keenam. Cari baris yang sepadan dengan <strong>Jumlah Luas Dinding</strong> dan lajur yang sepadan dengan <strong>Peratusan Bukaan</strong>. Jika nilai anda jatuh di antara dua julat, gunakan julat yang lebih tinggi (lebih konservatif). Nilai persilangan adalah jarak pemisahan minimum yang diperlukan dalam meter.</p>
+            </li>
+        </ol>
+
+        <div class="example">
+            <h2>Contoh Ringkas</h2>
+            <ul>
+                <li><strong>Luas Dinding:</strong> 70 m&sup2;</li>
+                <li><strong>Luas Bukaan:</strong> 15 m&sup2;</li>
+                <li><strong>Peratusan Bukaan:</strong> (15 / 70) * 100 = 21.4%</li>
+            </ul>
+            <p><strong>Rujukan Jadual Keenam:</strong></p>
+            <ol style="list-style-type: decimal; padding-left: 20px;">
+                <li style="padding: 5px; border: none; margin-bottom: 5px;">Cari baris luas dinding: Julat "melebihi 60 hingga 80 m&sup2;".</li>
+                <li style="padding: 5px; border: none; margin-bottom: 5px;">Cari lajur peratusan bukaan: Julat "melebihi 20 hingga 30%".</li>
+                <li style="padding: 5px; border: none; margin-bottom: 5px;">Nilai persilangan pada jadual akan memberikan jarak minimum yang diperlukan (cth: <strong>3.5 meter</strong>).</li>
+            </ol>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Penting:</strong> Penjelasan ini adalah sebagai panduan asas dan rujukan umum sahaja. Untuk tujuan pengemukaan pelan, pematuhan undang-undang, dan aplikasi sebenar, anda <strong>wajib</strong> merujuk kepada naskhah rasmi Undang-Undang Kecil Bangunan Seragam (UBBL) 1984 dan mendapatkan nasihat daripada profesional yang bertauliah seperti Arkitek atau Jurutera Perunding.
+        </div>
+    </div>
+</body>
+</html>

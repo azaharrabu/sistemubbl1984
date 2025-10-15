@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator 10 Langkah UBBL</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: auto; }
+        .step { margin-bottom: 1.5em; border-left: 3px solid #ccc; padding-left: 1em; }
+        .step h2 { color: #333; }
+        label { display: block; margin-top: 1em; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #007BFF; color: white; border: none; cursor: pointer; margin-top: 1em; }
+        button:hover { background-color: #0056b3; }
+        #result { margin-top: 1.5em; padding: 1em; border: 1px solid #ddd; background-color: #f9f9f9; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator 10 Langkah (Jadual Keenam UBBL 1984)</h1>
+        <p>Kalkulator ini membantu mengira pematuhan fasad bangunan dengan Jadual Keenam UBBL 1984 berdasarkan 10 langkah yang digariskan dalam modul latihan.</p>
+
+        <div class="step">
+            <h2>Langkah 1-5: Input Data Asas</h2>
+            <label for="enclosingWidth">Lebar "Enclosing Rectangle" (m)</label>
+            <input type="number" id="enclosingWidth" placeholder="Contoh: 9">
+
+            <label for="enclosingHeight">Tinggi "Enclosing Rectangle" (m)</label>
+            <input type="number" id="enclosingHeight" placeholder="Contoh: 21.4">
+
+            <label for="unprotectedArea">Jumlah Keluasan "Unprotected Opening" (m²)</label>
+            <input type="number" id="unprotectedArea" placeholder="Contoh: 87">
+
+            <label for="purposeGroup">Purpose Group</label>
+            <select id="purposeGroup">
+                <option value="I">I - Small Residential</option>
+                <option value="II">II - Institutional</option>
+                <option value="III">III - Other Residential</option>
+                <option value="IV" selected>IV - Office</option>
+                <option value="V">V - Shop</option>
+                <option value="VI">VI - Factory</option>
+                <option value="VII">VII - Assembly</option>
+                <option value="VIII">VIII - Storage and General</option>
+            </select>
+
+            <label for="designBoundaryDistance">Jarak "Relevant Boundary" Reka Bentuk (m)</label>
+            <input type="number" id="designBoundaryDistance" placeholder="Contoh: 7.5">
+        </div>
+
+        <button onclick="calculate()">Kira</button>
+
+        <div id="result">
+            <h3>Hasil Pengiraan:</h3>
+            <div id="output">Sila masukkan semua nilai dan tekan butang "Kira".</div>
+        </div>
+    </div>
+
+    <script>
+        // Data from UBBL Sixth Schedule, Part II, Table 1 & 2
+        // For simplicity, only the tables for heights up to 27m are included as per the provided PDF.
+        // Heights are the upper limit of the range (e.g., 3m table is for heights <= 3m)
+        const schedule6_part2_tables = {
+            "I-II-III-IV-VII": { // Table 1
+                "3": { widths: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, "no-limit"], percentages: { "20": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], "30": [1.0, 1.0, 1.0, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5], "40": [1.5, 1.5, 1.5, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0], "50": [1.5, 2.0, 2.0, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2.5], "60": [2.0, 2.0, 2.5, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0], "70": [2.0, 2.5, 3.0, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5, 3.5], "80": [2.0, 2.5, 3.0, 3.5, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0], "90": [2.0, 3.0, 3.5, 4.0, 4.0, 4.5, 4.5, 4.5, 4.5, 4.5, 4.5, 5.0], "100": [2.0, 3.0, 3.5, 4.0, 4.5, 4.5, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0] } },
+                "24": { widths: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, 50, 60, 80, 100, 120, "no-limit"], percentages: { "20": [0.5, 1.5, 2.0, 2.5, 3.0, 3.0, 3.5, 3.5, 4.0, 4.0, 4.5, 5.0, 5.0, 5.0, 5.0, 5.5, 5.5], "30": [1.5, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.5, 9.0, 9.5, 10.0, 10.0, 10.0, 10.0], "40": [2.0, 3.5, 5.0, 6.0, 6.5, 7.5, 8.0, 8.5, 9.0, 9.5, 11.0, 12.0, 12.5, 13.5, 13.5, 13.5, 13.5], "50": [2.5, 4.5, 5.5, 7.0, 8.0, 8.5, 9.5, 10.0, 11.0, 11.5, 13.0, 14.0, 15.0, 16.5, 17.0, 17.5, 18.0], "60": [3.0, 5.0, 6.5, 8.0, 9.0, 10.0, 10.5, 11.5, 12.5, 13.0, 14.5, 16.0, 17.0, 18.5, 20.0, 20.5, 21.0], "70": [3.5, 5.5, 7.5, 8.5, 10.0, 11.0, 12.0, 12.5, 13.5, 14.0, 16.0, 17.5, 19.0, 21.0, 22.5, 23.5, 24.0], "80": [3.5, 6.0, 8.0, 9.5, 11.0, 12.0, 13.0, 14.0, 15.0, 15.5, 18.0, 19.5, 21.0, 23.5, 25.0, 26.5, 27.5], "90": [4.0, 7.0, 9.0, 10.5, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 19.0, 21.0, 23.0, 25.5, 27.5, 29.0, 30.0], "100": [4.5, 7.0, 9.5, 11.5, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 20.5, 22.5, 24.5, 27.5, 29.5, 21.0, 32.5] } },
+                "27": { widths: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, 50, 60, 80, 100, 120, "no-limit"], percentages: { "20": [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 3.5, 3.5, 4.0, 4.0, 5.0, 5.5, 5.5, 6.0, 6.0, 6.0, 6.0], "30": [1.5, 2.5, 3.5, 4.5, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.5, 11.0, 11.0, 11.5, 11.5], "40": [2.0, 3.5, 5.0, 6.0, 7.0, 8.0, 8.5, 9.0, 10.0, 10.0, 11.5, 12.5, 13.5, 14.5, 15.5, 15.5, 15.5], "50": [2.5, 4.5, 6.0, 7.0, 8.5, 9.0, 10.0, 11.0, 11.5, 12.0, 13.0, 15.0, 16.0, 17.5, 19.0, 19.5, 20.0], "60": [3.0, 5.0, 7.0, 8.0, 9.5, 10.5, 11.5, 12.5, 13.0, 13.5, 15.5, 17.0, 18.5, 20.5, 21.5, 22.5, 23.5], "70": [3.5, 6.0, 7.5, 9.0, 10.5, 11.5, 13.0, 13.5, 14.0, 15.0, 17.5, 19.0, 20.5, 22.5, 24.5, 26.0, 27.0], "80": [4.0, 6.5, 8.5, 10.5, 11.5, 12.5, 14.0, 15.0, 16.0, 17.0, 19.0, 21.0, 22.5, 25.0, 27.0, 28.5, 29.5], "90": [4.0, 7.0, 9.5, 11.0, 12.5, 13.5, 15.0, 16.0, 17.0, 18.0, 20.5, 22.5, 24.5, 27.5, 30.0, 32.0, 33.0], "100": [4.5, 7.5, 10.0, 12.0, 13.5, 14.5, 16.0, 17.0, 18.0, 19.0, 22.0, 24.0, 26.5, 29.5, 32.0, 34.0, 35.0] } }
+            },
+            "V-VI-VIII": { // Table 2
+                 "27": { widths: [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, 50, 60, 80, 100, 120, "no-limit"], percentages: { "20": [2.0, 3.5, 5.0, 6.0, 7.0, 8.0, 8.5, 9.0, 10.0, 10.0, 11.5, 12.5, 13.5, 14.5, 15.5, 15.5, 15.5], "30": [3.0, 5.0, 7.0, 8.0, 9.5, 10.5, 11.5, 12.5, 13.0, 13.5, 15.5, 17.0, 18.5, 20.5, 21.5, 22.5, 23.5], "40": [4.0, 6.5, 8.5, 10.5, 11.5, 12.5, 14.0, 15.0, 16.0, 17.0, 19.0, 21.0, 22.5, 25.0, 27.0, 28.5, 29.5], "50": [4.5, 7.5, 10.0, 12.0, 13.5, 14.5, 16.0, 17.0, 18.0, 19.0, 22.0, 24.0, 26.5, 29.5, 32.0, 34.0, 35.0], "60": [5.5, 8.5, 11.5, 13.5, 15.0, 16.5, 18.0, 19.0, 20.0, 21.0, 24.5, 27.0, 29.5, 33.0, 36.5, 39.0, 40.5], "70": [6.0, 9.5, 12.5, 14.5, 16.5, 17.5, 19.0, 20.5, 22.0, 23.0, 26.5, 29.5, 32.0, 36.5, 40.5, 43.0, 44.5], "80": [6.5, 10.5, 13.5, 16.0, 18.0, 19.5, 21.0, 22.5, 24.0, 25.0, 29.0, 32.0, 35.0, 39.5, 43.0, 46.5, 48.5], "90": [7.0, 11.0, 14.5, 17.0, 19.0, 20.5, 22.5, 24.0, 25.5, 26.5, 30.5, 34.5, 37.0, 42.0, 46.5, 50.5, 52.0], "100": [7.5, 12.0, 15.0, 17.5, 20.0, 21.5, 23.5, 25.5, 27.0, 28.0, 32.5, 36.0, 39.0, 44.0, 48.5, 53.0, 55.5] } }
+            }
+        };
+
+        const part3_factor_table = [
+            { min: 0, max: 1.2, factor: 80 }, { min: 1.2, max: 1.8, factor: 40 },
+            { min: 1.8, max: 2.7, factor: 20 }, { min: 2.7, max: 4.3, factor: 10 },
+            { min: 4.3, max: 6.0, factor: 4 }, { min: 6.0, max: 8.5, factor: 2 },
+            { min: 8.5, max: 12.0, factor: 1 }, { min: 12.0, max: 18.5, factor: 0.5 },
+            { min: 18.5, max: 27.5, factor: 0.25 }, { min: 27.5, max: 50, factor: 0.1 },
+            { min: 50, max: Infinity, factor: 0 }
+        ];
+
+        // Helper function for linear interpolation
+        function interpolate(x, x1, y1, x2, y2) {
+            if (x1 === x2) return y1;
+            return y1 + (y2 - y1) * (x - x1) / (x2 - x1);
+        }
+
+        function getTableValue(table, targetWidth, targetPercentage) {
+            const widths = table.widths;
+            const percentages = Object.keys(table.percentages).map(p => parseInt(p));
+
+            // Find surrounding widths
+            let w_idx1 = widths.findIndex(w => w >= targetWidth);
+            if (w_idx1 === -1) w_idx1 = widths.length - 2; // Use last two if target is larger than all but no-limit
+            if (w_idx1 === 0) w_idx1 = 1;
+            const w_idx2 = w_idx1 - 1;
+
+            const width1 = widths[w_idx1];
+            const width2 = widths[w_idx2];
+
+            // Find surrounding percentages
+            let p_idx1 = percentages.findIndex(p => p >= targetPercentage);
+             if (p_idx1 === -1) p_idx1 = percentages.length - 1; // Use last if target is larger
+            if (p_idx1 === 0) p_idx1 = 1;
+            const p_idx2 = p_idx1 - 1;
+
+            const perc1 = percentages[p_idx1];
+            const perc2 = percentages[p_idx2];
+
+            // Get the four corner values from the table
+            const q11 = table.percentages[perc2][w_idx2];
+            const q12 = table.percentages[perc1][w_idx2];
+            const q21 = table.percentages[perc2][w_idx1];
+            const q22 = table.percentages[perc1][w_idx1];
+
+            // Interpolate along width axis for both percentages
+            const r1 = interpolate(targetWidth, width2, q11, width1, q21);
+            const r2 = interpolate(targetWidth, width2, q12, width1, q22);
+
+            // Interpolate along percentage axis
+            return interpolate(targetPercentage, perc2, r1, perc1, r2);
+        }
+
+
+        function calculate() {
+            const width = parseFloat(document.getElementById('enclosingWidth').value);
+            const height = parseFloat(document.getElementById('enclosingHeight').value);
+            const unprotectedArea = parseFloat(document.getElementById('unprotectedArea').value);
+            const purposeGroup = document.getElementById('purposeGroup').value;
+            const designBoundaryDistance = parseFloat(document.getElementById('designBoundaryDistance').value);
+            const outputDiv = document.getElementById('output');
+
+            if (isNaN(width) || isNaN(height) || isNaN(unprotectedArea) || isNaN(designBoundaryDistance)) {
+                outputDiv.innerHTML = '<p class="error">Sila masukkan semua nilai yang sah.</p>';
+                return;
+            }
+
+            let resultsHTML = '';
+            const enclosingArea = width * height;
+            const percentageUnprotected = (unprotectedArea / enclosingArea) * 100;
+
+            resultsHTML += `<div class="step"><h2>Langkah 2: Saiz "Enclosing Rectangle"</h2><p>${width}m (lebar) x ${height}m (tinggi) = <strong>${enclosingArea.toFixed(2)} m²</strong></p></div>`;
+            resultsHTML += `<div class="step"><h2>Langkah 3: Jumlah "Unprotected Opening"</h2><p><strong>${unprotectedArea.toFixed(2)} m²</strong> (seperti yang dimasukkan)</p></div>`;
+            resultsHTML += `<div class="step"><h2>Langkah 4: Peratusan "Unprotected Opening"</h2><p>(${unprotectedArea.toFixed(2)} m² / ${enclosingArea.toFixed(2)} m²) x 100% = <strong>${percentageUnprotected.toFixed(2)}%</strong></p></div>`;
+
+            // Steps 5, 6, 7
+            const pg_group = (['I', 'II', 'III', 'IV', 'VII'].includes(purposeGroup)) ? "I-II-III-IV-VII" : "V-VI-VIII";
+            const availableHeights = Object.keys(schedule6_part2_tables[pg_group]).map(h => parseInt(h)).sort((a, b) => a - b);
+            let tableHeight = availableHeights.find(h => h >= height);
+            if (!tableHeight) {
+                 outputDiv.innerHTML = '<p class="error">Ketinggian melebihi data jadual yang tersedia.</p>';
+                 return;
+            }
+            
+            const relevantTable = schedule6_part2_tables[pg_group][tableHeight];
+            const nextHighestPercentage = Math.ceil(percentageUnprotected / 10) * 10;
+            const requiredDistance = getTableValue(relevantTable, width, percentageUnprotected);
+
+            resultsHTML += `<div class="step"><h2>Langkah 5 & 6: Penentuan Jarak Sempadan Dibenarkan</h2>
+                <p>Menggunakan Jadual untuk Kumpulan Kegunaan ${pg_group}, Ketinggian ≤ ${tableHeight}m.</p>
+                <p>Untuk lebar ${width}m dan peratusan bukaan ${percentageUnprotected.toFixed(2)}%, jarak minimum yang dibenarkan ialah <strong>${requiredDistance.toFixed(2)}m</strong> (melalui interpolasi).</p></div>`;
+
+            const isCompliantPart2 = designBoundaryDistance >= requiredDistance;
+            resultsHTML += `<div class="step"><h2>Langkah 7: Semakan Pematuhan Bahagian II</h2>
+                <p>Jarak Reka Bentuk: <strong>${designBoundaryDistance}m</strong></p>
+                <p>Jarak Minimum Dibenarkan: <strong>${requiredDistance.toFixed(2)}m</strong></p>
+                <p><strong>Pematuhan: ${isCompliantPart2 ? 'Ya' : 'Tidak'}</strong> (${designBoundaryDistance}m ${isCompliantPart2 ? '≥' : '<'} ${requiredDistance.toFixed(2)}m)</p></div>`;
+
+            // Step 8 is a design consideration, not a calculation. We can provide info.
+             resultsHTML += `<div class="step"><h2>Langkah 8: Potensi Reka Bentuk</h2><p>Langkah ini adalah untuk pereka bentuk mempertimbangkan jika ada ruang untuk penyesuaian (contoh: menambah lebih banyak bukaan jika jarak reka bentuk lebih besar daripada yang diperlukan).</p></div>`;
+
+
+            // Step 9
+            let factor = part3_factor_table.find(row => designBoundaryDistance >= row.min && designBoundaryDistance < row.max)?.factor ?? 0;
+            resultsHTML += `<div class="step"><h2>Langkah 9: Penentuan Faktor (Bahagian III)</h2><p>Untuk jarak ${designBoundaryDistance}m, faktor yang digunakan ialah <strong>${factor}</strong>.</p></div>`;
+
+            // Step 10
+            const aggregateNotionalArea = unprotectedArea * factor;
+            const limit = (pg_group === "I-II-III-IV-VII") ? 210 : 90;
+            const isCompliantPart3 = aggregateNotionalArea <= limit;
+            resultsHTML += `<div class="step"><h2>Langkah 10: Pematuhan "Aggregate Notional Area"</h2>
+                <p>${unprotectedArea.toFixed(2)} m² (Luas Bukaan) x ${factor} (Faktor) = <strong>${aggregateNotionalArea.toFixed(2)} m²</strong></p>
+                <p>Had untuk Kumpulan Kegunaan ${purposeGroup} ialah ${limit} m².</p>
+                <p><strong>Pematuhan: ${isCompliantPart3 ? 'Ya' : 'Tidak'}</strong> (${aggregateNotionalArea.toFixed(2)} m² ${isCompliantPart3 ? '≤' : '>'} ${limit} m²)</p>
+            </div>`;
+
+            outputDiv.innerHTML = resultsHTML;
+        }
+    </script>
+</body>
+</html>

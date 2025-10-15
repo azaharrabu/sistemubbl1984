@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABR Customer Management</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="auth-section">
+            <div class="form-container" id="login-container">
+                <h2>Log Masuk</h2>
+                <form id="login-form">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Kata Laluan" required>
+                    <button type="submit">Log Masuk</button>
+                </form>
+                <p>Tiada akaun? <a href="#" id="show-signup">Daftar</a></p>
+            </div>
+            <div class="form-container" id="signup-container" style="display: none;">
+                <h2>Daftar Akaun</h2>
+                <form id="signup-form">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Kata Laluan" required>
+                    <button type="submit">Daftar</button>
+                </form>
+                <p>Sudah ada akaun? <a href="#" id="show-login">Log masuk</a></p>
+            </div>
+        </div>
+
+        <div id="dashboard-section" style="display: none;">
+            <div class="header">
+                <h2>Dashboard Pelanggan</h2>
+                <div id="user-info"></div>
+                <button id="logout-button">Log Keluar</button>
+            </div>
+            <div class="form-container">
+                <h3>Tambah Pelanggan</h3>
+                <form id="add-customer-form">
+                    <input type="text" id="customer-name" placeholder="Nama" required>
+                    <input type="email" id="customer-email" placeholder="Email" required>
+                    <input type="text" id="customer-phone" placeholder="No. Telefon">
+                    <button type="submit">Tambah</button>
+                </form>
+            </div>
+            <h3>Senarai Pelanggan</h3>
+            <div id="customer-list"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

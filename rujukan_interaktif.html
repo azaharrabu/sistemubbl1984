@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rujukan Interaktif - Konsep Asas Rekabentuk Keselamatan Kebakaran</title>
+    <style>
+        :root {
+            --primary-color: #d32f2f;
+            --secondary-color: #f4f4f4;
+            --text-color: #333;
+            --sidebar-width: 280px;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        #sidebar {
+            width: var(--sidebar-width);
+            background-color: #fff;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+            padding-bottom: 2em;
+        }
+        #sidebar h1 {
+            padding: 1em 1em 0.5em 1em;
+            margin: 0;
+            font-size: 1.5em;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        #sidebar .logo {
+            max-width: 120px;
+            margin: 0 auto 1em;
+            display: block;
+        }
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #sidebar li a {
+            display: block;
+            padding: 0.8em 1.5em;
+            text-decoration: none;
+            color: var(--text-color);
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        #sidebar li a:hover {
+            background-color: var(--secondary-color);
+            border-left-color: var(--primary-color);
+        }
+        #sidebar li a.active {
+            background-color: #e7e7e7;
+            border-left-color: var(--primary-color);
+            font-weight: bold;
+        }
+        #main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2em 3em;
+            width: calc(100% - var(--sidebar-width));
+            overflow-y: auto;
+        }
+        .content-section {
+            display: none;
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .content-section.active {
+            display: block;
+        }
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5em;
+            margin-top: 0;
+        }
+        h3 {
+            color: #555;
+            margin-top: 1.5em;
+        }
+        .image-placeholder {
+            background-color: #eee;
+            border: 1px dashed #ccc;
+            padding: 2em;
+            text-align: center;
+            color: #777;
+            border-radius: 4px;
+            margin: 1em 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100vh; /* Default height */
+            border: none;
+            border-radius: 8px;
+        }
+        blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1em;
+            margin-left: 0;
+            font-style: italic;
+            color: #555;
+        }
+        /* Responsive */
+        .home-special-design {
+            /* This class only defines the look, not the display property */
+            background-color: #f0f2f5;
+            height: 90vh;
+            border-radius: 8px;
+            padding: 2em;
+            box-sizing: border-box;
+        }
+
+        .content-section.active.home-special-design {
+            /* Apply flex display only when the home section is active */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .front-page-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 30px;
+        }
+
+        .front-page-img {
+            max-height: 150px;
+            width: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-color: #fff; /* Add a background in case image fails to load */
+            border: 1px solid #ddd;
+        }
+
+        .home-special-design h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #2c3e50;
+            line-height: 1.5;
+            max-width: 950px;
+            background-image: linear-gradient(45deg, #d32f2f 0%, #c2185b 100%);
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .home-special-design h1::before,
+        .home-special-design h1::after {
+            content: '★';
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            position: absolute;
+            opacity: 0.6;
+        }
+
+        .home-special-design h1::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .home-special-design h1::after {
+            bottom: -10px;
+            right: 0;
+        }
+        
+
+
+
+        @media (max-width: 768px) {
+            .home-special-design h1 {
+                font-size: 2.5rem;
+            }
+            #main-content {
+                padding: 1em;
+            }
+        }
+    </style>
+    <style>
+        /* Disable text selection */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* On print, hide everything and show a message */
+        @media print {
+            body * {
+                display: none !important;
+            }
+            html, body {
+                width: 210mm;
+                height: 297mm;
+                background-color: white !important;
+            }
+            body:after {
+                content: "Mencetak kandungan ini tidak dibenarkan.";
+                display: block;
+                position: absolute;
+                top: 40%;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-weight: bold;
+                font-size: 24px;
+            }
+        }
+    </style>
+    <script>
+        // Disable right-click menu
+        document.addEventListener("contextmenu", function(e){
+            e.preventDefault();
+        }, false);
+
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+P
+        document.addEventListener("keydown", function(e){
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.key === 'U') || (e.ctrlKey && e.key === 'p')) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+
+<div id="sidebar">
+    <img src="ABR LOGO2.jpg" alt="Logo ABR" class="logo">
+    <h1>Rujukan UBBL 1984</h1>
+    <ul>
+        <li><a href="#home" class="nav-link active">Muka Depan</a></li>
+        <li><a href="#sejarah" class="nav-link">Sepintas Lalu & Sejarah</a></li>
+        <li><a href="#fakta-ubbl" class="nav-link">Fakta & Kronologi UBBL</a></li>
+        <li><a href="#struktur-ubbl" class="nav-link">Struktur UBBL</a></li>
+        <li><a href="#pengawasan" class="nav-link">Pengawasan Kebakaran</a></li>
+        <li><a href="#strategi-pengungsian" class="nav-link">Strategi Pengungsian</a></li>
+        <li><a href="#pkk" class="nav-link">Pepasangan Keselamatan Kebakaran (PKK)</a></li>
+        <li><a href="#kawalan-api" class="nav-link">Kawalan Kemerebakan Api</a></li>
+        <li><a href="#jalan-keluar" class="nav-link">Peringkat & Jalan Keluar</a></li>
+        <li><a href="#perlindungan-aktif" class="nav-link">Sistem Perlindungan Aktif</a></li>
+        <li><a href="#definisi-ubbl" class="nav-link">Definisi UBBL 133</a></li>
+        <li><a href="#kumpulan-maksud" class="nav-link">Kumpulan Maksud Bangunan</a></li>
+        <li><a href="#ms1183" class="nav-link">MS 1183: Occupancy Characteristics</a></li>
+        <li><a href="#pengukuran" class="nav-link">Kaedah Pengukuran Bangunan</a></li>
+        <li><a href="#pemetakan" class="nav-link">Pemetakan (Compartmentation)</a></li>
+        <li><a href="#lebar-jalan-keluar" class="nav-link">Penentuan Lebar Jalan Keluar</a></li>
+        <li><a href="#contoh-kira" class="nav-link">Contoh Pengiraan</a></li>
+        <li><a href="#kalkulator" class="nav-link">Kalkulator Interaktif</a></li>
+        <li><a href="#jadual-7" class="nav-link">Jadual Ketujuh Interaktif</a></li>
+        <li><a href="#jadual-10" class="nav-link">Jadual Kesepuluh Interaktif</a></li>
+        <li><a href="#kalkulator-10-langkah" class="nav-link">Kalkulator 10 Langkah</a></li>
+    </ul>
+</div>
+
+<div id="main-content">
+            <div id="home" class="content-section active home-special-design">
+                <div class="front-page-images">
+                    <img src="ABR LOGO2.jpg" alt="Logo ABR" class="front-page-img">
+                </div>
+                <div>
+                    <h1 style="margin-bottom: 0;">KONSEP ASAS REKABENTUK YANG MEMATUHI KEPERLUAN UNDANG-UNDANG KECIL BANGUNAN SERAGAM 1984 (PINDAAN 2021)</h1>
+                    <div style="display: flex; align-items: center; justify-content: center; margin-top: 1em;">
+                        <img src="ABR.jpg.jpeg" alt="Ts Azahar Bin Rabu" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                        <p style="font-size: 1.2rem; font-style: italic; color: #555; margin: 0;">by: Ts Azahar Bin Rabu</p>
+                    </div>
+                </div>
+            </div>
+    <div id="sejarah" class="content-section">
+        <h2>Sepintas Lalu & Sejarah</h2>
+        <h3>Sepintas Lalu</h3>
+        <ol>
+            <li>London mengalami kebakaran besar pada tahun 1212 dengan lebih 3,000 orang terbunuh. Kebakaran besar pada tahun 1666 yang mengambil masa selama 5 hari telah memusnahkan 13,000 rumah.</li>
+            <li>Moscow mengalami kebakaran pada tahun 1571 yang mengorbankan kira-kira 200,000 orang dan 90% bandar (30,000 rumah).</li>
+            <li>Bandar-bandar lain yang telah musnah oleh kebakaran termasuklah:-<br>
+                a) Bombay, India pada tahun 1803<br>
+                b) Hamburg, Jerman pada tahun 1842<br>
+                c) Quebec, Kanada pada tahun 1845<br>
+                d) Rangoon, Burma pada tahun 1850<br>
+                e) Vancouver, Kanada pada tahun 1886<br>
+                f) Shanghai, China pada tahun 1894<br>
+                g) Ottowa, Kanada pada tahun 1900<br>
+                h) Montreal, Kanada pada tahun 1901<br>
+                i) Toronto, Kanada pada tahun 1904<br>
+                j) Istanbul, Turki pada tahun 1871, 1911 dan 1912</li>
+            <li>Jentera Bomba yang pertama telah dibangunkan pada lewat abad ke-17.</li>
+            <li>Bomba perbandaran yang pertama di dunia ditubuhkan di Edinburgh, Scotland pada tahun 1824.</li>
+            <li>Jabatan Perkhidmatan Bomba di Malaysia bermula pada tahun 1883 dengan penubuhan skuad Sukarelawan Kebakaran Negeri Selangor seramai 15 orang yang diketuai oleh H.F. Bellamy.</li>
+            <li>Malayan Union Fire Service dibentuk pada tahun 1895 dan diketuai oleh Flight Lt. W. J. Gorumandi, beribu pejabat di Kuala Lumpur.</li>
+            <li>Pada 8 Januari 1997, Jemaah Menteri bersetuju perubahan nama Jabatan Perkhidmatan Bomba Malaysia kepada Jabatan Bomba dan Penyelamat Malaysia.</li>
+        </ol>
+        <h3>Sejarah Penubuhan Bahagian Pencegahan Kebakaran</h3>
+        <ol>
+            <li>Pada tahun 1952, Jemaah Pemeriksa Perkhidmatan Bomba (JPPB) ditubuhkan di bawah Kementerian Pembangunan dan Kerajaan Tempatan dengan tugas memberi nasihat kepada kerajaan dalam aspek pencegahan kebakaran dan penyediaan peraturan mengenai pengawasan kebakaran.</li>
+            <li>Pada tahun 1973, Biro Pencegah Kebakaran ditubuhkan sebagai salah satu unit di bawah Jemaah Pemeriksa Perkhidmatan Bomba (JPPB) yang dianggotai oleh seorang pegawai dan 3 anggota. Tugas mereka memeriksa alat pemadam api di bangunan kerajaan di Semenanjung Malaysia.</li>
+            <li>Pada 1 Januari 1976, Jabatan Bomba diletakkan di bawah Kementerian Perumahan dan Kerajaan Tempatan.</li>
+            <li>Pada 1 Januari 1977, wujud bahagian pencegah apabila Perkhidmatan Bomba Bandaraya Kuala Lumpur, Pulau Pinang dan Melaka disatukan. Fungsi pencegahan dilaksanakan dengan menggunakan syarat-syarat daripda Ordinan Municipality Kuala Lumpur (Bangunan)(Pindaan) 1975, P.U.(A) 180.</li>
+            <li>Pada 5 Jun 1981, penyatuan Perkhidmatan Bomba Sabah dan Sarawak.</li>
+            <li>Pada 12 September 1985, Undang-undang Kecil Bangunan Seragam 1984 diwartakan.</li>
+            <li>Pada tahun 1986, UUKBS 1984 dikuatkuasakan di bawah Akta Jalan, Parit dan Bangunan 1974.</li>
+        </ol>
+        <h3>Sejarah Kebakaran Bangunan Di Malaysia</h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <img src="kebakaran campbell 1.jpg" alt="Kebakaran Campbell Shopping Complex 1" style="width:100%; max-width:350px; border-radius: 4px;">
+            <img src="kebakaran campbell 2.jpg" alt="Kebakaran Campbell Shopping Complex 2" style="width:100%; max-width:350px; border-radius: 4px;">
+        </div>
+        <p>7 April 1976, Kebakaran Campbell Shopping Complex Kuala Lumpur</p>
+        
+        <img src="kebakaran kilang mercun.jpg" alt="Kebakaran Kilang Mercun Bright Sparklers Sg Buluh" style="width:100%; max-width:600px; display:block; margin:auto; border-radius: 4px;">
+        <p>7 Mei 1991, Kebakaran Kilang Mercun Bright Sparklers Sg Buluh, Selangor</p>
+        
+        <img src="terminal 1 LTAB.jpg" alt="Kebakaran Terminal 1 LTAB" style="width:100%; max-width:600px; display:block; margin:auto; border-radius: 4px;">
+        <p>6 April 1992, Terminal 1, LTAB</p>
+        
+        <img src="bangunan mahkamah seksyen & majistret kuala lumpur.jpg" alt="Kebakaran Bangunan Mahkamah Seksyen & Majistret Kuala Lumpur" style="width:100%; max-width:600px; display:block; margin:auto; border-radius: 4px;">
+        <p>16 Mac 1992, Bangunan Mahkamah Seksyen & Majistret Kuala Lumpur</p>
+        
+        <img src="bangunan bilik kawalan bukit aman.jpg" alt="Kebakaran Bilik Kawalan Balai Polis Bukit Aman Kuala Lumpur" style="width:100%; max-width:600px; display:block; margin:auto; border-radius: 4px;">
+        <p>10 Julai 1992, Bangunan Bilik Kawalan Balai Polis Bukit Aman Kuala Lumpur</p>
+        
+        <img src="HKL.jpg" alt="Kebakaran Hospital Besar Kuala Lumpur" style="width:100%; max-width:600px; display:block; margin:auto; border-radius: 4px;">
+        <p>27 Jun 1992, Kebakaran Bilik Ortopedik & Urologi Hospital Besar Kuala Lumpur</p>
+    </div>
+
+    <div id="fakta-ubbl" class="content-section">
+        <h2>Fakta Ringkas & Kronologi UBBL 1984</h2>
+        <h3>Fakta Ringkas Undang-undang Kecil Bangunan Seragam 1984 (UUKBS 1984)</h3>
+        <ol>
+            <li>UUKBS 1984 adalah undang-undang subsidiari di bawah Akta Jalan, Parit dan Bangunan (Akta 133) yang mengawal selia pembinaan bangunan bagi memastikan bangunan adalah selamat, selesa dan layak untuk diduduki.</li>
+            <li>Dari semasa ke semasa pindaan telah dilakukan ke atas UUKBS 1984 bagi membolehkan sesuatu dasar baru dilaksanakan atau dengan tujuan memastikan perundangan tersebut sentiasa relevan dengan kehendak-kehendak semasa. Pindaan-pindaan tersebut termasuklah:-
+                <br>a) Tahun 1991 – Keperluan OKU
+                <br>b) Tahun 2007 – Pengenalan CCC ( Certitifate of Completion and Compliance)
+                <br>c) Tahun 2011 – Komunikasi
+                <br>d) Tahun 2012 – Pindaan menyeluruh
+                <br>e) Tahun 2021 - 86 pindaan tambahan
+            </li>
+            <li>Berikut merupakan kronologi pindaan yang terkini iaitu pindaan 2021.</li>
+        </ol>
+        <h3>KRONOLOGI PINDAAN 2021</h3>
+        <ul>
+            <li><b>Kelulusan Majlis Jemaah Menteri (MJM):</b> 23 Jun 2021</li>
+            <li><b>Kelulusan Majlis Negara bagi Kerajaan Tempatan (MNKT) ke 78:</b> 13 Julai 2021</li>
+            <li><b>Surat JKT kepada Pihak Berkuasa Negeri untuk melaksanakan pewartaan pindaan:</b> 13 Ogos 2021</li>
+            <li><b>Pewartaan (Gazette Notification, GN) Salinan Persekutuan bagi tujuan pemakluman:</b> 31 Disember 2021, 28 Februari 2022 (corrigendum)</li>
+            <li><b>Pencetakan Salinan Persekutuan bagi tujuan rujukan rasmi:</b> Oktober 2022</li>
+            <li><b>Pewartaan pindaan oleh Pihak Berkuasa Negeri bagi tujuan penguatkuasaan di negeri masing-masing:</b> Mengikut PBN masing-masing</li>
+        </ul>
+    </div>
+
+    <div id="struktur-ubbl" class="content-section">
+        <h2>Struktur UBBL (Bahagian & Jadual)</h2>
+        <h3>Kehendak-kehendak Pepasangan Keselamatan Kebakaran</h3>
+        <p>Secara umumnya, Undang-undang kecil Bangunan Seragam 1984 mempunyai 9 bahagian dan 11 jadual. 9 bahagian tersebut ialah:-</p>
+        <ul>
+            <li><b>BAHAGIAN I:</b> PERMULAAN</li>
+            <li><b>Bahagian 1A:</b> Peruntuhan Bangunan</li>
+            <li><b>Bahagian II:</b> Pengemukaan Pelan-pelan untuk Diluluskan</li>
+            <li><b>Bahagian III:</b> Ruang Kawasan, Cahaya dan Pengudaraan</li>
+            <li><b>Bahagian IV:</b> Kerja-kerja Sementara Behubungan dengan Kerja-kerja Bangunan</li>
+            <li><b>Bahagian V:</b> Kehendak-kehendak Struktur</li>
+            <li><b>Bahagian VI:</b> Kehendak-kehendak Pembinaan</li>
+            <li><b>Bahagian VII:</b> Kehendak-kehendak Pepasangan Keselamatan Kebakaran</li>
+            <li><b>Bahagian VIII:</b> Sistem Penggera Kebakaran dan Pemadam Api</li>
+            <li><b>Bahagian IX:</b> Pelbagai</li>
+        </ul>
+        <p>Manakala 11 jadual tersebut ialah:-</p>
+        <ul>
+            <li><b>Jadual pertama:</b> Fee bagi menimbangkan pelan, permit dan lain-lain</li>
+            <li><b>Jadual kedua:</b> Mengandungi Borang A hingga G21 berkaitan perakuan-perakuan kerja bangunan.</li>
+            <li><b>Jadual ketiga:</b> Undang-undang Kecil 41</li>
+            <li><b>Jadual kelima:</b> 1. Ketetapan Kumpulan Maksud, 2. Dimensi Suatu Bangunan dan Kompatmen</li>
+            <li><b>Jadual keenam:</b> Hitungan Had yang Dibenarkan bagi Kawasan tak Terlindung</li>
+            <li><b>Jadual ketujuh:</b> 1. Jarak Perjalanan Maksimum, 2. Hitungan Beban Suatu Pendudukan dan Muatan Suatu Pintu Keluar</li>
+            <li><b>Jadual kelapan:</b> Pengelasan Suatu Sekatan Kemerebakan Api ke atas Suatu Permukaan Dinding dan Siling</li>
+            <li><b>Jadual kesembilan:</b> Had-had Kompatmen dan Tempoh Minimum Ketahanan Api Bagi Elemen Struktur</li>
+            <li><b>Jadual kesepuluh:</b> Jadual Mengenai Kehendak Bagi Sistem Penggera Kebakaran dan Sistem Pemadam Api</li>
+            <li><b>Jadual Kesebelas:</b> Lebar atau Kedalaman Pelantar Tangga</li>
+        </ul>
+        <p>Daripada 11 jadual yang ada ini, kebiasaanya pihak Bomba hanya merujuk kepada jadual kelima, jadual keenam, jadual ketujuh, jadual kelapan, jadual kesembilan, jadual kesepuluh dan jadual kesebelas sahaja semasa menyemak keperluan pelan arkitektural dan pelan mekanikal dan elektrikal.</p>
+    </div>
+
+    <div id="pengawasan" class="content-section">
+        <h2>Pengenalan Kepada Pengawasan Kebakaran</h2>
+        <img src="pengawasan kebakaran.jpg.png" alt="Carta Aliran Pengawasan Kebakaran" style="width:100%; max-width:800px; display:block; margin:auto; border-radius: 4px;">
+        <p>Berdasarkan carta aliran (flowchart) di atas, konsep Pengawasan Kebakaran dapat diterangkan secara terperinci sebagai satu sistem komprehensif yang melibatkan dua cabang utama iaitu Pencegahan Kebakaran dan Perlindungan Kebakaran.</p>
+        <p>Pencegahan kebakaran memberi tumpuan kepada langkah-langkah untuk mengelakkan kebakaran daripada berlaku. Ia mempunyai dua sub-komponen utama:</p>
+        <ul>
+            <li><b>Pendidikan:</b> Ini merujuk kepada penyebaran pengetahuan dan kesedaran awam tentang bahaya kebakaran, cara mencegahnya, dan tindakan yang perlu diambil jika kebakaran berlaku. Ini boleh meliputi kempen kesedaran, latihan kebakaran, dan kurikulum pendidikan.</li>
+            <li><b>Penguatkuasaan:</b> Aspek ini melibatkan pelaksanaan dan pematuhan undang-undang, peraturan, dan piawaian keselamatan kebakaran. Ini termasuk pemeriksaan berkala, pengeluaran permit, dan tindakan undang-undang terhadap pelanggaran.</li>
+        </ul>
+        <p>Perlindungan kebakaran memberi tumpuan kepada langkah-langkah untuk mengawal dan memadam kebakaran jika ia berlaku, serta melindungi nyawa dan harta benda. Ia dibahagikan kepada dua aspek utama:</p>
+        <ul>
+            <li><b>Kejuruteraan:</b> Ini adalah aplikasi prinsip kejuruteraan dan reka bentuk dalam sistem keselamatan kebakaran bangunan. Ia terbahagi kepada dua kategori utama:
+                <ul>
+                    <li><b>Pasif:</b> Merujuk kepada elemen struktur dan reka bentuk bangunan yang berfungsi untuk menghalang penyebaran api dan asap secara pasif. Contohnya: Jalan keluar keselamatan, Struktur binaan bangunan (bahan kalis api, kompartmentasi).</li>
+                    <li><b>Aktif:</b> Merujuk kepada sistem dan peralatan yang bertindak secara aktif untuk mengesan, mengawal, atau memadam kebakaran. Contohnya: Mengesan (pengesan asap/haba), Mengawal (sistem pengurusan asap), Memadam (sprinkler, foam), Amaran (sistem penggera).</li>
+                </ul>
+            </li>
+            <li><b>Penyelenggaraan:</b> Ini melibatkan dua aspek penting untuk memastikan keberkesanan sistem keselamatan kebakaran:
+                <ul>
+                    <li><b>Kawalan Keselamatan:</b> Prosedur dan protokol untuk memastikan semua sistem dan peralatan berfungsi dengan baik.</li>
+                    <li><b>Good Housekeeping:</b> Amalan kebersihan dan pengurusan yang baik di premis untuk mengurangkan risiko kebakaran.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Secara keseluruhannya, Pengawasan Kebakaran adalah pendekatan holistik yang memerlukan gabungan strategi Pencegahan (melalui pendidikan dan penguatkuasaan) dan Perlindungan (melalui reka bentuk kejuruteraan pasif dan aktif, serta penyelenggaraan berterusan).</p>
+    </div>
+    
+    <div id="strategi-pengungsian" class="content-section">
+        <h2>Asas Strategi Pengungsian & Rekabentuk Tempat Keluar</h2>
+        <h3>Asas Strategi Pengungsian</h3>
+        <p>Terdapat dua asas strategi pengungsian iaitu :-</p>
+        <ol>
+            <li><b>Jalan keluar (egress)</b> – mudah, jalan keluar dari mana-mana tingkat terus ke tempat selamat di luar bangunan apabila penggera keselamatan berbunyi. Contohnya ialah bilik, pintu, koridor dan tangga.
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+                    <img src="jalan keluar 1.png" alt="Jalan Keluar 1" style="width:100%; max-width:350px; border-radius: 4px;">
+                    <img src="jalan keluar 2.png" alt="Jalan Keluar 2" style="width:100%; max-width:350px; border-radius: 4px;">
+                </div>
+            </li>
+            <li><b>Perlindungan (refuge)</b> – menggunakan struktur kebakaran dalam bangunan. Pengungsian dilakukan dari satu pemetakan di mana kebakaran bermula ke pemetakan bersebelahan.
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+                    <img src="refuge.jpg" alt="Refuge" style="width:100%; max-width:350px; border-radius: 4px;">
+                </div>
+            </li>
+        </ol>
+        
+        <h3>Rekabentuk Tempat Keluar</h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="rekabentuk tempat keluar.jpg" alt="Rekabentuk Tempat Keluar" style="width:100%; max-width:350px; border-radius: 4px;">
+        </div>
+        <p>Penentuan dalam merekabentuk tempat keluar adalah berasaskan kepada ciri-ciri manusia dan bangunan. Reka bentuk tempat keluar yang baik akan sentiasa mempertimbangkan faktor-faktor berikut:</p>
+        <ol>
+            <li><b>Masa:</b> Reka bentuk tempat keluar mesti membolehkan evakuasi yang pantas.</li>
+            <li><b>Jarak:</b> Penting untuk memastikan ada jalan keluar yang mudah diakses dan tidak terlalu jauh dari mana-mana titik dalam bangunan.</li>
+            <li><b>Pilihan:</b> Penting untuk mempunyai pilihan jalan keluar kalau satu-satu laluan tak boleh digunakan. Kebanyakan bangunan besar memerlukan sekurang-kurangnya dua jalan keluar yang berasingan.</li>
+            <li><b>Selamat:</b> Aspek paling utama ialah jalan keluar keselamatan mesti selamat untuk digunakan. Pengguna tidak boleh terdedah kepada bahaya kebakaran seperti haba atau asap.</li>
+        </ol>
+        
+        <h3>Komponen-komponen Utama Jalan Keluar Keselamatan</h3>
+        <ul>
+            <li><b>Sesuatu Bilik (Pelepasan Diri Melalui Kaedah Refuge):</b> Refuge atau ruang perlindungan adalah sebuah konsep di mana sesebuah bilik atau zon di dalam bangunan itu sendiri direka khas untuk menjadi tempat selamat sementara. Ini biasanya berlaku dalam bangunan yang sangat tinggi atau untuk penghuni yang mempunyai masalah mobiliti (contohnya, pengguna kerusi roda). Daripada terus keluar dari bangunan, mereka akan bergerak ke bilik refuge yang dilindungi api dan asap, sambil menunggu bantuan atau arahan selanjutnya. Bilik ini perlu mempunyai ketahanan api yang tinggi, sistem komunikasi, dan pengudaraan yang baik.</li>
+            <li><b>Pintu:</b> Pintu adalah titik akses penting dalam jalan keluar keselamatan. Pintu Keluar Tingkat merujuk kepada pintu api yang membawa kita ke tangga atau koridor terlindung. Pintu-pintu ini direka untuk menahan api dan asap daripada merebak ke laluan evakuasi. Untuk tingkat bawah tanah, "pintu keluar tingkat" juga boleh jadi pintu yang terus menghala ke luar bangunan.<br>Pintu keluar adalah pintu biasa rumah pangsa, bilik pejabat, atau mana-mana bilik yang memberikan akses ke jalan keluar utama (contohnya, koridor atau tangga). Pintu-pintu ini mungkin tidak semuanya kalis api sepenuhnya seperti pintu keluar tingkat, tetapi ia adalah titik permulaan bagi individu untuk masuk ke dalam sistem jalan keluar keselamatan.</li>
+            <li><b>Koridor:</b> Koridor adalah laluan mendatar yang menyambungkan bilik-bilik ke tangga atau pintu keluar. Koridor terlindung adalah jenis koridor yang diasingkan sepenuhnya dari bahagian lain bangunan (contohnya, bilik-bilik atau kawasan open plan) dengan menggunakan dinding sekat (partition wall) yang mempunyai tempoh ketahanan api tidak kurang daripada setengah jam (30 minit).<br>Dalam koridor ini, semua ruang bukaan (seperti pintu ke bilik lain) mesti dipasang dengan lampu kekal (lampu tetap) dan pintu menutup sendiri yang juga mempunyai tempoh ketahanan api tidak kurang daripada setengah jam. Ini memastikan koridor kekal bebas asap dan selamat untuk pergerakan.</li>
+            <li><b>Tangga:</b> Tangga adalah komponen jalan keluar menegak yang paling utama. Terdapat beberapa jenis tangga dengan fungsi dan ciri perlindungan yang berbeza:<br>
+⮚	<b>Tangga Dalam</b> - Ini adalah tangga yang dikepung sepenuhnya di semua sisi oleh dinding bangunan. Semua bukaan pada dinding luar tangga (jika ada tingkap) mesti digilap (glazed) atau dilindungi daripada cuaca luar. Tujuannya adalah untuk memastikan tangga ini terlindung sepenuhnya daripada api dan asap yang mungkin datang dari luar atau dalam bangunan.<br><br>
+⮚	<b>Tangga Luar</b> - Tangga ini berfungsi sama seperti tangga dalam sebagai laluan keluar. Namun, ia diasingkan daripada bahagian dalam bangunan dengan menggunakan dinding dan pintu api yang mempunyai tempoh ketahanan api yang sama seperti tangga dalam. Ciri paling penting tangga luar ialah ia terbuka sepenuhnya kepada udara luar pada sekurang-kurangnya dua sisi dari paras bersebelahan. Ini membolehkan asap keluar dengan mudah. Penting juga, tiada bukaan dibenarkan pada dinding dalam bangunan dalam jarak 2 meter secara mendatar dan 9 meter secara menegak di bahagian bawah tangga, kecuali bukaan pengudaraan untuk bilik air atau kawasan terlindung lain. Jika ada bukaan, ia hendaklah dipasang dengan cermin berdawai dan sentiasa berada dalam keadaan tertutup. Ini untuk mengelakkan api merebak ke tangga dari bahagian dalam bangunan.<br><br>
+⮚	<b>Tangga Terlindung</b> - Konsepnya sama seperti tangga dalam atau koridor terlindung. Ia diasingkan daripada bangunan yang menggunakannya dengan dinding sekat yang mempunyai tempoh ketahanan api tidak kurang daripada setengah jam (30 minit). Semua bukaan dalam dinding sekat ini mesti dipasang dengan lampu tetap dan pintu menutup sendiri yang juga mempunyai tempoh ketahanan api tidak kurang daripada setengah jam. Ini adalah standard perlindungan asas untuk memastikan tangga itu kekal selamat sebagai laluan evakuasi.<br><br>
+⮚	<b>Tangga Menentang Kebakaran</b> - Ini adalah jenis tangga yang direka khas untuk menjadi jalan masuk yang diiktiraf dan selamat untuk pegawai bomba bila berlaku kebakaran. Ia biasanya mempunyai tahap perlindungan yang lebih tinggi daripada tangga biasa, dilengkapi dengan sistem tekanan positif (untuk halang asap masuk), dan akses yang lebih mudah untuk peralatan bomba.</li>
+        </ul>
+        <p>Ringkasnya, istilah-istilah ini menggambarkan satu urutan laluan bermula dari bilik perlindungan (refuge area) atau mana-mana kawasan lain, melalui pintu rintangan api, masuk ke koridor terlindung, dan akhirnya menuruni tangga keselamatan untuk mencapai jalan keluar keselamatan terakhir dari bangunan. Sistem ini sangat penting untuk memastikan semua orang dapat keluar dengan selamat dan teratur semasa kecemasan.</p>
+
+        <h3>Peringatan Penting: Pintu Pusing, Lif, dan Eskalator BUKAN Jalan Keluar Kecemasan.</h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="lif.jpg" alt="Lif" style="width:100%; max-width:250px; border-radius: 4px;">
+            <img src="eskalator.jpg" alt="Eskalator" style="width:100%; max-width:250px; border-radius: 4px;">
+            <img src="pintu pusing.jpg" alt="Pintu Pusing" style="width:100%; max-width:250px; border-radius: 4px;">
+        </div>
+        <p>Walaupun kemudahan ini diguna hari-hari, ia TIDAK DIKLASIFIKASIKAN sebagai jalan keluar keselamatan kerana bergantung sepenuhnya kepada sistem mekanikal dan bekalan elektrik untuk berfungsi, yang boleh gagal semasa kebakaran.</p>
+    </div>
+
+    <div id="kalkulator" class="content-section">
+        <h2>Kalkulator Interaktif Keperluan Jalan Keluar</h2>
+        <p>Gunakan kalkulator di bawah untuk membuat pengiraan pantas berdasarkan UBBL 1984. Sila masukkan nilai yang relevan untuk mendapatkan anggaran keperluan jalan keluar.</p>
+        <iframe src="pengiraan beban pendudukan.html" onload="this.style.height=this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
+    </div>
+
+    <!-- All other sections would be populated here with full text -->
+    <!-- Due to length constraints, I will stop here, but the full implementation would transcribe all 95 pages -->
+    <div id="pkk" class="content-section">
+        <h2>Pepasangan Keselamatan Kebakaran (PKK)</h2>
+        <p>Secara umumnya, PKK merujuk kepada sebarang peralatan atau sistem yang berfungsi untuk:</p>
+        
+        <h3>a) Memadam, menentang, mencegah atau menghadkan kebakaran</h3>
+        <p>Ini merangkumi sistem atau peralatan yang bertujuan secara langsung untuk mengawal atau memadam api apabila ia berlaku, atau menghalang api daripada bermula atau merebak.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Sistem pemercik air automatik - Mengesan haba dari api dan melepaskan air untuk memadam atau mengawal kebakaran.</li>
+            <li>Salur bantu mula & pili bomba - Sumber air manual untuk memadam api.</li>
+            <li>Alat pemadam api mudah alih - Untuk memadam kebakaran kecil di peringkat awal.</li>
+            <li>Sistem pemasangan tetap gas - Digunakan di kawasan sensitif seperti bilik elektrikal.</li>
+            <li>Dinding atau pintu rintangan api - Menghadkan penyebaran api dari satu zon ke zon lain.</li>
+        </ul>
+
+        <h3>b) Memberikan amaran tentang sesuatu kebakaran</h3>
+        <p>Sistem yang direka untuk mengesan tanda-tanda awal kebakaran dan memberi amaran kepada penghuni atau pihak berkuasa.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Sistem pengesan kebakaran - Termasuk pengesan asap (smoke detectors), pengesan haba (heat detectors), dan pengesan api (flame detectors).</li>
+            <li>Sistem penggera kebakaran - Loceng penggera, siren, lampu berkelip, dan sistem pengumuman awam (PA system) yang diaktifkan apabila kebakaran dikesan.</li>
+            <li>Panel kawalan penggera kebakaran - Pusat kawalan yang menerima isyarat dari pengesan dan mengaktifkan penggera.</li>
+        </ul>
+
+        <h3>c) Mengadakan laluan masuk ke mana-mana premis atau tempat atau ke mana-mana bahagiannya bagi maksud memadam, menentang, mencegah atau menghadkan kebakaran</h3>
+        <p>Kemudahan yang membolehkan pasukan bomba atau responden kecemasan mengakses bangunan atau kawasan tertentu untuk operasi pemadaman atau penyelamatan.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Laluan akses bomba - Jalan yang dikhaskan untuk kenderaan bomba.</li>
+            <li>Titik capaian bomba (firefighting access points) - Lokasi strategik untuk bomba mengakses bangunan.</li>
+            <li>Suis pengasingan elektrik - Sistem yang membenarkan bomba mengawal lif atau sistem lain dalam kecemasan.</li>
+            <li>Pili bomba - Walaupun fungsi utama bekalan air, lokasinya juga penting untuk akses bomba.</li>
+        </ul>
+
+        <h3>d) Mengadakan bekalan kuasa kecemasan sekiranya berlaku gangguan kuasa biasa</h3>
+        <p>Sistem yang memastikan kesinambungan bekalan elektrik kepada sistem keselamatan kebakaran dan pencahayaan penting apabila bekalan kuasa utama terputus.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Bateri simpanan - Bateri simpanan daripada kadar dan keupayaan yang sesuai untuk membekal dan mengekalkan tidak kurang daripada 87.5 peratus sistem voltan jumlah beban litar yang membekalkan pencahayaan kecemasan dan kuasa kecemasan bagi suatu tempoh sekurang-kurangnya 1.5 jam.</li>
+            <li>Set Janakuasa - Suatu set janakuasa yang dijalankan oleh sejenis penggerak utama dan daripada keupayaan yang mencukupi dan kadar yang sesuai untuk membekalkan litar yang membawa pencahayaan kecemasan atau pencahayaan dan kuasa dengan cara sesuai bagi menghidupkan penggerak utama secara automatik apabila berlaku kerosakan kepada perkhidmatan biasa itu.</li>
+        </ul>
+
+        <h3>e) Mengadakan lampu kecemasan bagi maksud melepaskan diri dari bangunan</h3>
+        <p>Pencahayaan yang diaktifkan secara automatik apabila berlaku kegagalan kuasa untuk menerangi laluan keluar.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Lampu kecemasan - Lampu yang dipasang di koridor, tangga, dan kawasan umum yang menyala secara automatik apabila bekalan elektrik terputus, memastikan penglihatan untuk evakuasi.</li>
+        </ul>
+
+        <h3>f) Menunjukkan arah ke suatu laluan kecemasan atau tempat berlindung</h3>
+        <p>Penunjuk visual yang membantu penghuni mencari laluan evakuasi yang selamat dan titik berkumpul.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Tanda keluar kecemasan - Papan tanda bercahaya yang menunjukkan arah ke pintu keluar kecemasan.</li>
+            <li>Peta pelan kecemasan - Peta yang menunjukkan laluan keluar, lokasi alat pemadam api, dan titik berkumpul.</li>
+            <li>Pencahayaan laluan keluar - Sistem pencahayaan yang menunjukkankan laluan evakuasi.</li>
+        </ul>
+
+        <h3>g) Mengadakan jalan keluar yang cukup dan selamat bagi maksud pengungsian atau pengeluaran penghuni sekiranya berlaku kebakaran</h3>
+        <p>Reka bentuk dan penyediaan laluan serta ruang yang membolehkan penghuni keluar dari bangunan dengan selamat dan cekap semasa kebakaran.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Tangga keselamatan kebakaran - Tangga yang direka untuk menahan api dan asap untuk membolehkan evakuasi.</li>
+            <li>Laluan keluar tanpa halangan - Memastikan koridor dan pintu keluar tidak disekat oleh barang-barang.</li>
+            <li>Kapasiti laluan keluar - Memastikan lebar dan bilangan laluan keluar mencukupi untuk jumlah penghuni.</li>
+        </ul>
+
+        <h3>h) Mengawal merebaknya asap akibat daripada kebakaran.</h3>
+        <p>Sistem yang direka untuk menguruskan pergerakan asap untuk memastikan laluan keluar kekal jelas dan mengurangkan bahaya penyedutan asap.</p>
+        <p>Contoh:</p>
+        <ul>
+            <li>Sistem pengurusan asap - Termasuk kipas penyingkir asap (smoke extract fans) dan sistem penyalur udara bertekanan (pressurization systems) di tangga atau lobi.</li>
+            <li>Dinding atau tirai asap - Menghalang pergerakan asap di dalam bangunan.</li>
+            <li>Cerobong asap - Bukaan di bumbung untuk membolehkan asap keluar.</li>
+        </ul>
+        <p>Kesemua elemen PKK ini berfungsi secara bersepadu untuk menyediakan lapisan perlindungan yang pelbagai, dari pengesanan awal dan amaran, kepada pemadaman, kawalan penyebaran, dan yang paling penting, memastikan keselamatan nyawa melalui evakuasi yang selamat. Perundangan dan piawaian keselamatan kebakaran sentiasa mengkehendaki pemasangan dan penyelenggaraan PKK yang berkesan dalam semua jenis bangunan.</p>
+    </div>
+        <div id="kawalan-api" class="content-section">
+        <h2>Kawalan Kemerebakan Api</h2>
+
+        <h3>Kawalan Kemerebakan Api Luaran</h3>
+        <p>Kawalan kemerebakan api luaran adalah satu aspek penting dalam keselamatan kebakaran yang bertujuan untuk menghadkan penyebaran api dari satu bangunan ke bangunan lain yang berdekatan, serta menghalang api daripada merebak ke dalam atau di sepanjang permukaan luar bangunan itu sendiri. Terdapat tiga kaedah atau cara utama untuk mengawal kemerebakan api luaran iaitu:</p>
+        <ol>
+            <li>
+                <b>Jarak Antara Bangunan:</b> Ini adalah kaedah paling asas dan berkesan untuk mengurangkan risiko penyebaran api secara radiasi haba atau serpihan api antara bangunan. Dengan memastikan jarak yang mencukupi antara dua struktur, haba dari kebakaran di satu bangunan tidak akan cukup intens untuk menyalakan bangunan di sebelahnya.
+Jarak yang diperlukan sangat bergantung kepada jumlah bukaan seperti tingkap, pintu, atau mana-mana bahagian dinding yang tidak kalis api sepenuhnya, pada sisi bangunan yang menghadap bangunan lain.
+Semakin banyak bukaan pada dinding bangunan, semakin besar kemungkinan api dan haba akan memancar keluar dari bangunan tersebut semasa kebakaran. Oleh itu, jarak antara bangunan perlu lebih jauh sekiranya lebih banyak bukaan diadakan untuk mengimbangi risiko ini.
+Kaedah pengiraan jarak antara bangunan ini adalah tertakluk dan boleh dirujuk secara terperinci di Jadual Keenam Undang-Undang Kecil Bangunan Seragam 1984 (UUKBS 1984). Ini memastikan piawaian yang seragam dan selamat dipatuhi dalam perancangan bandar dan pembangunan hartanah.
+            </li>
+            <li>
+                <b>Bumbung:</b> Bumbung memainkan peranan kritikal dalam mengawal kemerebakan api luaran. Pembinaan bumbung bangunan hendaklah mematuhi beberapa Undang-Undang Kecil (UUK) yang relevan dalam UUKBS 1984 seperti UUK 208, UUK 210, UUK 211 dan Jadual Kelapan.
+            </li>
+            <li>
+                <b>Dinding Luar:</b> Dinding luar berfungsi sebagai penghalang fizikal yang pertama terhadap penyebaran api dari sumber luaran. Ketahanan api bagi dinding luar perlu dipatuhi mengikut Jadual Kesembilan UUKBS 1984. Jika terdapat salutan (cladding), keperluan UUK 144 hendaklah dipatuhi.
+            </li>
+        </ol>
+
+        <h4>Salutan Dinding Luar (Cladding):</h4>
+        <p>Sekiranya terdapat salutan atau cladding pada dinding luar (yang sering digunakan untuk tujuan estetik atau penebat), keperluan UUK 144 hendaklah dipatuhi.<br>
+UUK 144 mungkin merujuk kepada jenis bahan yang dibenarkan untuk cladding, ketahanan api bahan tersebut, atau cara pemasangannya untuk memastikan ia tidak menjadi punca penyebaran api yang cepat dan tidak terkawal di bahagian luar bangunan (fenomena "chimney effect" atau "façade fire").<br>
+Secara ringkas, kawalan kemerebakan api luaran adalah usaha multi disiplin yang melibatkan perancangan ruang yang bijak (jarak antara bangunan), penggunaan bahan binaan yang sesuai dan kalis api (bumbung dan dinding luar), serta pematuhan ketat kepada piawaian dan undang-undang yang ditetapkan seperti UUKBS 1984. Ini semua bertujuan untuk melindungi komuniti dan infrastruktur daripada bahaya kebakaran yang meluas.</p>
+
+        <h3>Kawalan Kemerebakan Api Dalaman</h3>
+        <p>Kawalan kemerebakan api dalaman merujuk kepada langkah-langkah dan sistem yang direka bentuk untuk menghadkan dan menguruskan penyebaran api serta asap di dalam sesebuah bangunan itu sendiri. Ia terbahagi kepada Sistem Perlindungan Pasif dan Sistem Perlindungan Aktif.</p>
+        
+        <h4>Sistem Perlindungan Pasif</h4>
+        <p>Definasi perlindungan pasif ialah unsur-unsur bagi struktur sesuatu bangunan yang berupaya untuk melaksanakan fungsinya dengan sendiri atau berkehendakkan bantuan bagi membendung atau menyekat asap dan api daripada merebak di dalam bangunan semasa kebakaran.</p>
+        <h5>Komponen-komponen Utama Sistem Perlindungan Pasif:</h5>
+        <ul>
+            <li><b>Jalan Keluar Keselamatan (Means of Escape):</b> Merujuk kepada semua laluan dan pintu kecemasan yang direka untuk membolehkan penghuni bangunan keluar dengan selamat dan cepat.</li>
+            <li><b>Pemetakan (Compartmentation):</b> Membahagikan bangunan kepada bahagian-bahagian atau "kompartmen" yang berasingan menggunakan dinding, lantai, dan pintu tahan api.</li>
+            <li><b>Kekemasan Dalaman dan Siling (Internal Linings and Ceilings):</b> Bahan yang digunakan untuk dinding, lantai, dan siling dalaman bangunan mesti ada sifat tahan api tertentu.</li>
+            <li><b>Pengudaraan dan Pencahayaan (Ventilation and Lighting):</b> Sistem pengudaraan pasif dan cahaya semulajadi pun ada peranan dalam keselamatan kebakaran.</li>
+            <li><b>Akses Menentang Kebakaran (Fire Fighting Access):</b> Merujuk kepada penyediaan laluan atau akses yang cukup untuk pasukan bomba masuk ke dalam bangunan.</li>
+        </ul>
+
+        <h4>Jalan Keluar Keselamatan (Penerangan Lanjut)</h4>
+        <p>Jalan Keluar Keselamatan ni adalah satu sistem laluan yang direka khas untuk pastikan kita semua, yang duduk atau bekerja dalam bangunan tu, boleh keluar dengan selamat dan cepat bila ada bahaya.</p>
+        <h5>Tujuan Utama Jalan Keluar Keselamatan:</h5>
+        <ul>
+            <li><b>Evakuasi Cepat dan Selamat:</b> Matlamat utamanya adalah untuk pastikan semua orang dalam bangunan dapat sampai ke tempat selamat sebelum bahaya mengancam nyawa.</li>
+            <li><b>Akses untuk Pasukan Penyelamat:</b> Laluan-laluan ni juga penting untuk bomba dan pasukan penyelamat masuk ke dalam bangunan bila ada kecemasan.</li>
+        </ul>
+        <h5>Elemen-Elemen Penting Dalam Reka Bentuk Jalan Keluar Keselamatan:</h5>
+        <ul>
+            <li><b>Jumlah dan Lokasi Jalan Keluar:</b> Wajib ada sekurang-kurangnya dua jalan keluar yang berasingan dan tak bersambung untuk kebanyakan bangunan. Jarak antara dua jalan keluar itu pun tidak boleh kurang dari 5 meter.</li>
+            <li><b>Laluan Keluar:</b> Mesti sentiasa kosong dan bersih, lebar yang cukup, dan jarak perjalanan yang tidak terlalu jauh.</li>
+            <li><b>Tangga Kecemasan:</b> Mesti terletak dalam ruangan terkepung yang terlindung, mempunyai pengudaraan dan lampu kecemasan, dan tidak boleh dihalang.</li>
+            <li><b>Pintu Kecemasan:</b> Mesti tahan api, membuka ke arah jalan keluar, mudah dibuka (cth: guna 'panic bar'), dan ada penutup automatik.</li>
+            <li><b>Papan Tanda dan Pencahayaan Kecemasan:</b> Tanda "KELUAR" mesti jelas dan terang. Lampu kecemasan mesti menyala bila bekalan elektrik terputus.</li>
+            <li><b>Tempat perhimpunan (Assembly Points):</b> Tempat berkumpul yang selamat dan jauh dari bangunan.</li>
+        </ul>
+    </div>
+        <div id="jalan-keluar" class="content-section">
+        <h2>Peringkat Pengungsian & Komponen Jalan Keluar</h2>
+        
+        <h3>Empat Peringkat Pengungsian</h3>
+        <p>Pengungsian diandaikan mempunyai empat peringkat iaitu:-</p>
+        <ol>
+            <li><b>Peringkat pertama:</b> pelepasan dari bilik atau kawasan bermulanya kebakaran.<br><img src="peringkat 1.jpg" alt="Peringkat Pertama Pengungsian" style="width:100%; max-width:400px; border-radius: 4px; margin-top: 10px;"></li>
+            <li><b>Peringkat kedua:</b> pelepasan dari pemetakan yang mula terbakar ke jalan keluar terakhir, masuk ke dalam tangga terlindung atau pemetakan yang bersebelahan.<br><img src="peringkat 2.jpg" alt="Peringkat Kedua Pengungsian" style="width:100%; max-width:400px; border-radius: 4px; margin-top: 10px;"></li>
+            <li><b>Peringkat ketiga:</b> pelepasan dari lantai yang mula terbakar ke lantai terbawah. Tempat keluar menegak merupakan sesuatu tangga terlindung.<br><img src="peringkat 3.jpg" alt="Peringkat Ketiga Pengungsian" style="width:100%; max-width:400px; border-radius: 4px; margin-top: 10px;"></li>
+            <li><b>Peringkat keempat:</b> pelepasan terakhir di lantai terbawah. Tempat keluar terakhir merupakan tempat keluar bagi jalan lepas keluar daripada sesuatu bangunan.<br><img src="peringkat 4.jpg" alt="Peringkat Keempat Pengungsian" style="width:100%; max-width:400px; border-radius: 4px; margin-top: 10px;"></li>
+        </ol>
+
+        <h3>Komponen-komponen Penting Jalan Keluar Mendatar</h3>
+        <ul>
+            <li>Bilangan pintu keluar yang cukup.</li>
+            <li>Kelebaran pintu yang mencukupi.</li>
+            <li>Pintu keluar ada tempoh ketahanan api yang dibenarkan (fire-rated door).</li>
+            <li>Ada papan tanda "KELUAR" yang jelas, terang, dan mudah nampak.</li>
+            <li>Pintu jalan keluar mendatar ni mesti ada mekanisme yang boleh tutup sendiri (self-closing devices).</li>
+            <li>Pintu keluar mesti boleh dibuka dengan mudah dari arah nak keluar dan tidak perlu kunci.</li>
+            <li>Ada kemudahan pencahayaan dan pengudaraan yang cukup.</li>
+        </ul>
+
+        <h3>Komponen-komponen Utama Tangga Kecemasan (Jalan Keluar Menegak)</h3>
+        <ul>
+            <li>Kelebaran Tangga yang Cukup.</li>
+            <li>Jumlah tangga yang mencukupi (selalunya minimum dua).</li>
+            <li>Ada Lampu dan Pengudaraan yang Cukup.</li>
+            <li>Ada Penunjuk Tingkat yang jelas.</li>
+            <li>Tempoh Ketahanan Api yang Mencukupi untuk seluruh struktur ruang tangga.</li>
+        </ul>
+
+        <h3>Komponen-komponen Penting Jalan Keluar Terakhir</h3>
+        <ul>
+            <li>Terus ke Luar Bangunan ke kawasan lapang.</li>
+            <li>Tiada Pintu Juga Dibenarkan (bukaan terbuka) untuk sesetengah situasi.</li>
+            <li>Tidak Berkunci. Pintu atau laluan keluar terakhir mestilah TIDAK BERKUNCI.</li>
+            <li>Hayunan Pintu Menghala ke Luar Bangunan.</li>
+        </ul>
+
+        <h3>Konsep Rekabentuk Tempat Keluar</h3>
+        <p>Konsep utamanya adalah untuk membolehkan penghuni:</p>
+        <ul>
+            <li>Menyelamatkan diri dengan mudah.</li>
+            <li>Secara mandiri (dengan sendirinya).</li>
+            <li>Terus ke tempat selamat.</li>
+            <li>Tanpa apa-apa bantuan (tambahan) - sistem berfungsi secara pasif.</li>
+        </ul>
+    </div>
+        <div id="perlindungan-aktif" class="content-section">
+        <h2>Sistem Perlindungan Aktif</h2>
+        <p>Sistem perlindungan aktif merujuk kepada sistem perlindungan kebakaran yang dipasang tetap pada sesuatu bangunan yang memerlukan pengaktifan (sama ada manual atau automatik) untuk berfungsi. Ia direka untuk bertindak balas terhadap kebakaran dan memerlukan penyelenggaraan berterusan untuk memastikan keberkesanannya.</p>
+        
+        <h3>Empat Cara Bertindak Sistem Aktif:</h3>
+        <ul>
+            <li><b>Mengesan</b> - Mengenalpasti tanda-tanda awal kebakaran (contoh: asap, haba, api).</li>
+            <li><b>Memberi Isyarat</b> - Memberi amaran kepada penghuni dan/atau pihak berkuasa tentang kebakaran.</li>
+            <li><b>Mengawal</b> - Mengurangkan atau menghadkan penyebaran api dan asap.</li>
+            <li><b>Memadam Kebakaran</b> - Secara langsung memadam api. Tindakan ini boleh berlaku secara manual atau automatik.</li>
+        </ul>
+
+        <h3>Syarat/Peraturan Pemasangan:</h3>
+        <ol>
+            <li><b>Penentuan pemasangan sistem berdasarkan pada sesuatu rekabentuk bangunan:</b> Jenis dan skop sistem aktif yang diperlukan ditentukan oleh ciri-ciri dan kerumitan reka bentuk bangunan.</li>
+            <li><b>Menentukan penempatan sistem:</b> Lokasi pemasangan komponen sistem (contoh: kepala pemercik di siling, pengesan di tembok luar, panel kawalan di lobi).</li>
+            <li><b>Pemasangan mematuhi syarat-syarat yang ditetapkan:</b> Pemasangan mesti mengikut piawaian industri dan peraturan yang ketat seperti MS, NFPA, dan Arahan Jabatan Bomba.</li>
+            <li><b>Pemasangan sistem mekanikal yang dikhaskan:</b> Merujuk kepada sistem yang melibatkan komponen mekanikal seperti pam, paip, injap, dan kipas, yang perlu dipasang oleh kontraktor yang berkelayakan.</li>
+            <li><b>Menentukan pengawasan dan penyelenggaraan sistem:</b> Sistem aktif memerlukan pengawasan berterusan dan jadual penyelenggaraan yang ketat.</li>
+        </ol>
+
+        <h3>Jenis-jenis Pemasangan Sistem Aktif:</h3>
+        <ol>
+            <li><b>Sistem pili bomba (Fire Hydrant System):</b> Rangkaian paip dan pili yang membekalkan air bertekanan tinggi.</li>
+            <li><b>Sistem pancuran (Wet Riser/Dry Riser System):</b> Paip tegak di dalam bangunan yang membekalkan air ke setiap tingkat.</li>
+            <li><b>Sistem salur bantu mula (Hose Reel System):</b> Gelung hos yang dipasang di dalam bangunan, membekalkan air bertekanan rendah.</li>
+            <li><b>Sistem semburan automatik (Automatic Sprinkler System):</b> Rangkaian paip dengan kepala pemercik yang akan pecah apabila suhu ambang tertentu dicapai.</li>
+            <li><b>Sistem penggera kebakaran (Fire Alarm System):</b> Terdiri daripada pengesan, panel kawalan, dan peranti amaran (loceng, siren, lampu).</li>
+            <li><b>Sistem karbon dioksida (CO2 System):</b> Sistem pemadam kebakaran yang menggunakan gas karbon dioksida untuk menghilangkan oksigen.</li>
+        </ol>
+        <p>Secara keseluruhan, Kawalan Kemerebakan Api Dalaman adalah pendekatan keselamatan kebakaran yang menyeluruh, di mana sistem pasif membentuk pertahanan pertama dengan reka bentuk dan bahan bangunan, manakala sistem aktif menyediakan tindak balas segera dan dinamik terhadap kebakaran.</p>
+    </div>
+        <div id="definisi-ubbl" class="content-section">
+        <h2>UUK 133: Tafsiran dan Definisi Keperluan Kebakaran</h2>
+        <p>Definisi-definisi ini merangkumi pelbagai aspek pembinaan dan keselamatan kebakaran:</p>
+        
+        <h3>Peralatan dan Sistem</h3>
+        <ul>
+            <li><b>"Automatik"</b> - Merujuk kepada alat atau sistem yang menyediakan fungsi kecemasan tanpa memerlukan campur tangan manusia.</li>
+            <li><b>"Lampu kecemasan"</b> - Pencahayaan yang diperolehi dari punca bekalan elektrik bebas atau sekunder.</li>
+            <li><b>"Suis ahli bomba"</b> - Suis yang ditempatkan berhampiran lif bomba di lantai tentuan, membolehkan pasukan bomba mengawal lif-lif bomba.</li>
+        </ul>
+
+        <h3>Bahan dan Pembinaan</h3>
+        <ul>
+            <li><b>"Bahagian luar tak boleh terbakar"</b> - Bahagian luar yang dilapisi atau mengandungi bahan yang tidak boleh terbakar.</li>
+            <li><b>"Tak boleh terbakar"</b> - Merujuk kepada bahan-bahan yang dinyatakan di bawah PB 476.</li>
+            <li><b>"Kemasan dalam"</b> - Permukaan dalam bangunan yang terdedah, termasuk dinding, dinding sekat, tiang, dan siling.</li>
+            <li><b>"Ketahanan api"</b> - Maksud yang diberikan dalam undang-undang kecil 221, berkaitan dengan keupayaan sesuatu elemen untuk menahan api.</li>
+            <li><b>"Tempoh ketahanan api" (TKA)</b> - Tempoh sesuatu elemen memenuhi keperluan berkaitan aliran haba atau ketahanan daripada runtuh dengan laluan api.</li>
+        </ul>
+
+        <h3>Struktur dan Bahagian Bangunan</h3>
+        <ul>
+            <li><b>"Dinding pangsa" dan "Lantai petak"</b> - Dinding dan lantai yang mematuhi undang-undang kecil 148, digunakan untuk membahagikan bangunan kepada petak-petak bagi tujuan undang-undang kecil 213 atau 147.</li>
+            <li><b>"Dinding pengasing"</b> - Dinding atau bahagian dinding yang digunakan bersama oleh dua bangunan bersampingan.</li>
+            <li><b>"Elemen struktur"</b> - Mana-mana bahagian yang menjadi sebahagian daripada kerangka struktur bangunan, rasuk, alang, tiang, lantai (termasuk lantai petak kecuali yang terendah), dinding luar, dinding pengasing, dinding pangsa, struktur yang mengepung lubang terlindung, dinding bawa beban, atau galeri.</li>
+            <li><b>"Petak"</b> - Mana-mana bahagian bangunan yang diasingkan daripada bahagian lain oleh satu atau lebih dinding pangsa atau lantai petak.</li>
+            <li><b>"Struktur pelindung"</b> - Dinding, lantai, atau struktur lain yang mengepung lubang terlindung (kecuali dinding luar, dinding pengasing, dinding pangsa, lantai petak, lantai di atas tanah, atau bumbung).</li>
+            <li><b>"Struktur terbuka"</b> - Struktur yang pada setiap aras mempunyai dinding ruang buka yang terbuka kepada atmosfera.</li>
+            <li><b>"Pengadang api"</b> - Penghadang atau penutup yang mencegah laluan asap atau api dalam rongga, di sekeliling paip/saluran, atau di persimpangan elemen struktur.</li>
+        </ul>
+
+        <h3>Jalan Keluar dan Laluan Kecemasan</h3>
+        <ul>
+            <li><b>"Jalan keluar"</b> - Laluan untuk orang dalam mana-mana tingkat bangunan sampai ke tempat selamat di luar, boleh termasuk bilik, pintu, koridor, tangga, atau laluan lain (kecuali pintu pusing, lif, atau eskalator).</li>
+            <li><b>"Jalan keluar lepas"</b> - Pintu dari tingkat, rumah pangsa, atau bilik yang memberi akses ke jalan keluar.</li>
+            <li><b>"Jalan mati"</b> - Kawasan yang pelepasan diri daripadanya hanya boleh dilakukan melalui satu arah sahaja, termasuk mana-mana tempat dalam pelan terbuka yang jalan terus darinya ke pintu keluar lain mencakup sudut tidak kurang dari 45°.</li>
+            <li><b>"Jarak perjalanan"</b> - Jarak yang perlu dilalui dari mana-mana tempat di sesuatu tingkat bangunan ke pintu penahan api dalam kepungan tangga, atau ke anak tangga pertama jika tiada pintu tersebut.</li>
+            <li><b>"Jarak tepat"</b> - Jarak terdekat dari mana-mana tempat di kawasan lantai (diukur dalam kepungan luar bangunan) ke tempat keluar yang berkenaan, tanpa mengira dinding, dinding sekat, atau pepasangan selain dinding kepungan atau dinding sekat bagi tangga terlindung/tangga keluar.</li>
+            <li><b>"Koridor terbuka"</b> - Koridor dengan ruang buka dinding yang terbuka kepada atmosfera, terutamanya untuk pelepasan asap yang mencukupi.</li>
+            <li><b>"Koridor terlindung"</b> - Koridor yang diasingkan daripada bangunan yang menggunakannya oleh dinding sekat dengan TKA tidak kurang dari setengah jam, dengan semua ruang buka dipasang lampu tetap dan pintu menutup sendiri dengan TKA tidak kurang dari setengah jam.</li>
+            <li><b>"Laluan langkan"</b> - Langkan yang menjadi laluan luar menuju ke tangga bersama yang digunakan oleh satu atau lebih kependudukan.</li>
+            <li><b>"Lubong terlindung"</b> - Tangga, lif, eskalator, pelongsor, saluran, atau lubong lain yang membolehkan orang, benda, atau udara melalui di antara petak-petak yang berlainan, dan mematuhi undang-undang kecil 150.</li>
+            <li><b>"Lubong menentang kebakaran"</b> - Kepungan terlindung yang mengandungi tangga menentang kebakaran dan ruang akses menentang kebakaran, dengan atau tanpa lif bomba.</li>
+            <li><b>"Pintu"</b> - Termasuk pengatup, penutup, atau bentuk perlindungan lain bagi ruang buka di dinding atau lantai, atau pada struktur yang mengelilingi lubang terlindung.</li>
+            <li><b>"Pintu keluar"</b> - Pintu dari tingkat, rumah pangsa, atau bilik yang memberi akses kepada jalan keluar.</li>
+            <li><b>"Pintu keluar tingkat"</b> - Pintu berkadar api untuk tangga atau koridor terlindung yang dilindungi dengan struktur penahan api mengikut Jadual Kesembilan UUKBS. Bagi tempat tinggal tingkat bawah, ia bermaksud pintu yang menghala terus ke tempat selamat di luar bangunan.</li>
+            <li><b>"Pintu penahan api"</b> - Binaan yang mempunyai darjah ketahanan api minimum tidak kurang daripada setengah jam mengikut Jadual-Jadual relevan UUKBS atau yang mencapai standard apabila diuji mengikut PB 476, dengan spesifikasi tambahan untuk rebet, engsel, dan ciri menutup sendiri.</li>
+            <li><b>"Pintu penahan asap"</b> - Pintu atau sepasang pintu yang memenuhi keperluan PM 1073 mengenai ketahanan daripada runtuh (tidak kurang 30 minit) dan ketahanan kepada laluan api dan gas panas (tidak kurang 20 minit).</li>
+            <li><b>"Ruang akses menentang kebakaran"</b> - Ruang yang terpisah daripada tingkat yang menggunakannya oleh binaan dengan TKA sekurang-kurangnya setengah jam, boleh dilalui terus dari tangga menentang kebakaran dan lif bomba, dan mengandungi pancur kering atau basah.</li>
+            <li><b>"Ruang asap"</b> - Ruang terlindung yang menjadi laluan bagi tangga dan bertindak sebagai penahan api dan asap di antara tingkat dan tangga.</li>
+            <li><b>"Ruang edaran"</b> - Ruang yang semata-mata atau kerap digunakan sebagai jalan masuk di antara bilik dengan lubang terlindung, atau antara bilik/lubang terlindung dengan tempat keluar dari bangunan/petak.</li>
+            <li><b>"Ruang terlindung"</b> - Ruang yang dikepung seluruhnya dengan dinding sekat TKA tidak kurang setengah jam, dengan semua ruang buka dipasang lampu tetap dan pintu menutup sendiri TKA tidak kurang setengah jam.</li>
+            <li><b>"Tangga dalam"</b> - Tangga yang dikepungi di semua sisi oleh dinding sekat, dengan semua ruang buka di dinding luarnya digilap atau dilindungi daripada cuaca.</li>
+            <li><b>"Tangga luar"</b> - Tangga yang terbuka sepenuhnya kepada udara luar pada sekurang-kurangnya dua sisi.</li>
+            <li><b>"Tangga menentang kebakaran"</b> - Tangga yang dikhaskan sebagai jalan masuk yang diiktiraf ke dalam bangunan untuk ahli bomba semasa kebakaran.</li>
+            <li><b>"Tangga terlindung"</b> - Tangga yang diasingkan daripada bangunan yang menggunakannya oleh dinding sekat TKA tidak kurang setengah jam, dengan semua ruang buka dipasang lampu tetap dan pintu menutup sendiri TKA tidak kurang setengah jam.</li>
+            <li><b>"Tempat keluar mendatar"</b> - Jalan keluar dari petak atau bangunan ke petak atau bangunan bersebelahan pada paras yang lebih kurang sama, dan kemudian ke tangga terlindung keluar atau tempat keluar terakhir.</li>
+            <li><b>"Tempat keluar terakhir"</b> - Tempat keluar bagi jalan lepas keluar dari bangunan yang memberi akses terus ke jalan, laluan, atau tangga terbuka untuk pemindahan orang ke tempat selamat dari kebakaran atau asap.</li>
+        </ul>
+
+        <h3>Kedudukan dan Ukuran</h3>
+        <ul>
+            <li><b>"Had-had yang dibenarkan bagi kawasan tak terlindung"</b> - Jumlah maksimum kawasan tak terlindung pada sisi atau dinding luar bangunan/petak yang mematuhi Jadual Keenam UUKBS.</li>
+            <li><b>"Kawasan tak terlindung"</b> - Berkenaan dengan dinding luar atau sisi bangunan, ia bermaksud tingkap, pintu, ruang buka lain, mana-mana bahagian dinding luar yang ketahanan apinya kurang daripada yang dinyatakan dalam Bahagian ini, atau mana-mana bahagian dinding luar dengan bahan boleh terbakar lebih tebal 1.5mm di muka luarnya.</li>
+            <li><b>"Lantai tentuan"</b> - Paras lantai di mana pasukan bomba mempunyai akses kepada lif bomba, biasanya paras lantai terdekat dengan paras akses perkakas bomba.</li>
+            <li><b>"Lif bomba"</b> - Lif yang boleh diambil alih untuk kegunaan eksklusif ahli bomba semasa kecemasan.</li>
+            <li><b>"Paras akses menentang kebakaran"</b> - Paras tertinggi di mana tangga perkakas bomba boleh disandarkan ke bangunan untuk tujuan menentang kebakaran dan pemindahan.</li>
+            <li><b>"Paras akses perkakas bomba"</b> - Tempat di mana perkakas bomba boleh menghampiri bangunan untuk tujuan menentang kebakaran atau memindahkan penduduk.</li>
+            <li><b>"Sempadan"</b> - Berkenaan dengan bangunan, ia bermaksud sempadan tanah kepunyaan bangunan itu (termasuk mana-mana bahagian jalan, terusan, atau sungai hingga garisan tengahnya).</li>
+            <li><b>"Sempadan berkenaan"</b> - Berkenaan dengan sisi atau dinding luar bangunan/petak, ia bermaksud bahagian sempadan premis atau sempadan andaian seperti ditetapkan dalam undang-undang kecil 146 yang berhampiran dengan sisi atau dinding itu.</li>
+            <li><b>"Tingginya bangunan"</b> - Maksud yang diberi dalam undang-undang kecil 135.</li>
+        </ul>
+    </div>
+        <div id="kumpulan-maksud" class="content-section">
+        <h2>Kumpulan Maksud Bangunan</h2>
+        <p>Pengelasan atau kategori bangunan adalah langkah pertama dan paling kritikal dalam proses reka bentuk apa jua jenis bangunan. Ini kerana jenis penggunaan bangunan akan secara langsung mempengaruhi tahap risiko kebakaran, keperluan reka bentuk keselamatan kebakaran, dan sistem pepasangan keselamatan kebakaran yang perlu dipasang.</p>
+        
+        <h3>Dasar Pengelasan (Menurut UUKBS 1984)</h3>
+        <p>Undang-Undang Kecil 134 adalah peruntukan spesifik dalam UUKBS 1984 yang menggariskan keperluan untuk pengelasan bangunan. Ia menyatakan dengan jelas bahawa untuk tujuan menetapkan kumpulan maksud sesuatu bangunan, setiap bangunan atau petak (unit dalam bangunan) hendaklah dianggap mengikut penggunaannya atau penggunaan yang dicadangkan.</p>
+        <p>Jadual Kelima Undang-Undang Kecil Bangunan Seragam 1984 adalah rujukan utama yang menyediakan senarai kategori atau kumpulan maksud yang berbeza bagi bangunan.</p>
+
+        <h3>Prinsip-Prinsip Penentuan Kumpulan Maksud Bangunan</h3>
+        <ol>
+            <li><b>Penggunaan Semasa atau Dicadangkan:</b> Pengelasan dibuat berdasarkan bagaimana bangunan itu sedang atau akan digunakan.</li>
+            <li><b>Petak Berasingan untuk Maksud Berlainan:</b> Jika sebuah bangunan dibahagikan kepada beberapa petak yang digunakan untuk maksud yang berlainan, maka kumpulan maksud bagi setiap petak itu hendaklah ditentukan secara berasingan.</li>
+            <li><b>Maksud Utama Penggunaan:</b> Jika sesebuah bangunan mempunyai fungsi pelbagai tetapi salah satu fungsi adalah dominan (contoh: sebuah hotel yang mempunyai beberapa kedai kecil di lobi), maka bangunan tersebut akan diklasifikasikan mengikut maksud utama iaitu hotel.</li>
+        </ol>
+        <p>Pengelasan yang tepat adalah fundamental untuk memastikan pematuhan undang-undang, merekabentuk sistem keselamatan yang efektif, melindungi nyawa dan harta benda, dan memudahkan proses kelulusan pelan bangunan.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Carta Jenis Kumpulan Maksud]</div>
+
+        <h3>Jadual Kelima: Kumpulan Maksud</h3>
+        <p>Menurut Jadual kelima, Undang-undang Kecil Bangunan Seragam 1984, kumpulan maksud sesuatu bangunan adalah seperti berikut:-</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombor Kumpulan Maksud</th>
+                    <th>Tajuk Perihal</th>
+                    <th>Maksud-maksud yang baginya bangunan atau kompatmen dicadang untuk digunakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td>Kediaman kecil</td>
+                    <td>Rumah tempat tinggal persendirian yang berasingan atau berkembar atau teres.</td>
+                </tr>
+                <tr>
+                    <td>II</td>
+                    <td>Institusional</td>
+                    <td>Hospital, sekolah, kolej, perpustakaan, rumah rawatan, atau pertubuhan lain yang serupa yang digunakan sebagai tempat Pendidikan atau tempat kediaman bagi, atau bagi rawatan, menjaga atau menyelenggara orang-orang yang menderita daripada ketidakupayaan disebabkan penyakit atau umur tua atau kecacatan fizikal atau mental atau di bawah umur 5 tahun, di mana orang tersebut tidur di dalam premis itu.</td>
+                </tr>
+                <tr>
+                    <td>III</td>
+                    <td>Kediaman lain</td>
+                    <td>Kediaman selain dari kediaman kecil dan institusi, termasuk suatu hotel, asrama, dormitory, pangsapuri, rumah pangsa, rumah orang tua, anak yatim atau pangsapuri perkhidmatan.</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td>Pejabat</td>
+                    <td>Pejabat, atau premis yang digunakan bagi maksud-maksud pejabat, yang dengan ini bererti maksud-maksud pentadbiran, kerja pengkeranian (termasuk menulis, simpankira, menyisih kertas, menfail, menaip, mempendua, mengira dengan mesin, melukis dan menyediakan bahan pengarang untuk penerbitan), mengendali wang dan talipon dan mengendalikan taligeraf.</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>Kedai</td>
+                    <td>Kedai, atau premis kedai, kompleks membeli-belah, plaza makanan, pasar basah atau pasar kering, premis yang digunakan untuk menjalankan di situ tred runcit atau perniagaan (termasuk jualan kepada orang awam makanan dan minuman untuk kegunaan segera, jualan runcit secara lelong, urusan meminjamkan buku atau majalah bagi maksud keuntungan, dan urusan tukang gunting atau mendandan rambut), dan premis di mana orang awam dipelawa untuk menggunakannya bagi maksud menyerahhantar barang-barang mereka untuk dibaiki atau layanan lain atau bagi diri mereka sendiri menjalankan atau layanan barang-barang lain.</td>
+                </tr>
+                <tr>
+                    <td>VI</td>
+                    <td>Kilang</td>
+                    <td>Kilang ertinya semua premis sebagaimana ditafsirkan dalam seksyen 2 akta kilang dan jentera 1967, tetapi tidak termasuk bangunan-bangunan yang dikelaskan di bawah kumpulan maksud VIII - storan dan am.</td>
+                </tr>
+                <tr>
+                    <td>VII</td>
+                    <td>Tempat perhimpunan</td>
+                    <td>Tempat sama ada awam atau persendirian yang digunakan bagi kehadiran orang ramai untuk atau yang berkaitan dengan urusan sosial, rekreasi, pelajaran, perniagaan atau aktiviti lain mereka, dan tidak terkandung dalam kumpulan I hingga VI, termasuk suatu pusat konvesyen, muzium, galeri seni, panggung wayang, dewan, auditorium, tempat beribadat, terminal penumpang pengangkutan.</td>
+                </tr>
+                <tr>
+                    <td>VIII</td>
+                    <td>Storan dan am</td>
+                    <td>Tempat untuk menstor, mendeposit atau meletakkan barang dan bahan (termasuk kenderaan), dan mana-mana premis lain yang tidak terkandung dalam kumpulan I hingga VII.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div id="ms1183" class="content-section">
+        <h2>MS 1183:2015: Occupancy characteristics</h2>
+        <p>Jika kita merujuk kepada MS 1183:2015, pengelasan bangunan ini boleh dipecahkan kepada beberapa kriteria risiko kebakaran. Daripada kriteria inilah sesuatu kumpulan maksud ini dikategorikan. Semakin tinggi risiko sesuatu bangunan itu, semakin tinggi keperluan sistem pepasangan keselamatan kebakaran yang perlu diadakan.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Carta MS 1183:2015 Occupancy Characteristics]</div>
+        <p>Berdasarkan carta MS 1183:2015: Occupancy Characteristics, rajah ini adalah alat bantu visual yang sangat penting dalam reka bentuk keselamatan kebakaran. Ia mengklasifikasikan pelbagai jenis penghunian (occupancy) bangunan berdasarkan dua ciri utama yang mempengaruhi risiko dan keperluan keselamatan kebakaran, iaitu:</p>
+        <ol>
+            <li><b>Familiarity (Familiar vs. Unfamiliar)</b> - Sejauh mana penghuni biasa dengan susun atur bangunan.</li>
+            <li><b>State of Awareness (Awake vs. Asleep)</b> - Keadaan kesedaran penghuni ketika berlaku kecemasan.</li>
+        </ol>
+        <p>Selain itu, rajah ini juga mengaitkan ciri-ciri dengan dua parameter reka bentuk keselamatan kebakaran yang kritikal iaitu Jarak Perjalanan dan Kapasiti Jalan Keluar.</p>
+
+        <h3>Paksi Y: State of Awareness (Keadaan Kesedaran)</h3>
+        <ul>
+            <li><b>AWAKE (Sedang Sedar/Berjaga):</b> Penghuni dijangka berada dalam keadaan berjaga dan berupaya bertindak balas dengan cepat terhadap amaran kebakaran. Contoh: pejabat, gudang, sekolah, pawagam, kedai.</li>
+            <li><b>ASLEEP (Sedang Tidur):</b> Penghuni dijangka sedang tidur dan mungkin memerlukan masa yang lebih lama untuk sedar. Kategori ini dibahagikan lagi kepada:
+                <ul>
+                    <li><b>Long term (Jangka Panjang)</b> - Penghuni tinggal untuk tempoh yang lama. Contohnya rumah persendirian dan kondominium.</li>
+                    <li><b>Short term (Jangka Pendek)</b> - Penghuni tinggal untuk tempoh yang singkat. Contohnya hotel.</li>
+                    <li><b>Medical (Perubatan)</b> - Penghuni yang memerlukan bantuan perubatan atau mempunyai mobiliti terhad. Contohnya hospital pesakit dalam (Inpatient). Ini adalah kategori risiko tertinggi.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Paksi X: Familiarity (Kefahaman/Kebiasaan dengan Bangunan)</h3>
+        <ul>
+            <li><b>BIASA:</b> Penghuni dijangka sangat biasa dengan bangunan dan laluan keluar. Contoh: Pejabat, gudang, sekolah, kilang, rumah persendirian.</li>
+            <li><b>TIDAK BIASA:</b> Penghuni dijangka tidak biasa dengan bangunan dan laluan keluar. Contoh: Tempat letak kereta, pawagam, kedai, hotel.</li>
+        </ul>
+
+        <h3>Matriks Pendudukan (Occupancy Matrix)</h3>
+        <p>Gabungan kedua-dua paksi ini membentuk matriks yang mengkategorikan pendudukan dari risiko rendah ke tinggi, ditunjukkan dengan skala warna hijau (risiko rendah) ke merah (risiko tinggi):</p>
+        <ul>
+            <li><b>Hijau (Kiri Atas - Risiko Paling Rendah):</b> AWAKE + FAMILIAR. Contohnya pejabat, gudang, sekolah dan kilang.</li>
+            <li><b>Kuning (Tengah):</b> AWAKE + UNFAMILIAR (Contohnya parkir, panggung wayang, kedai) dan ASLEEP + FAMILIAR (Contohnya rumah persendirian, kondominium).</li>
+            <li><b>Jingga/Merah (Kanan Bawah - Risiko Paling Tinggi):</b> ASLEEP + UNFAMILIAR (Short term) - Contohnya hotel. ASLEEP + UNFAMILIAR (Medical) - Contohnya hospital pesakit dalam. High Hazard Factory juga diletakkan di zon risiko tinggi.</li>
+        </ul>
+
+        <h3>Parameter Reka Bentuk Keselamatan Kebakaran (Relevance to Design Parameters)</h3>
+        <p>Dua jalur warna di sebelah kanan matriks menunjukkan bagaimana ciri-ciri penghunian ini mempengaruhi keperluan reka bentuk.</p>
+        <ul>
+            <li><b>Jarak Perjalanan:</b> Merujuk kepada jarak maksimum yang dibenarkan untuk penghuni berjalan dari mana-mana titik dalam bangunan ke pintu keluar keselamatan terdekat. Skala Warna: Hijau (75 meter) di bahagian atas (risiko rendah) beralih kepada merah (35 meter) di bahagian bawah (risiko tinggi).</li>
+            <li><b>Exit Capacity (Kapasiti Jalan Keluar):</b> Merujuk kepada bilangan orang yang boleh mengungsikan diri melalui satu unit lebar jalan keluar dalam tempoh masa tertentu. Skala Warna: Hijau (60 orang per unit) di bahagian atas beralih kepada merah (15 orang per unit) di bahagian bawah.</li>
+        </ul>
+    </div>
+        <div id="pengukuran" class="content-section">
+        <h2>Kaedah Pengukuran Bangunan</h2>
+        <p>Dalam konteks keselamatan kebakaran dan reka bentuk bangunan, keluasan dan ketinggian adalah dua parameter utama yang menentukan tahap risiko dan keperluan sistem keselamatan kebakaran.</p>
+
+        <h3>1. Pengukuran Ketinggian Bangunan</h3>
+        <p>Bila kita bercakap mengenai ketinggian bangunan untuk tujuan keselamatan kebakaran (UUK 135 dan UUK 215), ia diukur dengan cara yang sangat spesifik.</p>
+        <ul>
+            <li><b>Titik Permulaan Ukuran (Dari Bawah):</b> Ketinggian diambil dari paras tanah paling rendah yang bersentuhan terus dengan dinding luar bangunan.</li>
+            <li><b>Titik Akhir Ukuran (Sampai Atas):</b> Ukuran diambil sampai ke salah satu daripada dua paras ini, mana-mana yang lebih tinggi:
+                <ul>
+                    <li>Separuh dari ketinggian bumbung menegak (untuk bumbung condong/curam).</li>
+                    <li>Bahagian paling tinggi dinding parapet (jika ada).</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Pengukuran Ketinggian Bangunan]</div>
+        <h4>Kenapa ketinggian ini penting sangat?</h4>
+        <ul>
+            <li><b>Akses Bomba:</b> Bangunan yang tinggi melangit, bomba kena guna tangga hidraulik yang lebih canggih dan tinggi.</li>
+            <li><b>Sistem Perlindungan Aktif:</b> Bangunan tinggi selalunya wajib ada sistem pemercik air automatik (sprinkler), paip air bomba yang sentiasa bertekanan (wet riser), sistem pengurusan asap, dan lif khas untuk bomba.</li>
+            <li><b>Sistem Perlindungan Pasif:</b> Lagi tinggi bangunan, lagi tinggi lah tahap ketahanan api yang diperlukan untuk struktur-struktur penting.</li>
+            <li><b>Strategi Evakuasi:</b> Bangunan tinggi perlukan pelan kecemasan yang lebih rumit, termasuklah kena ada ruang berlindung (refuge areas).</li>
+        </ul>
+
+        <h3>2. Pengukuran Keluasan Bangunan</h3>
+        <p>Ukuran keluasan ini penting untuk tahu saiz bahagian-bahagian bangunan yang berbeza, berapa ramai orang boleh muat, dan juga berapa banyak bahan bakar (beban api) yang mungkin ada dalam kawasan tu. Ada tiga jenis ukuran keluasan iaitu:</p>
+        <ul>
+            <li><b>a) Keluasan Tingkat Bangunan atau Petak:</b> Ruang yang dikelilingi oleh permukaan dalam dinding yang dah siap. Digunakan untuk tentukan saiz pemetakan dan keperluan jalan keluar.</li>
+            <li><b>b) Keluasan Bilik atau Garaj:</b> Ruang yang lebih kecil dan tertutup. Penting untuk keperluan pengudaraan dan saiz tingkap.</li>
+            <li><b>c) Keluasan Bahagian Bumbung:</b> Permukaan sebenar bumbung ikut kecerunan. Penting untuk tentukan jenis bahan bumbung.</li>
+        </ul>
+
+        <h3>3. Pengukuran Kapasiti Isipadu Bangunan atau Petak</h3>
+        <p>Kapasiti isipadu ini merujuk kepada jumlah ruang udara atau ruang kosong dalam sesebuah bangunan atau bahagian tertentu.</p>
+        <h4>a) Cara kiraan isipadu:</h4>
+        <p>Diukur dengan mengukur ruang yang terkandung secara melintang (dari permukaan dalam dinding) dan menegak (dari permukaan lantai ke permukaan bawah bumbung/siling).</p>
+        <h4>b) Kenapa isipadu penting?</h4>
+        <ul>
+            <li><b>Sistem Pengurusan Asap:</b> Kritikal untuk reka bentuk sistem pengurusan asap.</li>
+            <li><b>Sistem Pemasangan Tetap Gas:</b> Untuk sistem pemadam api yang menggunakan gas (Sistem CO2 atau Sistem FM-200), isipadu bilik adalah ukuran utama.</li>
+            <li><b>Pengiraan Beban Kebakaran:</b> Isipadu juga boleh mempengaruhi cara kita kira beban kebakaran.</li>
+        </ul>
+    </div>
+        <div id="pemetakan" class="content-section">
+        <h2>Pemetakan (Compartmentation) - Bahagian 1</h2>
+        
+        <h3>Pemetakan - Rahsia Kawal Api Merebak Dalam Bangunan</h3>
+        <p>Pemetakan ini merupakan konsep penting dalam keselamatan kebakaran. Ia bertujuan untuk membahagikan sesuatu bangunan kepada bahagian-bahagian kecil yang terasing, yang kita panggil "petak".</p>
+        <p>"Petak" maksudnya mana-mana bahagian dalam bangunan yang diasingkan dari bahagian lain oleh Dinding pangsa (compartment walls), Lantai petak (compartment floors), atau gabungan kedua-duanya.</p>
+        
+        <h4>Kenapa Pemetakan Penting?</h4>
+        <p>Keperluan pemetakan ini ada dalam Undang-Undang Kecil 136 UUKBS 1984. Ia menyatakan bahawa kalau sesuatu tingkat atau keseluruhan bangunan tu terlalu besar (melebihi had yang dibenarkan), ia WAJIB dibahagikan kepada petak-petak kecil.</p>
+        
+        <h4>Tujuan Utama Pemetakan:</h4>
+        <ul>
+            <li><b>Menghadkan Kemerebakan Api dan Asap:</b> Pemetakan adalah reka bentuk bangunan untuk mengawal dan menyekat penyebaran api dan asap.</li>
+            <li><b>Memberi Lebih Masa untuk Pengungsian:</b> Dengan terkawalnya api, penghuni mempunyai lebih banyak masa untuk keluar dari bangunan dengan selamat.</li>
+            <li><b>Memudahkan Pasukan Bomba:</b> Pasukan bomba tidak perlu berdepan dengan kebakaran yang besar kerana api terperangkap dalam petak tertentu.</li>
+            <li><b>Mengurangkan Kerosakan Bangunan:</b> Pemetakan membantu mengelakkan kerosakan teruk pada seluruh bangunan.</li>
+        </ul>
+
+        <h3>Konsep dan Fungsi Pemetakan</h3>
+        <p>Konsep pemetakan terbahagi kepada dua iaitu: Perancangan Keselamatan Kebakaran dan Pembahagian Ruang Berdasarkan Risiko. Fungsi pemetakan termasuklah:</p>
+        <ul>
+            <li>Menghadkan isipadu dan keluasan.</li>
+            <li>Mengasingkan kawasan berisiko tinggi.</li>
+            <li>Menghadkan kemerebakan api.</li>
+            <li>Menjadikan kepungan dan laluan pelepasan diri.</li>
+        </ul>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Konsep dan Fungsi Pemetakan]</div>
+
+        <h3>Penggunaan Pengatup Kebakaran (UUK 136A)</h3>
+        <p>Pengatup kebakaran berfungsi sebagai penghalang fizikal untuk mengelakkan api dan asap daripada merebak di bukaan besar seperti pintu masuk ke tempat letak kereta, ruang eskalator, dan bukaan di dinding atau lantai petak.</p>
+        <ul>
+            <li><b>Sebagai Dinding Petak:</b> Boleh digunakan sebagai dinding petak kecuali di kawasan kritikal seperti laluan keluar kecemasan.</li>
+            <li><b>Melindungi Bukaan:</b> Mesti mempunyai tahap ketahanan api yang sama atau lebih baik daripada dinding/lantai petak yang dilindunginya.</li>
+            <li><b>Pengecualian Penebat Haba:</b> Tidak diwajibkan untuk kawasan yang tidak mempunyai beban api yang tinggi (cth: atrium, eskalator).</li>
+        </ul>
+        <p>Terdapat tiga jenis pengatup kebakaran: menegak, melintang, dan sisian. Peraturan untuk pengatup yang dikendalikan secara graviti atau elektrik juga dinyatakan, termasuk keperluan untuk dihubungkan dengan sistem penggera kebakaran dan disokong oleh bekalan kuasa kecemasan. Papan tanda "KELUAR" yang jelas mesti dipasang jika pengatup menghalang laluan keluar.</p>
+
+        <h3>Lantai Petak & Pengasingan Kawasan Berisiko</h3>
+        <h4>Lantai dalam Bangunan yang Melebihi Ketinggian 30 Meter</h4>
+        <p>Dalam bangunan yang tidak melebihi 30 meter, lantai yang tingginya lebih daripada 9 meter dari paras bawah mesti menjadi lantai petak. Dalam bangunan yang melebihi 30 meter, semua lantai wajib dibina sebagai lantai petak. Ketinggian 30 meter sering digunakan sebagai ambang kerana ia merupakan ketinggian maksimum yang biasanya boleh dicapai oleh jentera bomba standard.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Keperluan Lantai Petak]</div>
+
+        <h4>Pengasingan Kawasan Risiko Kebakaran (UUK 139)</h4>
+        <p>Kawasan-kawasan tertentu di dalam sesebuah bangunan yang mempunyai risiko kebakaran yang tinggi perlu diasingkan sepenuhnya daripada kawasan lain. Contoh Kawasan Risiko Kebakaran Tinggi:</p>
+        <ul>
+            <li>Bilik dandang dan kawasan storan bahan api.</li>
+            <li>Dobi.</li>
+            <li>Bengkel membaiki.</li>
+            <li>Kawasan storan bahan yang banyak yang disifatkan bahaya.</li>
+            <li>Kawasan storan gas petroleum cair (LPG).</li>
+            <li>Bilik linen.</li>
+            <li>Bilik transformer dan substesyen.</li>
+            <li>Stor cecair mudah terbakar (cat, minyak, pelarut).</li>
+        </ul>
+                <h3>Pemetakan (Compartmentation) - Bahagian 2</h3>
+
+        <h4>Jadual Pemetakan</h4>
+        <p>Tidak semua jenis bangunan atau kategori kegunaan memerlukan pemetakan sebagai satu kemestian. Konsep pemetakan sering kali berkaitan dengan saiz dan tahap risiko kebakaran sesebuah bangunan. Dalam konteks kategori pejabat, selalunya tiada keperluan wajib untuk mengadakan pemetakan melainkan jika keluasan atau isipadu pejabat itu melebihi had yang ditetapkan dalam UUKBS 1984, Undang-Undang Kecil 136.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Jadual Dimensi Suatu Bangunan dan Kompatmen]</div>
+
+        <h4>Pemetakan & Sistem Semburan Automatik</h4>
+        <p>Mengikut Undang-Undang Kecil Bangunan Seragam (UUKBS) 1984, jika sesuatu bangunan dilengkapi dengan sistem semburan automatik (sprinkler) yang mematuhi Piawaian Malaysia, maka had ukuran keluasan atau isipadu bagi sesuatu petak yang dibenarkan oleh undang-undang kecil tersebut boleh digandakan dua kali. Pengecualian ini TIDAK TERPAKAI untuk wad penginapan pesakit.</p>
+
+        <h4>Ketahanan Api Dinding & Pintu Pemetakan</h4>
+        <p>Kebiasaannya, dinding pemetakan direka untuk mempunyai ketahanan api selama 4 jam. Manakala pintu api yang menjadi sebahagian dari dinding pemetakan biasanya mempunyai ketahanan api selama 2 jam, iaitu separuh daripada ketahanan dinding.</p>
+
+        <h4>Menentukan Had Ukuran Pemetakan</h4>
+        <p>Had ukuran pemetakan bergantung kepada 4 faktor iaitu:</p>
+        <ol>
+            <li><b>Kumpulan Maksud:</b> Fungsi atau kegunaan utama bangunan (Pejabat, Kedai, dll).</li>
+            <li><b>Ketinggian Bangunan:</b> Pengukuran tinggi dibuat secara berasingan jika terdapat dinding pangsa menegak yang mengasingkan dua bahagian bangunan.</li>
+            <li><b>Keluasan Bangunan:</b> Jumlah keluasan dalam tingkat itu.</li>
+            <li><b>Isipadu Bangunan:</b> Kapasiti isipadu sesuatu bangunan atau petak.</li>
+        </ol>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Faktor-faktor Pemetakan]</div>
+    </div>
+        <div id="lebar-jalan-keluar" class="content-section">
+        <h2>Penentuan Lebar Jalan Keluar</h2>
+        
+        <h3>Penentuan Lebar Jalan Keluar - Bahagian 2</h3>
+
+        <h4>Had Jalan Mati, Jarak Perjalanan dan Pengiraan Beban Pendudukan</h4>
+        <p>Sebelum menggunakan Jadual Ketujuh, "Kumpulan Maksud" bangunan mesti dikenal pasti terlebih dahulu.</p>
+        
+        <h5>Jalan Mati (Dead End)</h5>
+        <p>Jalan mati (dead end) ertinya sesuatu kawasan yang pelepasan diri daripadanya hanya boleh dilakukan melalui satu arah sahaja. Penyelesaian bagi masalah jalan mati ialah dengan mengadakan pilihan jalan keluar lain. Jika tersilap meletakkan pintu keluar, masalah jalan mati tidak akan selesai.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Had Jalan Mati]</div>
+
+        <h5>Jarak Perjalanan</h5>
+        <p>Jarak perjalanan pula ertinya jarak yang perlu dilalui daripada mana-mana tempat di sesuatu tingkat bangunan sama ada ke pintu penahan api dalam kepungan tangga atau ke anak tangga pertama jika tiada pintu tersebut. Sudut pilihan bagi jalan keluar ini mestilah melebihi 45 darjah di antara dua pintu tangga ini. Sekiranya kedudukan diantara dua pintu tangga kurang daripada 45 darjah, maka kedudukan ini masih lagi di bawah kategori jalan mati.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Jarak Perjalanan]</div>
+
+        <h5>Jarak Tepat</h5>
+        <p>Jarak tepat ialah jarak terdekat sekali daripada mana-mana tempat dalam kawasan lantai diukur dalam kepungan luar bangunan itu kepada tempat keluar yang berkenaan tanpa mengira dinding atau sebarang halangan lain.</p>
+        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Jarak Tepat]</div>
+        </div>
+        <div id="contoh-kira" class="content-section">
+        <h2>Contoh Pengiraan</h2>
+        
+        <h3>Contoh Pengiraan Lebar Tangga Pejabat</h3>
+        <div class="image-placeholder">[GAMBARAJAH: Pelan Lantai Pejabat 100m x 45m]</div>
+        <ul>
+            <li><b>Keluasan lantai:</b> 100m x 45m = 4,500 m²</li>
+            <li><b>Jumlah orang:</b> 4,500 / 10 (faktor pejabat) = 450 orang</li>
+            <li><b>Lebar diperlukan (tangga):</b> 450 / 60 (kapasiti tangga) = 7.5 unit -> <b>8 unit</b></li>
+            <li><b>Jumlah lebar tangga:</b> 8 unit x 550 mm = 4400 mm</li>
+            <li><b>Jumlah tangga:</b> (U/F) + 1 = (8/4) + 1 = <b>3 buah tangga</b> (menggunakan Faktor 4 untuk bangunan Kelas B)</li>
+        </ul>
+        <div class="image-placeholder">[GAMBARAJAH: Cadangan Kedudukan Tangga Pejabat]</div>
+
+        <h3>Contoh Pengiraan Lebar Pintu Keluar Pejabat</h3>
+        <ul>
+            <li><b>Jumlah orang:</b> 450 orang</li>
+            <li><b>Lebar diperlukan (pintu):</b> 450 / 100 (kapasiti pintu) = 4.5 unit -> <b>5 unit</b></li>
+            <li><b>Jumlah lebar pintu:</b> 5 unit x 550 mm = 2750 mm</li>
+            <li>Dengan 3 tangga, setiap tangga memerlukan pintu dengan lebar 1800mm (jenis dua daun).</li>
+        </ul>
+
+        <h3>Contoh Pengiraan Lebar Tangga Pasaraya (Lantai-lantai Lain)</h3>
+        <div class="image-placeholder">[GAMBARAJAH: Pelan Lantai Pasaraya 100m x 45m]</div>
+        <ul>
+            <li><b>Keluasan lantai:</b> 4,500 m²</li>
+            <li><b>Jumlah orang:</b> 4,500 / 6 (faktor kedai lain) = 750 orang</li>
+            <li><b>Lebar diperlukan (tangga):</b> 750 / 60 = 12.5 unit -> <b>13 unit</b></li>
+            <li><b>Jumlah lebar tangga:</b> 13 unit x 550 mm = 7150 mm</li>
+            <li><b>Jumlah tangga:</b> (13/4) + 1 = 4.25 -> <b>4 buah tangga</b></li>
+        </ul>
+        <div class="image-placeholder">[GAMBARAJAH: Cadangan Kedudukan Tangga Pasaraya]</div>
+
+        <h3>Contoh Pengiraan Lebar Tangga Pasaraya (Lantai Paras Jalan)</h3>
+        <ul>
+            <li><b>Keluasan lantai:</b> 4,500 m²</li>
+            <li><b>Jumlah orang:</b> 4,500 / 3 (faktor kedai paras jalan) = 1500 orang</li>
+            <li><b>Lebar diperlukan (tangga):</b> 1500 / 60 = <b>25 unit</b></li>
+            <li><b>Jumlah lebar tangga:</b> 25 unit x 550 mm = 13,750 mm</li>
+            <li><b>Jumlah tangga:</b> (25/4) + 1 = 7.25 -> <b>6 buah tangga</b> (Nota: pengiraan dalam PDF menggunakan formula (U/4)+1=6.25 -> 6, mungkin ada pembulatan berbeza)</li>
+        </ul>
+        <div class="image-placeholder">[GAMBARAJAH: Cadangan Kedudukan Tangga Pasaraya Paras Jalan]</div>
+    </div>
+
+    <div id="jadual-7" class="content-section">
+        <h2>Jadual Ketujuh Interaktif</h2>
+        <iframe src="jadual_ketujuh_interaktif.html" style="width: 100%; height: 100vh; border: none;"></iframe>
+    </div>
+    <div id="jadual-10" class="content-section">
+        <h2>Jadual Kesepuluh Interaktif</h2>
+        <iframe src="jadual_kesepuluh_interaktif.html" style="width: 100%; height: 100vh; border: none;"></iframe>
+    </div>
+    <div id="kalkulator-10-langkah" class="content-section">
+        <h2>Kalkulator 10 Langkah</h2>
+        <iframe src="kalkulator_10_langkah.html" style="width: 100%; height: 100vh; border: none;"></iframe>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        const initialHash = window.location.hash || '#home';
+        updateActiveState(initialHash);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                updateActiveState(targetId);
+                window.history.pushState(null, null, targetId);
+            });
+        });
+
+        window.addEventListener('popstate', function() {
+            const targetId = window.location.hash || '#home';
+            updateActiveState(targetId);
+        });
+
+        function updateActiveState(targetId) {
+            navLinks.forEach(navLink => {
+                navLink.classList.toggle('active', navLink.getAttribute('href') === targetId);
+            });
+
+            contentSections.forEach(section => {
+                section.classList.toggle('active', '#' + section.id === targetId);
+            });
+            
+            document.getElementById('main-content').scrollTop = 0;
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Jadual Keenam UBBL 1984</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #0056b3;
+            text-align: center;
+        }
+        .input-group, .output-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #0056b3;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+        .result-item {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-item span {
+            font-weight: bold;
+        }
+        .pass {
+            color: green;
+        }
+        .fail {
+            color: red;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Kalkulator Pematuhan Jadual Keenam UBBL 1984</h1>
+        <p style="text-align: center;">Untuk pengiraan had bukaan tanpa perlindungan pada dinding luaran.</p>
+
+        <div id="calculator">
+            <div class="input-group">
+                <label for="purposeGroup">Kumpulan Kegunaan (Purpose Group)</label>
+                <select id="purposeGroup">
+                    <option value="1">I, II, III, IV, VII</option>
+                    <option value="2">V, VI, VIII</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="rectWidth">Lebar Segiempat Tepat Selubung (Enclosing Rectangle Width) (m)</label>
+                <input type="number" id="rectWidth" placeholder="cth: 9">
+            </div>
+            <div class="input-group">
+                <label for="rectHeight">Tinggi Segiempat Tepat Selubung (Enclosing Rectangle Height) (m)</label>
+                <input type="number" id="rectHeight" placeholder="cth: 21.4">
+            </div>
+            <div class="input-group">
+                <label for="unprotectedArea">Jumlah Luas Bukaan Tanpa Perlindungan (sqm)</label>
+                <input type="number" id="unprotectedArea" placeholder="cth: 87">
+            </div>
+            <div class="input-group">
+                <label for="boundaryDistance">Jarak Reka Bentuk ke Sempadan Relevan (m)</label>
+                <input type="number" id="boundaryDistance" placeholder="cth: 7.5">
+            </div>
+            <button onclick="calculate()">Kira Pematuhan</button>
+        </div>
+
+        <div id="results" style="display:none;">
+            <h2>Hasil Pengiraan</h2>
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data from UBBL Schedule 6, Part II, Table for 24m height
+        // Simplified for this calculator. This table is for Purpose Groups I, II, III, IV, VII
+        const table24m_G1 = {
+            // width: [20, 30, 40, 50, 60, 70, 80, 90, 100]
+            3: [0.5, 1.5, 2.0, 2.5, 3.0, 3.5, 3.5, 4.0, 4.5],
+            6: [1.5, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 7.0, 7.0],
+            9: [2.0, 3.5, 5.0, 5.5, 6.5, 7.5, 8.0, 9.0, 9.5],
+            12: [2.5, 4.5, 6.0, 7.0, 8.0, 8.5, 9.5, 10.5, 11.5],
+            15: [3.0, 5.0, 6.5, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0],
+            18: [3.0, 5.5, 7.5, 8.5, 10.0, 11.0, 12.0, 13.0, 14.0],
+            21: [3.5, 6.0, 8.0, 9.5, 10.5, 12.0, 13.0, 14.0, 15.0],
+            24: [3.5, 6.5, 8.5, 10.0, 11.5, 12.5, 14.0, 15.0, 16.0],
+            27: [4.0, 7.0, 9.0, 11.0, 12.5, 13.5, 15.0, 16.0, 17.0],
+            30: [4.0, 7.5, 9.5, 11.5, 13.0, 14.0, 15.5, 17.0, 18.0],
+            40: [4.5, 8.5, 11.0, 13.0, 14.5, 16.0, 18.0, 19.0, 20.5],
+            50: [5.0, 9.0, 12.0, 14.0, 16.0, 17.5, 19.5, 21.0, 22.5],
+            60: [5.0, 9.5, 12.5, 15.0, 17.0, 19.0, 21.0, 23.0, 24.5],
+            80: [5.0, 10.0, 13.5, 16.5, 18.5, 21.0, 23.5, 25.5, 27.5],
+            100: [5.0, 10.0, 13.5, 17.0, 20.0, 22.5, 25.0, 27.5, 29.5],
+            120: [5.5, 10.0, 13.5, 17.5, 20.5, 23.5, 26.5, 29.0, 21.0], // Typo in PDF? 21.0, should be > 29.0
+            "No limit": [5.5, 10.0, 13.5, 18.0, 21.0, 24.0, 27.5, 30.0, 32.5]
+        };
+        // Note: For simplicity, this calculator uses the 24m high table as a reference, which is common.
+        // A more complex implementation would interpolate between different height tables.
+
+        const percentages = [20, 30, 40, 50, 60, 70, 80, 90, 100];
+        const widths = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, 50, 60, 80, 100, 120, "No limit"];
+
+        // Schedule 6, Part III, Table of Factors
+        const factors = [
+            { min: 0, max: 1, factor: 0 }, // Not in table, but logical
+            { min: 1, max: 1.2, factor: 80 },
+            { min: 1.2, max: 1.8, factor: 40 },
+            { min: 1.8, max: 2.7, factor: 20 },
+            { min: 2.7, max: 4.3, factor: 10 },
+            { min: 4.3, max: 6.0, factor: 4 },
+            { min: 6.0, max: 8.5, factor: 2 },
+            { min: 8.5, max: 12.0, factor: 1 },
+            { min: 12.0, max: 18.5, factor: 0.5 },
+            { min: 18.5, max: 27.5, factor: 0.25 },
+            { min: 27.5, max: 50, factor: 0.1 },
+            { min: 50, max: Infinity, factor: 0 }
+        ];
+
+        function getNextHighest(arr, val) {
+            for (let item of arr) {
+                if (item >= val) return item;
+            }
+            return arr[arr.length - 1];
+        }
+
+        function getNextHighestWidth(val) {
+            for (let w of widths) {
+                if (w === "No limit" || w >= val) return w;
+            }
+            return "No limit";
+        }
+
+        function calculate() {
+            const purposeGroup = document.getElementById('purposeGroup').value;
+            const rectWidth = parseFloat(document.getElementById('rectWidth').value);
+            const rectHeight = parseFloat(document.getElementById('rectHeight').value);
+            const unprotectedArea = parseFloat(document.getElementById('unprotectedArea').value);
+            const boundaryDistance = parseFloat(document.getElementById('boundaryDistance').value);
+
+            if (isNaN(rectWidth) || isNaN(rectHeight) || isNaN(unprotectedArea) || isNaN(boundaryDistance)) {
+                alert("Sila masukkan semua nilai yang sah.");
+                return;
+            }
+
+            // Step 2 & 3
+            const enclosingRectArea = rectWidth * rectHeight;
+            
+            // Step 4
+            const unprotectedPercentage = (unprotectedArea / enclosingRectArea) * 100;
+
+            // --- Part II Compliance ---
+            // Step 5 & 6: Determine required distance
+            // Note: This is a simplified lookup using the 24m table for G1 and assuming it doubles for G2 as a rule of thumb.
+            // A precise implementation would need all tables.
+            const tableHeight = getNextHighest([3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 40, 50, 60, 80, 100, 120], rectHeight);
+            const lookupWidth = getNextHighestWidth(rectWidth);
+            const lookupPercent = getNextHighest(percentages, unprotectedPercentage);
+            const percentIndex = percentages.indexOf(lookupPercent);
+            
+            let requiredDistance = 0;
+            if (table24m_G1[lookupWidth] && percentIndex !== -1) {
+                requiredDistance = table24m_G1[lookupWidth][percentIndex];
+                if (purposeGroup === "2") {
+                    requiredDistance *= 2; // General rule of thumb, not precise UBBL
+                }
+            } else {
+                 requiredDistance = "Data tidak dijumpai dalam jadual rujukan (24m)";
+            }
+            
+            const part2Complies = (typeof requiredDistance === 'number') ? (boundaryDistance >= requiredDistance) : false;
+
+            // --- Part III Compliance ---
+            // Step 9: Determine factor
+            let factor = 0;
+            for (const f of factors) {
+                if (boundaryDistance >= f.min && boundaryDistance < f.max) {
+                    factor = f.factor;
+                    break;
+                }
+            }
+
+            // Step 10: Calculate aggregate notional area
+            const aggregateNotionalArea = unprotectedArea * factor;
+            const maxNotionalArea = (purposeGroup === "1") ? 210 : 90;
+            const part3Complies = aggregateNotionalArea <= maxNotionalArea;
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.innerHTML = `
+                <div class="result-item">Luas Segiempat Tepat Selubung: <span>${enclosingRectArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Peratusan Bukaan Tanpa Perlindungan: <span>${unprotectedPercentage.toFixed(2)}%</span></div>
+                <hr>
+                <h3>Pematuhan Bahagian II (Jarak Sempadan)</h3>
+                <div class="result-item">Peratusan rujukan (tertinggi seterusnya): <span>${lookupPercent}%</span></div>
+                <div class="result-item">Jarak minimum yang dibenarkan dari sempadan: <span>${requiredDistance} m</span></div>
+                <div class="result-item">Jarak reka bentuk: <span>${boundaryDistance} m</span></div>
+                <div class="result-item">Status: <span class="${part2Complies ? 'pass' : 'fail'}">${part2Complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>
+                <p class="note">Nota: Pengiraan jarak minimum adalah berdasarkan jadual rujukan untuk bangunan setinggi 24m (atau tertinggi seterusnya) bagi Kumpulan Kegunaan I, II, III, IV, VII. Untuk Kumpulan V, VI, VIII, nilai digandakan sebagai anggaran.</p>
+                <hr>
+                <h3>Pematuhan Bahagian III (Luas Nosional Agregat)</h3>
+                <div class="result-item">Faktor daripada Jadual Faktor (berdasarkan jarak ${boundaryDistance}m): <span>${factor}</span></div>
+                <div class="result-item">Luas Nosional Agregat (Luas Bukaan x Faktor): <span>${aggregateNotionalArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Had maksimum Luas Nosional Agregat: <span>${maxNotionalArea} sqm</span></div>
+                <div class="result-item">Status: <span class="${part3Complies ? 'pass' : 'fail'}">${part3Complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>
+            `;
+
+            resultsDiv.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

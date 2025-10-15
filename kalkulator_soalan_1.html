@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator UBBL - Soalan 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .input-group, .output-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        button.secondary {
+             background-color: #7f8c8d;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+        .result-item {
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-item span {
+            font-weight: bold;
+        }
+        .pass {
+            color: green;
+        }
+        .fail {
+            color: red;
+        }
+        .window-group-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .window-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .window-group input {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Kalkulator Jadual Keenam (Latihan Modul 4, Soalan 1)</h1>
+        <p style="text-align: center;">Masukkan dimensi fasad dan butiran bukaan (tingkap) di bawah.</p>
+
+        <div id="calculator">
+            <div class="input-group">
+                <label for="facadeWidth">Lebar Fasad (m)</label>
+                <input type="number" id="facadeWidth" value="28">
+            </div>
+            <div class="input-group">
+                <label for="facadeHeight">Tinggi Fasad (m)</label>
+                <input type="number" id="facadeHeight" value="7">
+            </div>
+            <div class="input-group">
+                <label for="boundaryDistance">Jarak Anjakan ke Sempadan (Setback) (m)</label>
+                <input type="number" id="boundaryDistance" value="6">
+            </div>
+
+            <div class="window-group-container">
+                <h3>Kumpulan Bukaan (Tingkap)</h3>
+                <div id="window-groups"></div>
+                <button onclick="addWindowGroup()" class="secondary">+ Tambah Kumpulan Tingkap</button>
+            </div>
+
+            <button onclick="calculate()">Kira Pematuhan</button>
+        </div>
+
+        <div id="results" style="display:none;">
+            <h2>Hasil Pengiraan</h2>
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <script>
+        // Pre-populate with data from the exercise
+        window.onload = function() {
+            addWindowGroup(6, 2, 2.2);
+            addWindowGroup(2, 2, 5.8);
+        };
+
+        function addWindowGroup(qty = '', width = '', height = '') {
+            const container = document.getElementById('window-groups');
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'window-group';
+            groupDiv.innerHTML = `
+                <input type="number" placeholder="Kuantiti" value="${qty}">
+                <input type="number" placeholder="Lebar Tingkap (m)" value="${width}">
+                <input type="number" placeholder="Tinggi Tingkap (m)" value="${height}">
+            `;
+            container.appendChild(groupDiv);
+        }
+
+        // Data tables from UBBL (same as previous calculator)
+        const table24m_G1 = {
+            3: [0.5, 1.5, 2.0, 2.5, 3.0, 3.5, 3.5, 4.0, 4.5],
+            6: [1.5, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 7.0, 7.0],
+            9: [2.0, 3.5, 5.0, 5.5, 6.5, 7.5, 8.0, 9.0, 9.5],
+            12: [2.5, 4.5, 6.0, 7.0, 8.0, 8.5, 9.5, 10.5, 11.5],
+            15: [3.0, 5.0, 6.5, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0],
+            18: [3.0, 5.5, 7.5, 8.5, 10.0, 11.0, 12.0, 13.0, 14.0],
+            21: [3.5, 6.0, 8.0, 9.5, 10.5, 12.0, 13.0, 14.0, 15.0],
+            24: [3.5, 6.5, 8.5, 10.0, 11.5, 12.5, 14.0, 15.0, 16.0],
+            30: [4.0, 7.5, 9.5, 11.5, 13.0, 14.0, 15.5, 17.0, 18.0],
+            "No limit": [5.5, 10.0, 13.5, 18.0, 21.0, 24.0, 27.5, 30.0, 32.5]
+        };
+        const percentages = [20, 30, 40, 50, 60, 70, 80, 90, 100];
+        const widths = [3, 6, 9, 12, 15, 18, 21, 24, 30, "No limit"];
+        const factors = [
+            { min: 0, max: 1.2, factor: 80 }, { min: 1.2, max: 1.8, factor: 40 },
+            { min: 1.8, max: 2.7, factor: 20 }, { min: 2.7, max: 4.3, factor: 10 },
+            { min: 4.3, max: 6.0, factor: 4 }, { min: 6.0, max: 8.5, factor: 2 },
+            { min: 8.5, max: 12.0, factor: 1 }, { min: 12.0, max: 18.5, factor: 0.5 },
+            { min: 18.5, max: 27.5, factor: 0.25 }, { min: 27.5, max: 50, factor: 0.1 },
+            { min: 50, max: Infinity, factor: 0 }
+        ];
+
+        function getNextHighest(arr, val) {
+            for (let item of arr) {
+                if (item >= val) return item;
+            }
+            return arr[arr.length - 1];
+        }
+
+        function getNextHighestKey(obj, val) {
+            const keys = Object.keys(obj).filter(k => k !== 'No limit').map(Number).sort((a, b) => a - b);
+            for (let key of keys) {
+                if (key >= val) return key;
+            }
+            return 'No limit';
+        }
+
+        function calculate() {
+            const facadeWidth = parseFloat(document.getElementById('facadeWidth').value);
+            const facadeHeight = parseFloat(document.getElementById('facadeHeight').value);
+            const boundaryDistance = parseFloat(document.getElementById('boundaryDistance').value);
+
+            let totalUnprotectedArea = 0;
+            const windowGroups = document.getElementById('window-groups').children;
+            for (let group of windowGroups) {
+                const inputs = group.getElementsByTagName('input');
+                const qty = parseFloat(inputs[0].value);
+                const width = parseFloat(inputs[1].value);
+                const height = parseFloat(inputs[2].value);
+                if (!isNaN(qty) && !isNaN(width) && !isNaN(height)) {
+                    totalUnprotectedArea += qty * width * height;
+                }
+            }
+
+            if (isNaN(facadeWidth) || isNaN(facadeHeight) || isNaN(boundaryDistance) || totalUnprotectedArea === 0) {
+                alert("Sila masukkan semua nilai yang sah.");
+                return;
+            }
+
+            const facadeArea = facadeWidth * facadeHeight;
+            const unprotectedPercentage = (totalUnprotectedArea / facadeArea) * 100;
+
+            // Part II Compliance
+            const enclosingHeight = getNextHighestKey(table24m_G1, facadeHeight); // Using keys from one table as reference for height
+            const enclosingWidth = getNextHighestKey(table24m_G1, facadeWidth);
+            const lookupPercent = getNextHighest(percentages, unprotectedPercentage);
+            const percentIndex = percentages.indexOf(lookupPercent);
+            
+            // Simplified: Using a single table for demonstration. A full app would need all tables.
+            // The exercise implies Purpose Group IV (Office), so table G1 is appropriate.
+            // The exercise building height is 7m, so we refer to the 9m enclosing rectangle height table in a real scenario.
+            // Here we use the 24m table data as a stand-in for simplicity.
+            let requiredDistance = "Data tidak dijumpai";
+            let tableToUse = table24m_G1; // Assuming G1 as it's office
+            let lookupKey = getNextHighestKey(tableToUse, facadeWidth);
+            if(tableToUse[lookupKey] && percentIndex !== -1) {
+                 requiredDistance = tableToUse[lookupKey][percentIndex];
+            }
+
+            const part2Complies = (typeof requiredDistance === 'number') ? (boundaryDistance >= requiredDistance) : false;
+
+            // Part III Compliance
+            let factor = 0;
+            for (const f of factors) {
+                if (boundaryDistance >= f.min && boundaryDistance < f.max) {
+                    factor = f.factor;
+                    break;
+                }
+            }
+            const aggregateNotionalArea = totalUnprotectedArea * factor;
+            const maxNotionalArea = 210; // For Purpose Group IV
+            const part3Complies = aggregateNotionalArea <= maxNotionalArea;
+
+            // Display
+            const resultsDiv = document.getElementById('results');
+            const resultContent = document.getElementById('result-content');
+            resultContent.innerHTML = `
+                <div class="result-item">Luas Fasad: <span>${facadeArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Jumlah Luas Bukaan: <span>${totalUnprotectedArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Peratusan Bukaan: <span>${unprotectedPercentage.toFixed(2)}%</span></div>
+                <hr>
+                <h3>Pematuhan Bahagian II (Jarak Sempadan)</h3>
+                <div class="result-item">Jarak minimum yang dibenarkan dari sempadan (berdasarkan ${lookupPercent}% bukaan): <span>${requiredDistance} m</span></div>
+                <div class="result-item">Jarak anjakan sebenar: <span>${boundaryDistance} m</span></div>
+                <div class="result-item">Status: <span class="${part2Complies ? 'pass' : 'fail'}">${part2Complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>
+                <p class="note">Nota: Pengiraan adalah rujukan berdasarkan data jadual yang tersedia dalam skrip ini. Untuk pematuhan penuh, rujuk jadual ketinggian dan lebar yang betul dalam UBBL.</p>
+                <hr>
+                <h3>Pematuhan Bahagian III (Luas Nosional Agregat)</h3>
+                <div class="result-item">Faktor (berdasarkan jarak anjakan ${boundaryDistance}m): <span>${factor}</span></div>
+                <div class="result-item">Luas Nosional Agregat: <span>${aggregateNotionalArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Had Maksimum (Kump. IV): <span>${maxNotionalArea} sqm</span></div>
+                <div class="result-item">Status: <span class="${part3Complies ? 'pass' : 'fail'}">${part3Complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>
+            `;
+            resultsDiv.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

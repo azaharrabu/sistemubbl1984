@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator UBBL - Soalan 2 (Menara Berkembar)</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #16a085; text-align: center; }
+        .input-group, .output-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="number"], select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { display: block; width:100%; padding: 10px 15px; background-color: #16a085; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+        button:hover { background-color: #117a65; }
+        #results { margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 4px; background-color: #e9ecef; }
+        .result-item { padding: 8px; border-bottom: 1px solid #ccc; }
+        .result-item:last-child { border-bottom: none; }
+        .result-item span { font-weight: bold; }
+        .pass { color: green; }
+        .fail { color: red; }
+        .note { font-size: 0.9em; color: #666; margin-top: 10px; padding: 10px; background: #f1c40f30; border-radius: 4px; }
+        .mode-selection { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Kalkulator Jadual Keenam (Latihan Modul 5, Soalan 2)</h1>
+    <p style="text-align: center;">Kalkulator untuk senario bangunan tinggi berkembar dengan kompartmenisasi setiap tingkat.</p>
+
+    <div class="mode-selection">
+        <label><input type="radio" name="calcMode" value="checkCompliance" checked onchange="switchMode()"> Semak Pematuhan Jarak</label>
+        <label><input type="radio" name="calcMode" value="findMaxOpening" onchange="switchMode()"> Cari Bukaan Maksimum</label>
+    </div>
+
+    <div id="mode-checkCompliance">
+        <h2>Mod 1: Semak Pematuhan Jarak (Soalan 2a)</h2>
+        <div class="input-group">
+            <label>Lebar Fasad (Segiempat Selubung per tingkat) (m)</label>
+            <input type="number" id="sc1_rectWidth" value="20">
+        </div>
+        <div class="input-group">
+            <label>Tinggi dari Lantai ke Lantai (m)</label>
+            <input type="number" id="sc1_floorHeight" value="4.8">
+        </div>
+        <div class="input-group">
+            <label>Tinggi Penghadang Api Menegak (cth: drop beam) (m)</label>
+            <input type="number" id="sc1_fireBarrier" value="0.9">
+        </div>
+        <div class="input-group">
+            <label>Jarak Pemisahan Sebenar Antara Bangunan (m)</label>
+            <input type="number" id="sc1_actualSeparation" value="8">
+        </div>
+    </div>
+
+    <div id="mode-findMaxOpening" style="display:none;">
+        <h2>Mod 2: Cari Bukaan Maksimum & Semak Luas Nosional (Soalan 2b & 2c)</h2>
+        <div class="input-group">
+            <label>Lebar Fasad (Segiempat Selubung per tingkat) (m)</label>
+            <input type="number" id="sc2_rectWidth" value="20">
+        </div>
+        <div class="input-group">
+            <label>Tinggi dari Lantai ke Lantai (m)</label>
+            <input type="number" id="sc2_floorHeight" value="4.8">
+        </div>
+        <div class="input-group">
+            <label>Jarak Pemisahan Sebenar Antara Bangunan (m)</label>
+            <input type="number" id="sc2_actualSeparation" value="8">
+        </div>
+    </div>
+
+    <button onclick="calculate()">Kira</button>
+
+    <div id="results" style="display:none;"></div>
+</div>
+
+<script>
+    // Data from UBBL Schedule 6, Part II, Table for 6m height (for floor-by-floor compartmentalization)
+    const table6m_G1 = {
+        // width: [20, 30, 40, 50, 60, 70, 80, 90, 100]
+        3: [1.0, 1.0, 1.5, 2.0, 2.0, 2.0, 2.5, 2.5, 3.0],
+        6: [1.0, 1.5, 2.0, 2.5, 3.0, 3.0, 3.5, 4.0, 4.0],
+        9: [1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 4.5, 5.0],
+        12: [1.5, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.0, 5.5],
+        15: [1.5, 2.5, 3.0, 4.0, 4.5, 5.0, 5.5, 5.5, 6.0],
+        18: [1.5, 2.5, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5],
+        21: [1.5, 2.5, 3.5, 4.0, 5.0, 5.5, 6.0, 6.5, 7.0],
+        24: [1.5, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 7.0, 7.0],
+        // ... and so on, as per UBBL. This is a representative sample.
+        "No limit": [1.5, 2.5, 3.5, 5.0, 6.0, 7.0, 8.0, 8.5, 10.0]
+    };
+    const percentages = [20, 30, 40, 50, 60, 70, 80, 90, 100];
+    const factors = [
+        { min: 0, max: 1.2, factor: 80 }, { min: 1.2, max: 1.8, factor: 40 },
+        { min: 1.8, max: 2.7, factor: 20 }, { min: 2.7, max: 4.3, factor: 10 },
+        { min: 4.3, max: 6.0, factor: 4 }, { min: 6.0, max: 8.5, factor: 2 },
+        { min: 8.5, max: 12.0, factor: 1 }, { min: 12.0, max: 18.5, factor: 0.5 },
+        { min: 18.5, max: 27.5, factor: 0.25 }, { min: 27.5, max: 50, factor: 0.1 },
+        { min: 50, max: Infinity, factor: 0 }
+    ];
+
+    function switchMode() {
+        const mode = document.querySelector('input[name="calcMode"]:checked').value;
+        document.getElementById('mode-checkCompliance').style.display = (mode === 'checkCompliance') ? 'block' : 'none';
+        document.getElementById('mode-findMaxOpening').style.display = (mode === 'findMaxOpening') ? 'block' : 'none';
+        document.getElementById('results').style.display = 'none';
+    }
+
+    function getNextHighestKey(obj, val) {
+        const keys = Object.keys(obj).filter(k => k !== 'No limit').map(Number).sort((a, b) => a - b);
+        for (let key of keys) {
+            if (key >= val) return key;
+        }
+        return 'No limit';
+    }
+
+    function calculate() {
+        const mode = document.querySelector('input[name="calcMode"]:checked').value;
+        let resultsHTML = '';
+
+        // Common data for both modes
+        const rectWidth = parseFloat(document.getElementById(mode === 'checkCompliance' ? 'sc1_rectWidth' : 'sc2_rectWidth').value);
+        const floorHeight = parseFloat(document.getElementById(mode === 'checkCompliance' ? 'sc1_floorHeight' : 'sc2_floorHeight').value);
+        const actualSeparation = parseFloat(document.getElementById(mode === 'checkCompliance' ? 'sc1_actualSeparation' : 'sc2_actualSeparation').value);
+        const distanceToNotional = actualSeparation / 2;
+
+        if (mode === 'checkCompliance') {
+            const fireBarrier = parseFloat(document.getElementById('sc1_fireBarrier').value);
+            const unprotectedHeight = floorHeight - fireBarrier;
+            const enclosingArea = rectWidth * floorHeight;
+            const unprotectedArea = rectWidth * unprotectedHeight;
+            const unprotectedPercentage = (unprotectedArea / enclosingArea) * 100;
+
+            const lookupHeight = getNextHighestKey(table6m_G1, floorHeight);
+            const lookupWidth = getNextHighestKey(table6m_G1, rectWidth);
+            const lookupPercent = getNextHighestKey(percentages, unprotectedPercentage);
+            const percentIndex = percentages.indexOf(lookupPercent);
+
+            let requiredDist = table6m_G1[lookupWidth][percentIndex];
+            let totalRequiredSep = requiredDist * 2;
+            let complies = actualSeparation >= totalRequiredSep;
+
+            resultsHTML = `<h2>Hasil: Semak Pematuhan Jarak</h2>
+                <div class="result-item">Jarak ke Sempadan Nosional: <span>${distanceToNotional.toFixed(2)} m</span></div>
+                <div class="result-item">Luas Bukaan Tanpa Perlindungan (per tingkat): <span>${unprotectedArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Peratusan Bukaan: <span>${unprotectedPercentage.toFixed(2)}%</span></div>
+                <hr>
+                <div class="result-item">Jarak Minimum Diperlukan dari Sempadan Nosional (Jadual 6): <span>${requiredDist.toFixed(2)} m</span></div>
+                <div class="result-item">Jumlah Jarak Pemisahan Minimum Diperlukan (Jarak x 2): <span>${totalRequiredSep.toFixed(2)} m</span></div>
+                <div class="result-item">Jarak Pemisahan Sebenar: <span>${actualSeparation.toFixed(2)} m</span></div>
+                <div class="result-item">Status: <span class="${complies ? 'pass' : 'fail'}">${complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>
+                <p class="note">${!complies ? 'Jarak pemisahan sebenar (' + actualSeparation + 'm) adalah kurang daripada yang diperlukan (' + totalRequiredSep + 'm).' : 'Jarak pemisahan adalah mencukupi.'}</p>`;
+
+        } else { // findMaxOpening
+            const lookupWidth = getNextHighestKey(table6m_G1, rectWidth);
+            const distancesInRow = table6m_G1[lookupWidth];
+            
+            let allowedPercent = 0;
+            for (let i = distancesInRow.length - 1; i >= 0; i--) {
+                if (distanceToNotional >= distancesInRow[i]) {
+                    allowedPercent = percentages[i];
+                    break;
+                }
+            }
+
+            resultsHTML = `<h2>Hasil: Cari Bukaan Maksimum</h2>
+                <div class="result-item">Jarak ke Sempadan Nosional: <span>${distanceToNotional.toFixed(2)} m</span></div>
+                <div class="result-item">Peratusan Bukaan Maksimum Dibenarkan: <span class="pass">${allowedPercent}%</span></div>
+                <p class="note">Ini adalah peratusan maksimum yang dibenarkan untuk fasad bagi mengekalkan jarak ${distanceToNotional}m ke sempadan nosional.</p><hr>
+                <h3>Pematuhan Bahagian III (Luas Nosional Agregat)</h3>`;
+
+            const enclosingArea = rectWidth * floorHeight;
+            const maxUnprotectedArea = (allowedPercent / 100) * enclosingArea;
+            let factor = 0;
+            for (const f of factors) {
+                if (distanceToNotional >= f.min && distanceToNotional < f.max) {
+                    factor = f.factor;
+                    break;
+                }
+            }
+            const aggNotionalArea = maxUnprotectedArea * factor;
+            const maxAggNotionalArea = 210; // Office = Group IV
+            const part3Complies = aggNotionalArea <= maxAggNotionalArea;
+
+            resultsHTML += `
+                <div class="result-item">Luas Bukaan Maksimum (berdasarkan ${allowedPercent}%): <span>${maxUnprotectedArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Faktor (berdasarkan jarak ${distanceToNotional}m): <span>${factor}</span></div>
+                <div class="result-item">Luas Nosional Agregat: <span>${aggNotionalArea.toFixed(2)} sqm</span></div>
+                <div class="result-item">Had Maksimum (Kump. IV): <span>${maxAggNotionalArea} sqm</span></div>
+                <div class="result-item">Status Bahagian III: <span class="${part3Complies ? 'pass' : 'fail'}">${part3Complies ? 'MEMATUHI' : 'TIDAK MEMATUHI'}</span></div>`;
+        }
+
+        document.getElementById('results').innerHTML = resultsHTML;
+        document.getElementById('results').style.display = 'block';
+    }
+
+</script>
+
+</body>
+</html>
