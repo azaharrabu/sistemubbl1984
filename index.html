@@ -24,11 +24,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="nav-links">
+        <div class="nav-links" id="nav-links-container" style="display: none;">
             <a href="/rujukan_interaktif.html" target="_blank">Buka Sistem Rujukan Interaktif</a>
         </div>
         <div id="auth-section">
-            <div class="form-container" id="login-container">
+            <div class="form-container" id="login-container" style="display: none;">
                 <h2>Log Masuk</h2>
                 <form id="login-form">
                     <input type="email" placeholder="Email" required>
@@ -37,11 +37,25 @@
                 </form>
                 <p>Tiada akaun? <a href="#" id="show-signup">Daftar</a></p>
             </div>
-            <div class="form-container" id="signup-container" style="display: none;">
+            <div class="form-container" id="signup-container">
                 <h2>Daftar Akaun</h2>
                 <form id="signup-form">
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Kata Laluan" required>
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <input type="password" id="signup-password" placeholder="Kata Laluan" required>
+                    
+                    <div class="subscription-options">
+                        <h4>Pilih Pelan Langganan</h4>
+                        <label>
+                            <input type="radio" name="subscription_plan" value="6-bulan" required>
+                            6 Bulan - RM60 (Promosi: RM50)
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="subscription_plan" value="12-bulan" required>
+                            12 Bulan - RM100 (Promosi: RM80)
+                        </label>
+                    </div>
+                    
                     <button type="submit">Daftar</button>
                 </form>
                 <p>Sudah ada akaun? <a href="#" id="show-login">Log masuk</a></p>

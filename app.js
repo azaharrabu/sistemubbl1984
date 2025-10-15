@@ -16,16 +16,38 @@ const signupContainer = document.getElementById('signup-container');
 const userInfo = document.getElementById('user-info');
 const addCustomerForm = document.getElementById('add-customer-form');
 const customerList = document.getElementById('customer-list');
+const navLinksContainer = document.getElementById('nav-links-container');
 
-const showDashboard = () => { authSection.style.display = 'none'; dashboardSection.style.display = 'block'; };
-const showAuth = () => { authSection.style.display = 'block'; dashboardSection.style.display = 'none'; loginContainer.style.display = 'block'; signupContainer.style.display = 'none'; };
+const showDashboard = (user) => {
+    authSection.style.display = 'none';
+    dashboardSection.style.display = 'block';
+    userInfo.innerHTML = `Logged in as: <strong>${user.email}</strong>`;
+};
 
-const checkUser = async () => {
+const showAuth = () => {
+    authSection.style.display = 'block';
+    dashboardSection.style.display = 'none';
+    loginContainer.style.display = 'none';
+    signupContainer.style.display = 'block';
+    if (navLinksContainer) navLinksContainer.style.display = 'none';
+};
+
+const checkUserSession = async () => {
     const { data: { session } } = await _supabase.auth.getSession();
+    
     if (session) {
-        userInfo.innerText = `Helo, ${session.user.email}`;
-        showDashboard();
+        showDashboard(session.user);
+        
+        const customerProfile = JSON.parse(localStorage.getItem('customerProfile'));
+        
+        if (customerProfile && customerProfile.payment_status === 'paid') {
+            if (navLinksContainer) navLinksContainer.style.display = 'block';
+        } else {
+            if (navLinksContainer) navLinksContainer.style.display = 'none';
+        }
+        
         fetchCustomers();
+
     } else {
         showAuth();
     }
@@ -36,12 +58,23 @@ async function handleAuth(event, endpoint) {
     const form = event.target;
     const email = form.querySelector('input[type="email"]').value;
     const password = form.querySelector('input[type="password"]').value;
+    
+    let body = { email, password };
+
+    if (endpoint === '/api/signup') {
+        const planInput = form.querySelector('input[name="subscription_plan"]:checked');
+        if (!planInput) {
+            alert('Sila pilih pelan langganan.');
+            return;
+        }
+        body.subscription_plan = planInput.value;
+    }
 
     try {
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify(body)
         });
         const data = await response.json();
         if (!response.ok) throw new Error(data.error);
@@ -49,10 +82,24 @@ async function handleAuth(event, endpoint) {
         if (endpoint === '/api/signin') {
             const { error } = await _supabase.auth.setSession(data.session);
             if (error) throw error;
-            checkUser();
-        } else {
-            alert('Pendaftaran berjaya! Sila semak email anda untuk pengesahan.');
-            showAuth();
+
+            if (data.customer) {
+                localStorage.setItem('customerProfile', JSON.stringify(data.customer));
+            } else {
+                localStorage.removeItem('customerProfile');
+            }
+            
+            checkUserSession();
+
+        } else { 
+            if (data.paymentUrl) {
+                alert('Pendaftaran berjaya! Anda akan dibawa ke laman pembayaran.');
+                window.location.href = data.paymentUrl;
+            } else {
+                alert('Pendaftaran berjaya! Sila semak email anda untuk pengesahan.');
+                signupContainer.style.display = 'none';
+                loginContainer.style.display = 'block';
+            }
         }
     } catch (error) {
         alert(`Ralat: ${error.message}`);
@@ -62,7 +109,8 @@ async function handleAuth(event, endpoint) {
 
 async function handleSignOut() {
     await _supabase.auth.signOut();
-    checkUser();
+    localStorage.removeItem('customerProfile');
+    checkUserSession();
 }
 
 async function fetchCustomers() {
@@ -72,7 +120,7 @@ async function fetchCustomers() {
     customers.forEach(customer => {
         const el = document.createElement('div');
         el.classList.add('customer-item');
-        el.innerHTML = `<div><strong>${customer.name}</strong><br><small>${customer.email}</small></div><button class="delete-button" data-id="${customer.id}">Padam</button>`;
+        el.innerHTML = `<div><strong>${customer.name || customer.email}</strong><br><small>${customer.subscription_plan || ''}</small></div><button class="delete-button" data-id="${customer.id}">Padam</button>`;
         customerList.appendChild(el);
     });
 }
@@ -108,4 +156,4 @@ logoutButton.addEventListener('click', handleSignOut);
 addCustomerForm.addEventListener('submit', handleAddCustomer);
 customerList.addEventListener('click', handleDeleteCustomer);
 
-document.addEventListener('DOMContentLoaded', checkUser);
+document.addEventListener('DOMContentLoaded', checkUserSession);
