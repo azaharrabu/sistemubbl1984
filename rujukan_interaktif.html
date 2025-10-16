@@ -195,6 +195,28 @@
         }
     </style>
     <style>
+        /* CSS untuk Watermark */
+        body::after {
+            content: "";
+            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='200px' width='400px'><text x='50%' y='50%' transform='translate(0, 30) rotate(-30 200 100)' fill='rgba(211, 47, 47, 0.08)' font-size='24' font-family='-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif' font-weight='bold' text-anchor='middle'>ABR Brillante</text></svg>");
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 9999; /* Pastikan ia di lapisan paling atas */
+            pointer-events: none; /* Membenarkan klik menembusi lapisan watermark */
+            will-change: transform; /* Optimalisasi prestasi */
+        }
+
+        /* Elakkan watermark daripada dicetak */
+        @media print {
+            body::after {
+                display: none !important;
+            }
+        }
+    </style>
+    <style>
         /* Disable text selection */
         body {
             -webkit-user-select: none;
@@ -784,10 +806,10 @@ Secara ringkas, kawalan kemerebakan api luaran adalah usaha multi disiplin yang 
             <li><b>Maksud Utama Penggunaan:</b> Jika sesebuah bangunan mempunyai fungsi pelbagai tetapi salah satu fungsi adalah dominan (contoh: sebuah hotel yang mempunyai beberapa kedai kecil di lobi), maka bangunan tersebut akan diklasifikasikan mengikut maksud utama iaitu hotel.</li>
         </ol>
         <p>Pengelasan yang tepat adalah fundamental untuk memastikan pematuhan undang-undang, merekabentuk sistem keselamatan yang efektif, melindungi nyawa dan harta benda, dan memudahkan proses kelulusan pelan bangunan.</p>
-        <div class="image-placeholder">[GAMBARAJAH: Carta Jenis Kumpulan Maksud]</div>
 
         <h3>Jadual Kelima: Kumpulan Maksud</h3>
         <p>Menurut Jadual kelima, Undang-undang Kecil Bangunan Seragam 1984, kumpulan maksud sesuatu bangunan adalah seperti berikut:-</p>
+        <img src="jenis kumpulan maksud.jpg" alt="Carta Jenis Kumpulan Maksud" style="width:100%; max-width:800px; display:block; margin: 1em auto; border-radius: 4px;">
         <table>
             <thead>
                 <tr>
@@ -843,7 +865,7 @@ Secara ringkas, kawalan kemerebakan api luaran adalah usaha multi disiplin yang 
         <div id="ms1183" class="content-section">
         <h2>MS 1183:2015: Occupancy characteristics</h2>
         <p>Jika kita merujuk kepada MS 1183:2015, pengelasan bangunan ini boleh dipecahkan kepada beberapa kriteria risiko kebakaran. Daripada kriteria inilah sesuatu kumpulan maksud ini dikategorikan. Semakin tinggi risiko sesuatu bangunan itu, semakin tinggi keperluan sistem pepasangan keselamatan kebakaran yang perlu diadakan.</p>
-        <div class="image-placeholder">[GAMBARAJAH: Carta MS 1183:2015 Occupancy Characteristics]</div>
+        <img src="ms 1183.jpg" alt="Carta MS 1183:2015 Occupancy Characteristics" style="width:100%; max-width:800px; display:block; margin: 1em auto; border-radius: 4px;">
         <p>Berdasarkan carta MS 1183:2015: Occupancy Characteristics, rajah ini adalah alat bantu visual yang sangat penting dalam reka bentuk keselamatan kebakaran. Ia mengklasifikasikan pelbagai jenis penghunian (occupancy) bangunan berdasarkan dua ciri utama yang mempengaruhi risiko dan keperluan keselamatan kebakaran, iaitu:</p>
         <ol>
             <li><b>Familiarity (Familiar vs. Unfamiliar)</b> - Sejauh mana penghuni biasa dengan susun atur bangunan.</li>
@@ -853,78 +875,118 @@ Secara ringkas, kawalan kemerebakan api luaran adalah usaha multi disiplin yang 
 
         <h3>Paksi Y: State of Awareness (Keadaan Kesedaran)</h3>
         <ul>
-            <li><b>AWAKE (Sedang Sedar/Berjaga):</b> Penghuni dijangka berada dalam keadaan berjaga dan berupaya bertindak balas dengan cepat terhadap amaran kebakaran. Contoh: pejabat, gudang, sekolah, pawagam, kedai.</li>
+            <li><b>AWAKE (Sedang Sedar/Berjaga):</b> Penghuni dijangka berada dalam keadaan berjaga dan berupaya bertindak balas dengan cepat terhadap amaran kebakaran. Contoh penghunian dalam kategori ini ialah pejabat, gudang, sekolah, pawagam, kedai, kompleks beli-belah, kilang, tempat letak kereta, stesen bas dan hospital pesakit luar. Arah panah hijau ke atas menunjukkan bahawa risiko nyawa secara amnya lebih rendah berbanding apabila penghuni sedang tidur, kerana mereka dapat bertindak balas dan mengungsikan diri dengan lebih cekap.</li>
             <li><b>ASLEEP (Sedang Tidur):</b> Penghuni dijangka sedang tidur dan mungkin memerlukan masa yang lebih lama untuk sedar. Kategori ini dibahagikan lagi kepada:
                 <ul>
                     <li><b>Long term (Jangka Panjang)</b> - Penghuni tinggal untuk tempoh yang lama. Contohnya rumah persendirian dan kondominium.</li>
                     <li><b>Short term (Jangka Pendek)</b> - Penghuni tinggal untuk tempoh yang singkat. Contohnya hotel.</li>
                     <li><b>Medical (Perubatan)</b> - Penghuni yang memerlukan bantuan perubatan atau mempunyai mobiliti terhad. Contohnya hospital pesakit dalam (Inpatient). Ini adalah kategori risiko tertinggi.</li>
                 </ul>
+                Arah panah merah ke bawah menunjukkan bahawa risiko nyawa secara amnya lebih tinggi apabila penghuni sedang tidur.
             </li>
         </ul>
 
         <h3>Paksi X: Familiarity (Kefahaman/Kebiasaan dengan Bangunan)</h3>
         <ul>
-            <li><b>BIASA:</b> Penghuni dijangka sangat biasa dengan bangunan dan laluan keluar. Contoh: Pejabat, gudang, sekolah, kilang, rumah persendirian.</li>
-            <li><b>TIDAK BIASA:</b> Penghuni dijangka tidak biasa dengan bangunan dan laluan keluar. Contoh: Tempat letak kereta, pawagam, kedai, hotel.</li>
+            <li><b>BIASA:</b> Penghuni dijangka sangat biasa dengan bangunan dan laluan keluar, serta prosedur kecemasan. Mereka menghabiskan banyak masa di sana. Contoh : Pejabat, gudang, sekolah, kilang, rumah persendirian, kondominium. Arah panah hijau ke kiri menunjukkan bahawa tahap kebiasaan yang tinggi secara amnya mengurangkan risiko nyawa kerana penghuni boleh mengungsikan diri dengan lebih cepat dan teratur.</li>
+            <li><b>TIDAK BIASA:</b> Penghuni dijangka tidak biasa dengan bangunan dan laluan keluar, serta prosedur kecemasan. Mereka mungkin pengunjung atau penginap sementara. Contoh : Tempat letak kereta, pawagam, kedai, kompleks beli-belah, stesen bas, hotel, hospital pesakit luar, dan hospital pesakit dalam. Arah panah merah ke kanan menunjukkan bahawa tahap kebiasaan yang rendah secara amnya meningkatkan risiko nyawa kerana penghuni mungkin keliru atau lambat mencari jalan keluar.</li>
         </ul>
 
         <h3>Matriks Pendudukan (Occupancy Matrix)</h3>
         <p>Gabungan kedua-dua paksi ini membentuk matriks yang mengkategorikan pendudukan dari risiko rendah ke tinggi, ditunjukkan dengan skala warna hijau (risiko rendah) ke merah (risiko tinggi):</p>
         <ul>
-            <li><b>Hijau (Kiri Atas - Risiko Paling Rendah):</b> AWAKE + FAMILIAR. Contohnya pejabat, gudang, sekolah dan kilang.</li>
-            <li><b>Kuning (Tengah):</b> AWAKE + UNFAMILIAR (Contohnya parkir, panggung wayang, kedai) dan ASLEEP + FAMILIAR (Contohnya rumah persendirian, kondominium).</li>
-            <li><b>Jingga/Merah (Kanan Bawah - Risiko Paling Tinggi):</b> ASLEEP + UNFAMILIAR (Short term) - Contohnya hotel. ASLEEP + UNFAMILIAR (Medical) - Contohnya hospital pesakit dalam. High Hazard Factory juga diletakkan di zon risiko tinggi.</li>
+            <li><b>Hijau (Kiri Atas - Risiko Paling Rendah):</b> AWAKE + FAMILIAR - Contohnya pejabat, gudang, sekolah dan kilang. Di sini, penghuni sedar dan biasa dengan persekitaran, membolehkan evakuasi yang cepat dan cekap.</li>
+            <li><b>Kuning (Tengah):</b> AWAKE + UNFAMILIAR - Contohnya parkir, panggung wayang, kedai, pusat membeli belah, stesen bas dan hospital. Penghuni sedar tetapi tidak biasa dengan persekitaran. Memerlukan sistem amaran dan tanda arah yang jelas.<br>ASLEEP + FAMILIAR (Long term) - Contohnya rumah persendirian dan kondominium. Penghuni sedang tidur tetapi biasa dengan persekitaran. Masa tindak balas mungkin lambat tetapi orientasi tidak menjadi masalah besar.</li>
+            <li><b>Jingga/Merah (Kanan Bawah - Risiko Paling Tinggi):</b> ASLEEP + UNFAMILIAR (Short term) - Contohnya hotel. Penghuni tidur dan tidak biasa dengan persekitaran, memerlukan langkah keselamatan yang lebih ketat.<br>ASLEEP + UNFAMILIAR (Medical) - Contohnya hospital pesakit dalam. Penghuni tidur, tidak biasa, dan mempunyai mobiliti terhad/memerlukan bantuan. Ini adalah risiko tertinggi.<br>High Hazard Factory - Ini adalah kategori khas yang diletakkan di zon risiko tinggi tanpa mengira ’state of awareness’ atau ’familiarity’, kerana sifat bahan atau proses yang sangat berbahaya di kilang tersebut.</li>
         </ul>
 
         <h3>Parameter Reka Bentuk Keselamatan Kebakaran (Relevance to Design Parameters)</h3>
         <p>Dua jalur warna di sebelah kanan matriks menunjukkan bagaimana ciri-ciri penghunian ini mempengaruhi keperluan reka bentuk.</p>
         <ul>
-            <li><b>Jarak Perjalanan:</b> Merujuk kepada jarak maksimum yang dibenarkan untuk penghuni berjalan dari mana-mana titik dalam bangunan ke pintu keluar keselamatan terdekat. Skala Warna: Hijau (75 meter) di bahagian atas (risiko rendah) beralih kepada merah (35 meter) di bahagian bawah (risiko tinggi).</li>
-            <li><b>Exit Capacity (Kapasiti Jalan Keluar):</b> Merujuk kepada bilangan orang yang boleh mengungsikan diri melalui satu unit lebar jalan keluar dalam tempoh masa tertentu. Skala Warna: Hijau (60 orang per unit) di bahagian atas beralih kepada merah (15 orang per unit) di bahagian bawah.</li>
+            <li><b>Jarak Perjalanan:</b> Merujuk kepada jarak maksimum yang dibenarkan untuk penghuni berjalan dari mana-mana titik dalam bangunan ke pintu keluar keselamatan terdekat. Skala Warna: Hijau (75 meter) di bahagian atas (risiko rendah) beralih kepada merah (35 meter) di bahagian bawah (risiko tinggi).
+                <blockquote>
+                    <p><b>Implikasi:</b></p>
+                    <ul style="list-style-type: '▪ '; padding-left: 20px;">
+                        <li>Untuk penghunian berisiko rendah (AWAKE, FAMILIAR seperti Pejabat), jarak perjalanan yang lebih panjang (75m) boleh diterima kerana penghuni boleh mengungsikan diri dengan cepat.</li>
+                        <li>Untuk penghunian berisiko tinggi (ASLEEP, UNFAMILIAR, MEDICAL seperti Hospital Inpatient atau High Hazard Factory), jarak perjalanan yang dibenarkan adalah jauh lebih pendek (35m) untuk memastikan penghuni dapat mencapai tempat selamat dengan pantas.</li>
+                    </ul>
+                </blockquote>
+            </li>
+            <li><b>Exit Capacity (Kapasiti Jalan Keluar):</b> Merujuk kepada bilangan orang yang boleh mengungsikan diri melalui satu unit lebar jalan keluar dalam tempoh masa tertentu. Skala Warna: Hijau (60 orang per unit) di bahagian atas beralih kepada merah (15 orang per unit) di bahagian bawah.
+                <blockquote>
+                    <p><b>Implikasi:</b></p>
+                    <ul style="list-style-type: '▪ '; padding-left: 20px;">
+                        <li>Untuk penghunian berisiko rendah (AWAKE, FAMILIAR), kapasiti jalan keluar yang lebih tinggi (60 orang per unit) dibenarkan, bermakna laluan keluar boleh menampung lebih ramai orang.</li>
+                        <li>Untuk penghunian berisiko tinggi (ASLEEP, UNFAMILIAR, MEDICAL), kapasiti jalan keluar yang lebih rendah (15 orang per unit) diperlukan. Ini bermakna lebar laluan keluar perlu lebih besar atau bilangan laluan keluar perlu lebih banyak untuk menampung penghuni yang mungkin bergerak perlahan atau memerlukan bantuan.</li>
+                    </ul>
+                </blockquote>
+            </li>
         </ul>
     </div>
         <div id="pengukuran" class="content-section">
         <h2>Kaedah Pengukuran Bangunan</h2>
-        <p>Dalam konteks keselamatan kebakaran dan reka bentuk bangunan, keluasan dan ketinggian adalah dua parameter utama yang menentukan tahap risiko dan keperluan sistem keselamatan kebakaran.</p>
+        <p>Dalam konteks keselamatan kebakaran dan reka bentuk bangunan, keluasan dan ketinggian adalah dua parameter utama yang menentukan tahap risiko dan keperluan sistem keselamatan kebakaran. Parameter ini digunakan untuk menentukan jenis sistem pasif (contohnya, kadar ketahanan api struktur) dan sistem aktif (contohnya, bilangan dan jenis sistem pemercik, penggera kebakaran) yang perlu dipasang.</p>
 
         <h3>1. Pengukuran Ketinggian Bangunan</h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="ukur 1.jpg" alt="Ilustrasi Pengukuran Ketinggian Bangunan 1" style="width:100%; max-width:350px; border-radius: 4px;">
+            <img src="ukur 2.jpg" alt="Ilustrasi Pengukuran Ketinggian Bangunan 2" style="width:100%; max-width:350px; border-radius: 4px;">
+        </div>
         <p>Bila kita bercakap mengenai ketinggian bangunan untuk tujuan keselamatan kebakaran (UUK 135 dan UUK 215), ia diukur dengan cara yang sangat spesifik.</p>
         <ul>
-            <li><b>Titik Permulaan Ukuran (Dari Bawah):</b> Ketinggian diambil dari paras tanah paling rendah yang bersentuhan terus dengan dinding luar bangunan.</li>
-            <li><b>Titik Akhir Ukuran (Sampai Atas):</b> Ukuran diambil sampai ke salah satu daripada dua paras ini, mana-mana yang lebih tinggi:
+            <li><b>Titik Permulaan Ukuran (Dari Bawah):</b> Ketinggian ni diambil dari paras tanah paling rendah yang bersentuhan terus dengan dinding luar bangunan tu. Sekiranya bangunan mempunyai dua paras jalan yang berbeza, permulaan ketinggian akan diambil berdasarkan paras ketinggian diantara dua paras ini.</li>
+            <li><b>Titik Akhir Ukuran (Sampai Atas):</b> Ukuran ni diambil sampai ke salah satu daripada dua paras ni, mana-mana yang lebih tinggi:
                 <ul>
-                    <li>Separuh dari ketinggian bumbung menegak (untuk bumbung condong/curam).</li>
-                    <li>Bahagian paling tinggi dinding parapet (jika ada).</li>
+                    <li>⮚	Separuh dari ketinggian bumbung menegak - Kalau bumbung tu jenis condong atau curam (macam bumbung rumah biasa), kita ambil ketinggian sampai ke titik tengah bumbung tu.</li>
+                    <li>⮚	Bahagian paling tinggi dinding parapet (kalau ada) - Parapet ni dinding pendek yang naik sikit kat atas paras bumbung. Kalau bangunan ada parapet, ketinggian diukur sampai ke puncak parapet tu.</li>
                 </ul>
             </li>
         </ul>
-        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Pengukuran Ketinggian Bangunan]</div>
         <h4>Kenapa ketinggian ini penting sangat?</h4>
         <ul>
             <li><b>Akses Bomba:</b> Bangunan yang tinggi melangit, bomba kena guna tangga hidraulik yang lebih canggih dan tinggi.</li>
             <li><b>Sistem Perlindungan Aktif:</b> Bangunan tinggi selalunya wajib ada sistem pemercik air automatik (sprinkler), paip air bomba yang sentiasa bertekanan (wet riser), sistem pengurusan asap, dan lif khas untuk bomba.</li>
-            <li><b>Sistem Perlindungan Pasif:</b> Lagi tinggi bangunan, lagi tinggi lah tahap ketahanan api yang diperlukan untuk struktur-struktur penting.</li>
-            <li><b>Strategi Evakuasi:</b> Bangunan tinggi perlukan pelan kecemasan yang lebih rumit, termasuklah kena ada ruang berlindung (refuge areas).</li>
+            <li><b>Sistem Perlindungan Pasif:</b> Lagi tinggi bangunan, lagi tinggi lah tahap ketahanan api yang diperlukan untuk struktur-struktur penting macam dinding, lantai, tiang, dan rasuk. Ini untuk pastikan bangunan tu kekal teguh masa kebakaran.</li>
+            <li><b>Strategi Evakuasi:</b> Bangunan tinggi perlukan pelan kecemasan yang lebih rumit, termasuklah kena ada ruang berlindung (refuge areas) atau zon selamat pada tingkat-tingkat tertentu.</li>
         </ul>
 
+        <img src="ketinggian bangunan.jpg" alt="Ilustrasi Pengukuran Ketinggian Bangunan" style="width:100%; max-width:800px; display:block; margin: 2em auto 1em; border-radius: 4px;">
         <h3>2. Pengukuran Keluasan Bangunan</h3>
         <p>Ukuran keluasan ini penting untuk tahu saiz bahagian-bahagian bangunan yang berbeza, berapa ramai orang boleh muat, dan juga berapa banyak bahan bakar (beban api) yang mungkin ada dalam kawasan tu. Ada tiga jenis ukuran keluasan iaitu:</p>
         <ul>
-            <li><b>a) Keluasan Tingkat Bangunan atau Petak:</b> Ruang yang dikelilingi oleh permukaan dalam dinding yang dah siap. Digunakan untuk tentukan saiz pemetakan dan keperluan jalan keluar.</li>
-            <li><b>b) Keluasan Bilik atau Garaj:</b> Ruang yang lebih kecil dan tertutup. Penting untuk keperluan pengudaraan dan saiz tingkap.</li>
-            <li><b>c) Keluasan Bahagian Bumbung:</b> Permukaan sebenar bumbung ikut kecerunan. Penting untuk tentukan jenis bahan bumbung.</li>
+            <li><b>a) Keluasan Tingkat Bangunan atau Petak:</b><br>
+                <b>Cara Kiraan:</b> Kita kira keluasan bahagian dalam tingkat tu, iaitu ruang yang dikelilingi oleh permukaan dalam dinding yang dah siap (tak termasuk tebal dinding tu sendiri).<br>
+                <b>Kalau Tak Ada Dinding (Macam Ruang Terbuka):</b> Kalau ada bahagian yang tak ada dinding (contohnya, ruang mezzanine atau ruang terbuka), keluasan diambil dari tepi lantai yang paling luar sekali kat bahagian tu. Ini penting untuk pastikan semua ruang yang boleh kita guna atau duduk tu diambil kira.<br>
+                Ukuran ni digunakan untuk tentukan saiz pemetakan, berapa banyak jalan keluar yang diperlukan, dan berapa ramai orang yang selamat untuk ada di setiap tingkat.
+            </li>
+            <li><b>b) Keluasan Bilik atau Garaj:</b><br>
+                <b>Cara Kiraan:</b> Kaedah kiraannya sama macam keluasan tingkat, tapi ni untuk ruang yang lebih kecil dan tertutup macam bilik tidur atau garaj. Kita kira dari permukaan dalam dinding yang membentuk bilik/garaj tu.<br>
+                Ini penting untuk mengetahui keperluan pengudaraan dalam bilik tu, saiz tingkap (kalau perlu untuk keluar), dan mana nak letak alat pengesan asap.
+            </li>
+            <li><b>c) Keluasan Bahagian Bumbung:</b><br>
+                <b>Cara Kiraan:</b> Untuk bumbung, kita kira keluasan permukaan sebenar bumbung tu, ikut kecerunan dia. Bukan kira luas tanah yang bumbung tu cover. Kiranya, kalau bumbung tu curam, kita ukur ikut cerun tu (keluasan sebenar permukaan bumbung).<br>
+                Ukuran ni penting untuk tentukan jenis bahan bumbung yang perlu digunakan. Ia juga penting untuk kira berapa banyak haba yang akan terbebas dari bumbung kalau ada kebakaran, atau berapa banyak api yang boleh terpercik dari bangunan sebelah.
+            </li>
         </ul>
 
         <h3>3. Pengukuran Kapasiti Isipadu Bangunan atau Petak</h3>
         <p>Kapasiti isipadu ini merujuk kepada jumlah ruang udara atau ruang kosong dalam sesebuah bangunan atau bahagian tertentu.</p>
         <h4>a) Cara kiraan isipadu:</h4>
-        <p>Diukur dengan mengukur ruang yang terkandung secara melintang (dari permukaan dalam dinding) dan menegak (dari permukaan lantai ke permukaan bawah bumbung/siling).</p>
+        <p>
+            <b>Melintang</b> - Dari permukaan dalam dinding yang melingkungi ruang tu. Kalau tak ada dinding, kita ambil dari satah (garisan bayangan) yang naik tegak dari tepi lantai yang paling luar.<br>
+            <b>Menegak (Dari Bawah)</b> - Dari permukaan atas lantai paling bawah dalam ruang tu.<br>
+            <b>Menegak (Ke Atas):</b>
+        </p>
+        <ul style="list-style-type: '▪ '; padding-left: 20px;">
+            <li>Kalau bangunan atau petak tu bersambung terus sampai bumbung, kita kira sampai permukaan bawah bumbung.</li>
+            <li>Kalau petak lain (yang ada siling), kita kira sampai permukaan bawah siling tingkat paling atas dalam petak tu.</li>
+        </ul>
+        <p>Kiraan isipadu ni akan masukkan sekali ruang yang ada dinding lain seperti lubang, saluran, atau apa-apa struktur lain dalam ruang yang diukur tu. Maknanya, isipadu ni adalah ruang kasar yang diduduki, termasuk semua yang ada di dalamnya.</p>
         <h4>b) Kenapa isipadu penting?</h4>
         <ul>
-            <li><b>Sistem Pengurusan Asap:</b> Kritikal untuk reka bentuk sistem pengurusan asap.</li>
-            <li><b>Sistem Pemasangan Tetap Gas:</b> Untuk sistem pemadam api yang menggunakan gas (Sistem CO2 atau Sistem FM-200), isipadu bilik adalah ukuran utama.</li>
-            <li><b>Pengiraan Beban Kebakaran:</b> Isipadu juga boleh mempengaruhi cara kita kira beban kebakaran.</li>
+            <li><b>Sistem Pengurusan Asap:</b> Ukuran isipadu ni sangat kritikal untuk reka bentuk sistem pengurusan asap. Ia akan tentukan berapa banyak udara yang perlu ditukar untuk buang asap.</li>
+            <li><b>Sistem Pemasangan Tetap Gas:</b> Untuk sistem pemadam api yang menggunakan gas (Sistem CO2 atau Sistem FM-200), isipadu bilik adalah ukuran utama untuk kira berapa banyak gas pemadam yang diperlukan.</li>
+            <li><b>Pengiraan Beban Kebakaran:</b> Isipadu juga boleh mempengaruhi cara kita kira beban kebakaran (berapa banyak bahan bakar ada) dan jumlah haba yang akan dilepaskan masa kebakaran.</li>
         </ul>
     </div>
         <div id="pemetakan" class="content-section">
@@ -945,63 +1007,161 @@ Secara ringkas, kawalan kemerebakan api luaran adalah usaha multi disiplin yang 
             <li><b>Mengurangkan Kerosakan Bangunan:</b> Pemetakan membantu mengelakkan kerosakan teruk pada seluruh bangunan.</li>
         </ul>
 
-        <h3>Konsep dan Fungsi Pemetakan</h3>
-        <p>Konsep pemetakan terbahagi kepada dua iaitu: Perancangan Keselamatan Kebakaran dan Pembahagian Ruang Berdasarkan Risiko. Fungsi pemetakan termasuklah:</p>
-        <ul>
-            <li>Menghadkan isipadu dan keluasan.</li>
-            <li>Mengasingkan kawasan berisiko tinggi.</li>
-            <li>Menghadkan kemerebakan api.</li>
-            <li>Menjadikan kepungan dan laluan pelepasan diri.</li>
+        <h4>Had Maksimum Pemetakan</h4>
+        <p>Setiap jenis bangunan dan tahap risiko mempunyai had keluasan atau isipadu maksimum untuk setiap petak. Ini boleh dirujuk dalam Jadual Kelima UUKBS 1984. Jadi, kalau saiz petak dah melebihi had tu, ia kena dibahagikan lagi kepada petak yang lebih kecil. Ini untuk pastikan saiz potensi kebakaran dalam satu-satu ruang itu terkawal.</p>
+
+        <h3>Konsep Pemetakan</h3>
+        <p>Konsep pemetakan terbahagi kepada dua iaitu:</p>
+        <ul style="list-style-type: '❖ '; padding-left: 20px;">
+            <li><b>Perancangan Keselamatan Kebakaran</b> - Pemetakan adalah satu perancangan yang bertujuan untuk membendung, mengawal, dan melambatkan penyebaran api, asap, dan haba antara kawasan yang berbeza dalam sesebuah bangunan.</li>
+            <li><b>Pembahagian Ruang Berdasarkan Risiko</b> - Ia melibatkan pembinaan dinding dan lantai petak yang berfungsi untuk menghadkan isipadu dan keluasan sesuatu ruang atau tingkat. Pembahagian ini dibuat berdasarkan jenis kegunaan ruang dan tahap risiko kebakaran yang mungkin berlaku.</li>
         </ul>
-        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Konsep dan Fungsi Pemetakan]</div>
+
+        <h3>Fungsi Pemetakan</h3>
+        <p>Fungsi utama pemetakan termasuklah:</p>
+        <ul>
+            <li>Menghadkan isipadu dan keluasan.
+                <div style="display: flex; align-items: center; gap: 20px; margin-top: 1em; flex-wrap: wrap; background-color: #f9f9f9; padding: 1em; border-radius: 5px;">
+                    <img src="menghadkan isipadu.jpg" alt="Ilustrasi menghadkan isipadu dan keluasan" style="flex: 1; min-width: 250px; max-width: 350px; border-radius: 4px;">
+                    <div style="flex: 1.5; min-width: 250px;">
+                        <p style="font-style: italic; color: #555;"><b>** Had limit pemetakan bagi Kumpulan maksud yang berkaitan boleh dirujuk di dalam jadual kelima UUKBS 1984</b></p>
+                    </div>
+                </div>
+            </li>
+            <li>Mengasingkan kawasan berisiko tinggi.
+                <div style="display: flex; align-items: center; gap: 20px; margin-top: 1em; flex-wrap: wrap; background-color: #f9f9f9; padding: 1em; border-radius: 5px;">
+                    <img src="risiko tinggi.jpg" alt="Ilustrasi pengasingan kawasan berisiko tinggi" style="flex: 1; min-width: 250px; max-width: 350px; border-radius: 4px;">
+                    <div style="flex: 1.5; min-width: 250px;">
+                        <p style="font-style: italic; color: #555;"><b>** Keperluan sistem di dalam sesuatu bangunan adalah bergantung kepada tahap kemerbahayaan bangunan itu. Jika terdapat dua atau lebih kegunaan yang berbeza, pengasingan kawasan berisiko hendaklah dibuat.</b></p>
+                    </div>
+                </div>
+            </li>
+            <li>Menghadkan kemerebakan api.
+                <div style="margin-top: 1em;">
+                    <img src="hadkan kemerebakan.jpg" alt="Ilustrasi menghadkan kemerebakan api" style="width:100%; max-width: 450px; border-radius: 4px; display: block; margin: auto;">
+                </div>
+            </li>
+            <li>Menjadikan kepungan dan laluan pelepasan diri.
+                <div style="display: flex; align-items: center; gap: 20px; margin-top: 1em; flex-wrap: wrap; background-color: #f9f9f9; padding: 1em; border-radius: 5px;">
+                    <img src="kepungan.jpg" alt="Ilustrasi kepungan dan laluan pelepasan diri" style="flex: 1; min-width: 250px; max-width: 350px; border-radius: 4px;">
+                    <div style="flex: 1.5; min-width: 250px;">
+                        <p style="font-style: italic; color: #555;"><b>** Kawasan pemetakan boleh dijadikan sebagai tempat berlindung sementara menunggu bantuan keselamatan tiba.</b></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
 
         <h3>Penggunaan Pengatup Kebakaran (UUK 136A)</h3>
-        <p>Pengatup kebakaran berfungsi sebagai penghalang fizikal untuk mengelakkan api dan asap daripada merebak di bukaan besar seperti pintu masuk ke tempat letak kereta, ruang eskalator, dan bukaan di dinding atau lantai petak.</p>
+        <p>Pengatup kebakaran berfungsi sebagai penghalang fizikal untuk mengelakkan api dan asap daripada merebak di dalam bangunan. Ia sering digunakan di bukaan besar seperti pintu masuk ke tempat letak kereta, ruang eskalator, dan bukaan di dinding atau lantai petak.</p>
         <ul>
-            <li><b>Sebagai Dinding Petak:</b> Boleh digunakan sebagai dinding petak kecuali di kawasan kritikal seperti laluan keluar kecemasan.</li>
-            <li><b>Melindungi Bukaan:</b> Mesti mempunyai tahap ketahanan api yang sama atau lebih baik daripada dinding/lantai petak yang dilindunginya.</li>
-            <li><b>Pengecualian Penebat Haba:</b> Tidak diwajibkan untuk kawasan yang tidak mempunyai beban api yang tinggi (cth: atrium, eskalator).</li>
+            <li><b>Sebagai Dinding Petak:</b> Pengatup kebakaran boleh digunakan sebagai dinding petak (penghalang api), kecuali di kawasan yang sangat kritikal seperti Pusat Pemerintahan Kebakaran (PPK) atau laluan keluar kecemasan (tangga, ruang asap, dsb). Ini adalah kerana laluan kecemasan mesti sentiasa bebas halangan untuk memastikan keselamatan penghuni.</li>
+            <li><b>Melindungi Bukaan:</b> Pengatup kebakaran boleh digunakan untuk menutup bukaan dalam dinding petak atau lantai petak. Pengatup ini mesti mempunyai tahap ketahanan api (fire resistance) yang sama atau lebih baik daripada dinding/lantai petak yang dilindunginya. Ia juga mesti mempunyai penebat haba (thermal insulation) yang mencukupi untuk mengelakkan haba daripada merebak.</li>
+            <li><b>Pengecualian Penebat Haba:</b> Penebat haba tidak diwajibkan untuk pengatup kebakaran yang dipasang di kawasan yang tidak mempunyai beban api (fire load) yang tinggi. Contohnya, di sisi atrium, ruang eskalator, laluan masuk tempat letak kereta, dan bukaan antara lantai. Ini kerana tujuan utama di kawasan ini adalah untuk menghentikan penyebaran asap, bukan haba yang melampau.</li>
         </ul>
-        <p>Terdapat tiga jenis pengatup kebakaran: menegak, melintang, dan sisian. Peraturan untuk pengatup yang dikendalikan secara graviti atau elektrik juga dinyatakan, termasuk keperluan untuk dihubungkan dengan sistem penggera kebakaran dan disokong oleh bekalan kuasa kecemasan. Papan tanda "KELUAR" yang jelas mesti dipasang jika pengatup menghalang laluan keluar.</p>
+        <h4>Jenis-Jenis Pengatup dan Piawaian</h4>
+        <p>Terdapat tiga jenis pengatup kebakaran yang biasa digunakan iaitu menegak, melintang, dan sisian. Pengatup ini mesti mematuhi piawaian keselamatan kebakaran yang diiktiraf, seperti PM 1073: Bahagian 3 atau PB 476: Bahagian 22.</p>
+        <h5>Peraturan untuk Pengatup Menegak yang dikendalikan secara Graviti (Gravitationally Operated)</h5>
+        <ul>
+            <li>Mekanisme operasi akan dilepaskan oleh sistem penggera kebakaran atau pautan boleh lakur (fusible link).</li>
+            <li>Pengatup akan turun secara automatik di bawah daya graviti pada kadar yang terkawal.</li>
+        </ul>
+        <h5>Peraturan untuk Pengatup Elektrik (Electrically Operated)</h5>
+        <ul>
+            <li>Motor elektrik akan memacu pengatup turun apabila sistem penggera kebakaran diaktifkan.</li>
+            <li>Ia mesti disokong oleh bekalan kuasa kecemasan supaya dapat berfungsi walaupun bekalan elektrik utama terputus.</li>
+            <li>Kabel kuasa dan isyarat mesti mempunyai kadar api (fire rated) yang mencukupi.</li>
+        </ul>
+        <h5>Senario Penggunaan dan Pengaktifan</h5>
+        <ul>
+            <li><b>Sebagai Dinding Pengasing:</b> Jika Pengatup digunakan sebagai Dinding Pengasing antara dua bangunan, ia mesti dihubungkan dengan sistem penggera kebakaran dari kedua-dua bangunan dan diaktifkan jika penggera di salah satu bangunan berbunyi.</li>
+            <li><b>Untuk Kawasan Petak Terhad:</b> Pengatup graviti boleh diaktifkan melalui pautan boleh lakur. Pengatup elektrik mesti diaktifkan oleh pengesan asap setempat atau penggera kebakaran lain.</li>
+            <li><b>Di Atrium/Eskalator:</b> Jika Pengatup digunakan di atrium, ruang eskalator dan sebagainya, hanya pengatup elektrik dibenarkan dan ia mestilah diaktifkan oleh pengesan asap khusus di kawasan tersebut.</li>
+        </ul>
+        <img src="frs.jpg" alt="Ilustrasi Jenis-jenis Pengatup Kebakaran (FRS)" style="width:100%; max-width:800px; display:block; margin: 2em auto 1em; border-radius: 4px;">
+        <h4>Papan Tanda Keluar (Exit Signage)</h4>
+        <p>Jika pengatup kebakaran diaktifkan dan menghalang laluan keluar, papan tanda arah keluar yang jelas dan mudah dilihat mesti dipasang pada pengatup itu sendiri. Tujuan papan tanda ini adalah untuk mengarahkan semula penghuni ke laluan keluar alternatif yang terdekat. Papan tanda tersebut mesti memantulkan cahaya (reflective) dan huruf "KELUAR" mestilah sekurang-kurangnya 100mm tinggi.</p>
+
 
         <h3>Lantai Petak & Pengasingan Kawasan Berisiko</h3>
         <h4>Lantai dalam Bangunan yang Melebihi Ketinggian 30 Meter</h4>
         <p>Dalam bangunan yang tidak melebihi 30 meter, lantai yang tingginya lebih daripada 9 meter dari paras bawah mesti menjadi lantai petak. Dalam bangunan yang melebihi 30 meter, semua lantai wajib dibina sebagai lantai petak. Ketinggian 30 meter sering digunakan sebagai ambang kerana ia merupakan ketinggian maksimum yang biasanya boleh dicapai oleh jentera bomba standard.</p>
-        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Keperluan Lantai Petak]</div>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="lantai petak 1.jpg" alt="Ilustrasi Keperluan Lantai Petak 1" style="width:100%; max-width:350px; border-radius: 4px;">
+            <img src="lantai petak 2.jpg" alt="Ilustrasi Keperluan Lantai Petak 2" style="width:100%; max-width:350px; border-radius: 4px;">
+        </div>
+
+        <h4>Dinding dan Lantai Petak</h4>
+        <p>UUK 138 menyatakan bahawa dinding dan lantai tertentu dalam bangunan perlu dibina sebagai dinding petak (compartment wall) atau lantai petak (compartment floor). Ini adalah ciri-ciri keselamatan kebakaran yang penting.</p>
+        <p>Mari kita pecahkan ayat tersebut:</p>
+        <ul>
+            <li><b>"Dinding dan lantai akan dibina sebagai dinding petak atau lantai petak di bawah Kumpulan Maksud II [Institusi], rumah pangsa / pangsapuri..."</b> Ini bermakna, di dalam bangunan seperti institusi, rumah pangsa, atau pangsapuri, dinding dan lantai yang memisahkan unit-unit yang berbeza perlu dibina dengan spesifikasi tertentu untuk menghalang api daripada merebak.</li>
+            <li><b>"...antara Kumpulan Maksud yang berbeza..."</b> Ini merujuk kepada pembahagian ruang berdasarkan tujuan penggunaannya. Contohnya, dinding atau lantai yang memisahkan kawasan kediaman (rumah pangsa) daripada kawasan komersial (kedai di tingkat bawah) perlu dibina sebagai dinding atau lantai petak. Tujuannya adalah untuk mengelakkan api daripada merebak dari satu jenis kegunaan ke jenis kegunaan yang lain.</li>
+            <li><b>"...dan lantai di atas ruang bawah tanah melebihi 100 meter persegi."</b> Ini adalah syarat tambahan. Jika sesebuah bangunan mempunyai ruang bawah tanah yang luasnya melebihi 100 meter persegi, lantai yang berada tepat di atas ruang bawah tanah tersebut mesti dibina sebagai lantai petak. Ini adalah langkah keselamatan untuk menghalang api atau asap daripada merebak dari ruang bawah tanah ke tingkat atas.</li>
+        </ul>
 
         <h4>Pengasingan Kawasan Risiko Kebakaran (UUK 139)</h4>
         <p>Kawasan-kawasan tertentu di dalam sesebuah bangunan yang mempunyai risiko kebakaran yang tinggi perlu diasingkan sepenuhnya daripada kawasan lain. Contoh Kawasan Risiko Kebakaran Tinggi:</p>
-        <ul>
-            <li>Bilik dandang dan kawasan storan bahan api.</li>
-            <li>Dobi.</li>
-            <li>Bengkel membaiki.</li>
-            <li>Kawasan storan bahan yang banyak yang disifatkan bahaya.</li>
-            <li>Kawasan storan gas petroleum cair (LPG).</li>
-            <li>Bilik linen.</li>
-            <li>Bilik transformer dan substesyen.</li>
-            <li>Stor cecair mudah terbakar (cat, minyak, pelarut).</li>
+        <ul style="list-style-type: lower-alpha; padding-left: 20px;">
+            <li><b>Bilik dandang dan kawasan storan bahan api yang berkaitan</b> - Bilik yang mengandungi dandang (boiler) dan bahan api adalah sangat berisiko tinggi.</li>
+            <li><b>Dobi</b> - Dobi boleh menjadi kawasan risiko kerana penggunaan mesin pengering, bahan kimia, dan habuk serat yang mudah terbakar.</li>
+            <li><b>Bengkel membaiki yang melibatkan proses dan bahan bahaya</b> - Bengkel yang menggunakan bahan kimia mudah terbakar atau proses yang menghasilkan percikan api.</li>
+            <li><b>Kawasan storan bahan yang banyak yang disifatkan bahaya</b> - Mana-mana storan yang menyimpan bahan dalam kuantiti yang banyak dan berbahaya.</li>
+            <li><b>Kawasan storan gas petroleum cair</b> - Kawasan penyimpanan gas seperti LPG mempunyai risiko letupan yang sangat tinggi.</li>
+            <li><b>Bilik linen</b> - Bilik yang menyimpan linen (kain) dalam jumlah yang banyak boleh menjadi kawasan risiko kerana kain mudah terbakar.</li>
+            <li><b>Bilik transformer dan substesyen</b> - Peralatan elektrik berkuasa tinggi boleh menyebabkan kebakaran elektrik.</li>
+            <li><b>Stor cecair mudah terbakar</b> - Stor yang menyimpan cecair seperti cat, minyak, atau pelarut.</li>
         </ul>
                 <h3>Pemetakan (Compartmentation) - Bahagian 2</h3>
 
         <h4>Jadual Pemetakan</h4>
         <p>Tidak semua jenis bangunan atau kategori kegunaan memerlukan pemetakan sebagai satu kemestian. Konsep pemetakan sering kali berkaitan dengan saiz dan tahap risiko kebakaran sesebuah bangunan. Dalam konteks kategori pejabat, selalunya tiada keperluan wajib untuk mengadakan pemetakan melainkan jika keluasan atau isipadu pejabat itu melebihi had yang ditetapkan dalam UUKBS 1984, Undang-Undang Kecil 136.</p>
-        <div class="image-placeholder">[GAMBARAJAH: Jadual Dimensi Suatu Bangunan dan Kompatmen]</div>
+        <img src="jadual pemetakan.jpg" alt="Jadual Dimensi Suatu Bangunan dan Kompatmen" style="width:100%; max-width:800px; display:block; margin: 1em auto; border-radius: 4px;">
+        <p style="font-style: italic; text-align: center; margin-top: 1em;"><b>** Tidak semua jenis bangunan atau kategori kegunaan memerlukan pemetakan sebagai satu kemestian di bawah peraturan kebakaran. Konsep pemetakan sering kali berkaitan dengan saiz dan tahap risiko kebakaran sesebuah bangunan.</b></p>
+
+        <h4>Pemetakan Bukan Wajib untuk Semua Kategori Bangunan</h4>
+        <p>Dalam konteks kategori pejabat, selalunya tiada keperluan wajib untuk mengadakan pemetakan melainkan jika keluasan atau isipadu pejabat itu melebihi had yang ditetapkan dalam undang-undang kecil bangunan seragam, seperti yang telah kita bincangkan sebelum ini di bawah UUKBS 1984, Undang-Undang Kecil 136.</p>
+        <p>Namun begitu, meskipun bukan satu kewajiban mutlak untuk semua pejabat, pemetakan boleh menjadi pilihan strategik yang sangat baik. Pemetakan di kawasan pejabat boleh digunakan sebagai alternatif atau cara untuk mengelakkan keperluan memasang sistem 'smoke spill' (sistem kawalan asap) yang lebih kompleks dan mahal.</p>
+        <p>Sistem 'Smoke Spill' ini adalah sistem mekanikal yang direka untuk menyedut dan membuang asap dari kawasan yang luas, terutamanya di bangunan yang mempunyai ruang terbuka yang besar (seperti pejabat 'open plan' atau pusat membeli-belah). Keperluan untuk sistem 'smoke spill' ini biasanya wujud apabila kawasan pejabat melebihi keluasan 1000 meter persegi. Ini kerana di kawasan yang luas, asap boleh merebak dengan cepat dan memerangkap penghuni jika tiada sistem kawalan asap yang efektif.</p>
+        <p>Bagaimana pemetakan menggantikan 'Smoke Spill'? Jika kawasan pejabat yang besar dibahagikan kepada petak-petak yang lebih kecil menggunakan dinding dan pintu tahan api, maka:</p>
+        <ul style="list-style-type: '▪ '; padding-left: 20px;">
+            <li>Api dan asap akan terkurung dalam petak di mana kebakaran berlaku.</li>
+            <li>Ini mengurangkan keperluan untuk sistem 'smoke spill' yang besar untuk seluruh kawasan, kerana asap tidak dibenarkan merebak ke petak-petak lain.</li>
+            <li>Setiap petak kecil ini mungkin hanya memerlukan ventilasi asap yang lebih ringkas atau bahkan ventilasi semulajadi, bergantung pada saiz dan risikonya.</li>
+        </ul>
+        <p>Jadi, walaupun pemetakan mungkin tidak diwajibkan secara langsung untuk kategori pejabat kecil, ia menjadi pilihan reka bentuk yang bijak untuk bangunan pejabat yang lebih besar. Ia menawarkan strategi perlindungan pasif yang kos efektif dan berkesan untuk mengawal penyebaran asap dan api, lantas mengurangkan atau menghapuskan keperluan untuk sistem mekanikal kawalan asap yang lebih rumit.</p>
 
         <h4>Pemetakan & Sistem Semburan Automatik</h4>
-        <p>Mengikut Undang-Undang Kecil Bangunan Seragam (UUKBS) 1984, jika sesuatu bangunan dilengkapi dengan sistem semburan automatik (sprinkler) yang mematuhi Piawaian Malaysia, maka had ukuran keluasan atau isipadu bagi sesuatu petak yang dibenarkan oleh undang-undang kecil tersebut boleh digandakan dua kali. Pengecualian ini TIDAK TERPAKAI untuk wad penginapan pesakit.</p>
+        <p>Kita sudah tahu yang pemetakan ni merupakan cara untuk membahagikan bangunan kepada "petak-petak" atau bahagian-bahagian yang tahan api, tujuannya untuk menghadkan penyebaran api dan asap. Sekarang, mari kita lihat bagaimana pemetakan berfungsi dengan lebih baik lagi kalau ada sistem semburan air automatik (sprinkler).</p>
+        <p>Mengikut Undang-Undang Kecil Bangunan Seragam (UUKBS) 1984, jika sesuatu bangunan dilengkapi dengan sistem semburan automatik yang mematuhi Piawaian Malaysia (PM 1910), maka had ukuran keluasan atau isipadu bagi sesuatu petak yang dibenarkan oleh undang-undang kecil tersebut boleh digandakan dua kali.</p>
+        <p>Contohnya jika sebelum ni satu petak maksimum boleh jadi 1,000 meter persegi, dengan adanya sistem semburan automatik, ia boleh jadi sehingga 2,000 meter persegi.</p>
+        <p>Walau bagaimanapun, pengecualian ini TIDAK TERPAKAI untuk wad penginapan pesakit seperti yang termaktub dalam undang-undang kecil 224A. Ini bermakna, di wad pesakit, had ukuran pemetakan masih kekal seperti biasa walaupun ada sistem semburan automatik.</p>
+        <p>Kenapa boleh digandakan? Ini kerana sistem semburan automatik akan bertindak segera memadamkan api pada peringkat awal, sekaligus mengurangkan risiko api merebak dan membolehkan ruang yang lebih besar dibenarkan dalam satu petak.</p>
 
         <h4>Ketahanan Api Dinding & Pintu Pemetakan</h4>
-        <p>Kebiasaannya, dinding pemetakan direka untuk mempunyai ketahanan api selama 4 jam. Manakala pintu api yang menjadi sebahagian dari dinding pemetakan biasanya mempunyai ketahanan api selama 2 jam, iaitu separuh daripada ketahanan dinding.</p>
+        <p>Kebiasaannya, dinding pemetakan direka untuk mempunyai ketahanan api selama 4 jam. Ini bermakna dinding tersebut dapat menahan api daripada menembusinya atau runtuh selama empat jam. Manakala pintu api yang menjadi sebahagian dari dinding pemetakan biasanya mempunyai ketahanan api selama 2 jam, iaitu separuh daripada ketahanan dinding.</p>
+        <p>Logiknya, untuk api merebak dari satu petak ke petak yang lain, ia perlu menembusi pintu api terlebih dahulu. Jadi, ia dijangka akan mengambil sekurang-kurangnya 2 jam (sama dengan tempoh ketahanan pintu api) untuk api menembusi dan merebak ke petak seterusnya. Dalam masa 2 jam ini, pasukan bomba sepatutnya sudah tiba di lokasi kebakaran dan mempunyai masa yang mencukupi untuk mengawal serta memadamkan api tersebut. Ini akan mengurangkan kerosakan teruk pada bangunan secara keseluruhan.</p>
 
-        <h4>Menentukan Had Ukuran Pemetakan</h4>
-        <p>Had ukuran pemetakan bergantung kepada 4 faktor iaitu:</p>
-        <ol>
-            <li><b>Kumpulan Maksud:</b> Fungsi atau kegunaan utama bangunan (Pejabat, Kedai, dll).</li>
-            <li><b>Ketinggian Bangunan:</b> Pengukuran tinggi dibuat secara berasingan jika terdapat dinding pangsa menegak yang mengasingkan dua bahagian bangunan.</li>
-            <li><b>Keluasan Bangunan:</b> Jumlah keluasan dalam tingkat itu.</li>
-            <li><b>Isipadu Bangunan:</b> Kapasiti isipadu sesuatu bangunan atau petak.</li>
-        </ol>
-        <div class="image-placeholder">[GAMBARAJAH: Ilustrasi Faktor-faktor Pemetakan]</div>
+        <h4>Pemetakan mempunyai beberapa fungsi termasuklah:</h4>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="fungsi 1.jpg" alt="Fungsi Pemetakan 1" style="width:100%; max-width:180px; border-radius: 4px;">
+            <img src="fungsi 2.jpg" alt="Fungsi Pemetakan 2" style="width:100%; max-width:180px; border-radius: 4px;">
+            <img src="fungsi 3.jpg" alt="Fungsi Pemetakan 3" style="width:100%; max-width:180px; border-radius: 4px;">
+            <img src="fungsi 4.jpg" alt="Fungsi Pemetakan 4" style="width:100%; max-width:180px; border-radius: 4px;">
+        </div>
+        <p>Bagi menentukan had ukuran pemetakan, ianya berdasarkan kepada kumpulan maksud dan ketinggian bangunan. Had ukuran pemetakan yang diperlukan adalah berdasarkan keluasan lantai tingkat dalam bangunan atau petak, keupayaan isipadu satu tingkat atau petak atau kedua-duanya sekali. Pemetakan boleh dibuat dengan cara menggunakan dinding pangsa, lantai petak atau kedua-duanya sekali.</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 1em 0;">
+            <img src="dinding pangsa.jpg" alt="Contoh Dinding Pangsa" style="width:100%; max-width:350px; border-radius: 4px;">
+            <img src="lantai petak 3.jpg" alt="Contoh Lantai Petak" style="width:100%; max-width:350px; border-radius: 4px;">
+        </div>
+        <p>Persoalan sekarang bagaimana kita hendak menentukan had ukuran pemetakan? Had ukuran pemetakan bergantung kepada 4 faktor iaitu kumpulan maksud, ketinggian bangunan, keluasan bangunan dan isipadu bangunan. Merujuk kepada undang-undang kecil 134, penentuan kategori bangunan atau pemetakan adalah mengikut kepada penggunaanya atau penggunaan yang dicadangkan berasaskan kumpulan maksud yang dinyatakan dalam Jadual Kelima. Jika sesuatu bangunan itu dibahagikan kepada petak yang digunakan atau dicadangkan adalah berlainan maksud, kumpulan maksud bagi setiap petak itu hendaklah ditentukan berasingan. Ini merupakan faktor yang pertama iaitu kumpulan maksud.</p>
+        <img src="pemetakan.jpg" alt="Contoh Pemetakan" style="width:100%; max-width:800px; display:block; margin: 1em auto; border-radius: 4px;">
+        <p>Tapi jika keseluruhan atau sebahagiannya digunakan untuk satu maksud maka hanya maksud utama penggunaan akan diambil kira dalam penentuan kumpulan maksud.</p>
+        <img src="section.jpg" alt="Contoh Section Bangunan" style="width:100%; max-width:800px; display:block; margin: 1em auto; border-radius: 4px;">
+        <p>Faktor kedua pula ialah ketinggian bangunan. Bagi sesuatu bangunan, dimana kedua-dua bahagian bangunan itu diasingkan terus sepanjang tingginya diatas dan di bawah tanah oleh suatu dinding pangsa dalam satah tegak berterusan yang sama, pengukuran tinggi adalah dibuat secara berasingan, iaitu tinggi bahagian itu sahaja. Bila terdapat dinding pangsa menegak ianya dikira sebagai dua bangunan berasingan.</p>
+        <img src="building.jpg" alt="Contoh Pengukuran Ketinggian dengan Dinding Pangsa" style="width:100%; max-width:600px; display:block; margin: 1em auto; border-radius: 4px;">
+        <p>Faktor ketiga adalah keluasan bangunan. Keluasan bagi satu bangunan atau petak hendaklah dikira sebagai jumlah keluasan dalam tingkat itu. Sesuatu bilik atau garaj hendaklah dikira sebagai jumlah keluasan lantainya yang dikelilingi oleh permukaan kemasan dalam dinding-dinding yang membentuk bilik atau garaj itu.</p>
+        <img src="parking.jpg" alt="Contoh Pengiraan Keluasan Bangunan" style="width:100%; max-width:600px; display:block; margin: 1em auto; border-radius: 4px;">
+        <p>Faktor yang keempat dan yang terakhir adalah isipadu bangunan. Kapasiti isipadu sesuatu bangunan atau petak hendaklah ditentukan dengan mengukur isipadu ruang yang terkandung di dalam permukaan kemasan dalaman siling kepungan atau mana-mana sisi yang tidak ada dinding kepungan, satah yang melanjut tegak di atas tepi lantai terluar sekali disisi itu.</p>
     </div>
         <div id="lebar-jalan-keluar" class="content-section">
         <h2>Penentuan Lebar Jalan Keluar</h2>

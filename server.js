@@ -35,6 +35,15 @@ try {
     process.exit(1);
 }
 
+// -- DIAGNOSTIC LOG --
+console.log("Supabase clients initialized successfully.");
+if (process.env.SUPABASE_SERVICE_KEY && process.env.SUPABASE_SERVICE_KEY.length > 10) {
+    console.log("DIAGNOSTIC: SUPABASE_SERVICE_KEY is loaded. Starts with: " + process.env.SUPABASE_SERVICE_KEY.substring(0, 5));
+} else {
+    console.error("DIAGNOSTIC WARNING: SUPABASE_SERVICE_KEY is NOT loaded or is too short!");
+}
+// -- END DIAGNOSTIC LOG --
+
 
 // 2. MIDDLEWARE
 app.use(express.json());
@@ -84,17 +93,24 @@ app.post('/api/signup', async (req, res) => {
                 email: authData.user.email,
                 subscription_plan: subscription_plan,
                 subscription_price: amount,
-                // Simpan tarikh tamat dalam format YYYY-MM-DD
                 subscription_end_date: subscriptionEndDate.toISOString().split('T')[0], 
                 is_promo_user: isPromoUser,
-                payment_status: 'pending' // Status awal pembayaran
+                payment_status: 'pending'
             }]).select();
 
             if (profileError) {
-                console.error('Ralat mencipta profil:', profileError.message);
-                // Jika gagal cipta profil, padam pengguna Auth yang baru didaftar (guna klien admin)
-                await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
-                return res.status(500).json({ error: 'Gagal mencipta profil pengguna.' });
+                console.error('DIAGNOSTIC: Ralat Supabase semasa mencipta profil:', profileError); // Log the full error
+                try {
+                    await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
+                } catch (deleteError) {
+                    console.error('DIAGNOSTIC: Ralat semasa memadam pengguna Auth selepas profil gagal:', deleteError);
+                }
+                // Hantar ralat yang lebih terperinci ke frontend untuk debug
+                return res.status(500).json({ 
+                    error: 'Gagal mencipta profil pengguna.',
+                    details: profileError.message,
+                    code: profileError.code // Include the error code
+                });
             }
         }
 
