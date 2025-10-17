@@ -70,30 +70,18 @@ const requireAdmin = async (req, res, next) => {
 
 
 // 3. STATIC FILE SERVING (Fail Awam)
-// Hanya fail dalam root yang disenaraikan di sini akan diakses secara awam
-app.use(express.static(path.join(__dirname), {
-    // Kawal akses secara manual
-    index: false, // Jangan serve index.html secara default
-    extensions: ['html', 'js', 'css'],
-    // Fungsi untuk tentukan fail mana yang awam
-    setHeaders: (res, filePath) => {
-        const publicFiles = ['index.html', 'app.js', 'style.css'];
-        const fileName = path.basename(filePath);
-        // Jika fail bukan dalam senarai awam, jangan hantar header yang betul
-        if (!publicFiles.includes(fileName) && !filePath.endsWith('.html')) {
-             // Ini helah untuk elak express.static serve fail yang tidak sepatutnya
-             // Dengan set status 404, ia tidak akan dijumpai
-            res.statusCode = 404;
-        }
-    }
-}));
-
-// Route untuk laman utama / log masuk
+// Secara eksplisit menghantar fail-fail yang diperlukan sahaja untuk keselamatan.
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/app.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app.js'));
+});
+app.get('/style.css', (req, res) => {
+    res.sendFile(path.join(__dirname, 'style.css'));
 });
 
 
