@@ -157,6 +157,8 @@ app.post('/api/signup', async (req, res) => {
         const toyyibpaySecretKey = process.env.TOYYIBPAY_SECRET_KEY;
         const toyyibpayCategoryCode = process.env.TOYYIBPAY_CATEGORY_CODE;
 
+        console.log(`DIAGNOSTIC: Checking keys. Key found: |${toyyibpaySecretKey}|. Code found: |${toyyibpayCategoryCode}|`);
+
         if (!toyyibpaySecretKey || !toyyibpayCategoryCode) {
             throw new Error('Konfigurasi ToyyibPay tidak lengkap di server.');
         }
