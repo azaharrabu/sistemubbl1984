@@ -256,7 +256,7 @@ app.post('/api/payment-callback', async (req, res) => {
 // 5. LALUAN DILINDUNGI (Protected Routes)
 
 // Laluan untuk kandungan interaktif (perlu log masuk)
-app.get('/rujukan_interaktif.html', requireAuth, (req, res) => {
+app.get('/rujukan_interaktif.html', requireAuth, async (req, res) => {
     // Pastikan pengguna mempunyai langganan yang aktif dan telah dibayar
     const { data: customer, error } = await supabaseAdmin
         .from('customers')
